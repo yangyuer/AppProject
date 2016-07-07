@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>企业收藏</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			#header{
+				line-height: 50px;
+				border-bottom: 1px solid #F7F7F7;
+				font-size: 16px;
+			}
+			.ct-icon-angle-left{
+				font-size: 30px;
+				color: #656666;
+				position: relative;
+				top: 8px;
+			}
+			#header select{
+				border: none;
+				background-color: #fff;
+				width: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box">
+					<div class="flex-1">
+						<i class="ct-icon-angle-left" style="padding-left: 10px;" onclick="api.closeWin();"></i>
+					</div>
+					<div class="flex-1" style="text-align: center;">
+						<span>企业收藏</span>
+					</div>
+					<div class="flex-1" style="text-align: right;padding-right: 10px;">
+						<select>
+							<option>全部</option>
+							<option>招标信息</option>
+							<option>替代产品</option>
+							<option>招标库存</option>
+							<option>方案分享</option>
+							<option>优化替代</option>
+							<option>最新动态</option>
+							<option>鉴真术</option>
+							<option>法规标准</option>
+							<option>公益基金</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+				headerPos=$api.offset(header);
+				mainPos=$api.offset(main);
+				
+			api.openFrame({
+				name: "ddqysc",
+				url: api.wgtRootDir + "/html/dd/P-dd_qysc.html",
+				rect:{
+					x:0,
+					y:headerPos.h,
+					w: 'auto',
+					h:mainPos.h
+				}
+			});
+			
+		}
+	</script>
+</html>

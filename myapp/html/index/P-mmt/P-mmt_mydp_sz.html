@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>店铺设置</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<style>
+			#main{
+				background-color: #F3F3F3;
+			}
+			.one,.two{
+				margin: 10px;
+			}
+			.one .oneimg{
+				width: 150px;
+				line-height: 150px;
+				border: 1px dashed #DADADA;
+				border-radius:5px ;
+				margin: 10px auto;
+				text-align: center;
+			}
+			.two textarea{
+				border: 1px solid #DADADA;
+				border-radius:5px ;
+				margin-top: 10px;
+				width: 75%;
+				background-color: #fff;
+			}
+			.numThor{
+				text-align: center;
+				margin: 5px ;
+			}
+			.numThor p{
+				text-align: left;
+			}
+			.numThor input{
+				border: 1px solid #C0C0C0;
+				border-radius:5px ;
+				height: 25px;
+				width: 70%;
+				margin: 0 5px;
+				background-color: #fff;
+			}
+			
+			.numFiv{
+				text-align: center;
+				margin: 20px 0;
+			}
+			.numFiv span{
+				background-color: #40B5F0;
+				padding: 10px 100px;
+				border-radius:5px ;
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				
+				<div class="one">
+					<p>修改店铺头像：</p>
+					<div class="oneimg">
+						点击上传
+					</div>
+				</div>
+				
+				<div class="two" style="text-align: center;">
+					<p style="text-align: left;">店铺介绍：</p>
+					<textarea rows="8"></textarea>
+				</div>
+				
+				<div class="numThor">
+					<p>店铺地区：</p>
+					<input type="text" />市
+				</div>
+				
+				<div class="numThor" style="margin-top: 10px;">
+					<p>店铺运费：</p>
+					<input type="text" />元
+				</div>
+				
+				<div class="numFiv">
+					<span>保存</span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

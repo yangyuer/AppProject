@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	     body{
+	     	background: #F3F3F3;
+	     	position: absolute;
+	     }
+	    	.order_co{
+	    		height: 50px;
+	    		line-height: 50px;
+	    		background: #FFFFFF;
+	    		color: #6E6F6F;
+	    		border-bottom: 1px solid #19B5FE;
+	    	}
+	    	.left_icon{
+	    		font-size: 32px;
+	    		text-align: left;
+	    		padding-left: 10px;
+	    		
+	    	}
+	    	.order_title{
+	    		text-align: center;
+	    	}
+	    	.choose{
+	    		text-align: right;
+	    		padding-right: 10px;
+	    		color: #2991C6;
+	    	}
+	    	.choose select{
+	    	    border: none;
+	    	    outline: none;
+	    	    color: #19B5FE;
+	    	    font-size: 15px;
+	    	    background: #FFFFFF;
+	    	}
+	    	/*.choose i{
+	    		font-size: 22px;
+	    		position: absolute;
+	    		top: 10px;
+	    		right: 15px;
+	    	}*/
+	    	.pr_bh i{
+	    		color: #7A7979;
+	    		font-size: 16px;
+	    		padding:0 5px;
+	    		position: relative;
+	    		top: 3px;
+	    	}
+	    	.pro_negtive{
+	    		height: 40px;
+	    		line-height: 40px;
+	    		background: #FFFFFF;
+	    		margin-top: 10px;
+	    	}
+	    	.pr_bh span{
+	    		color: #3A4244;
+	    	}
+	    	.doing{
+	    		text-align: right;
+	    		color: #3697C9;
+	    		padding-right: 10px;
+	    	}
+	    	.test_pro{
+	    		background: #FFFFFF;
+	    		margin-top: 1px;
+	    		padding-bottom: 20px;
+	    	}
+	    	.pro_img img{
+	    		width: 70px;
+	    		margin-left: 10px;
+	    	}
+	    	.price{
+	    		text-align: right;
+	    	}
+	    	.price p:nth-child(1){
+	    		padding-right: 10px;
+	    		padding-top: 20px;
+	    		font-size: 18px;
+	    		color: #323237;
+	    	}
+	    	.price p:nth-child(2){
+	    		padding-right: 10px;
+	    		padding-top: 10px;
+	    		color: #999999;
+	    	}
+	    	.test_info{
+	    		height: 30px;
+	    		line-height: 30px;
+	    		background: #FFFFFF;
+	    		margin-top: 1px;
+	    		text-align: right;
+	    		padding-right: 10px;
+	    	}
+	    	.test_info div span:first-child{
+	    		color: #999999;
+	    		font-size: 12px;
+	    	}
+	    	.busy{
+	    		background: #FFFFFF;
+	    		height: 50px;
+	    		margin-top: 1px;
+	    		text-align: right;
+	    		padding-right: 11px;
+	    	}
+	    	.busy div span{
+	    		margin-left: 20px;
+	    		height: 30px;
+	    		line-height: 30px;
+	    		margin-top: 10px;
+	    		padding: 0px 5px;
+	    		border: 1px solid #3A4244;
+	    		border-radius: 5px;
+	    	}
+	    	.pro_btn{
+	    		height: 50px;
+	    	}
+	    	.pro_btn span{
+	    		margin-left: 10px;
+	    		height: 30px;
+	    		line-height: 30px;
+	    		margin-top: 15px;
+	    		padding: 0px 5px;
+	    		border: 1px solid #3A4244;
+	    		border-radius: 3px;
+	    	}
+	    	#footer{
+	    		line-height: 40px;
+	    		height: 40px;
+	    		color: #54BCF1;
+	    		text-align: center;
+	    		background: #FFFFFF;
+	    	}
+	    	.foot i{
+	    		position: absolute;
+	    		bottom: 5px;
+	    		font-size: 30px;
+	    		left: 50%;
+	    		margin-left: -40px;
+	    	}
+	    	.foot span{
+	    		position: absolute;
+	    		left: 50%;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box order_co">
+					<div class="flex-1 left_icon" onclick="api.closeWin();">
+						<i class="ct-icon-angle-left"></i>
+					</div>
+					<div class="flex-1 order_title">企业测</div>
+					<div class="flex-1 choose">
+						<select>
+						   <option>全部</option>
+						   <option>已发送</option>
+						   <option>测试中</option>
+						   <option>待评价</option>
+						   <option>已完成</option>
+						</select>
+						<!--<i class="ct-icon-angle-down"></i>-->
+					</div>
+				</div>
+			</div>
+		    <div id="main"></div>
+		    <div id="footer">
+		    	<div class="flex-box foot">
+						<i class="ct-icon-use_it"></i>
+						<span>使用消费码</span>
+		        </div>
+		    </div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+			apiready=function(){
+				var header=$api.byId("header");
+				$api.fixIos7Bar(header);
+				$api.fixStatusBar(header);
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'productone_framin111222',
+				    url: api.wgtRootDir +'/html/product_content/co_product_order.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+		</script>
+	</body>
+</html>

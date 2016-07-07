@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	        #header{
+	        	height: 50px;
+	        	line-height: 50px;
+	        	border-bottom: 1px solid #28A9EA;
+	        }
+	    	.libi_manage div i{
+	    		font-size: 32px;
+	    		padding-left: 10px;
+	    		position: relative;
+	    		top: 8px;
+	    	}
+	    	.manger{
+	    		text-align: center;
+	    		color: #727373;
+	    	}
+	    	.transfer{
+	    		color: #919191;
+	    		text-align: right;
+	    		padding-right: 10px;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box libi_manage">
+					<div class="flex-1" onclick="api.closeWin();">
+						<i class="ct-icon-angle-left"></i>
+					</div>
+					<div class="flex-1 manger">
+						利币管理
+					</div>
+					<div class="flex-1 transfer" onclick="openTrans();">
+						利币转让
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+			apiready=function(){
+				var header=$api.byId("header");
+				$api.fixIos7Bar(header);
+				$api.fixStatusBar(header);
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'libi_content1',
+				    url: api.wgtRootDir +'/html/l_person_set/l_libi_content.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+			function openTrans(){
+				api.openWin({
+	    		name: 'transform_frame',
+			    url: api.wgtRootDir +'/html/window/win_l_libi_tranfer.html',	
+	    		});
+			}
+		</script>
+	</body>
+</html>

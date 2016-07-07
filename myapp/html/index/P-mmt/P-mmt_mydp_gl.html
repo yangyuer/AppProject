@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>商品管理</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		
+		<style>
+			.free{
+				padding: 0 5px;
+			}
+			.free .left,.free .right{
+				background-color: #fff;
+				text-align: center;
+				margin:0 5px ;
+			}
+			.free .left img,.free .right img{
+				width: 95%;
+			}
+			.free .left .title,.free .right .title{
+				text-align: left;
+				padding-left: 8px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id="wrap">
+			
+			<div id="main">
+				<div class="flex-box free" style="margin-top: 10px;">
+					<div class="flex-1 left" onclick="openglwrite();">
+						<img src="../../../image/mmt_wrz_02.png" />
+						<p class="title" style="font-size: 12px;">TLC555QDRQ1【IC OSC SGL TIMER 2.1MHZ 8-SOIC】</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥5.00</span></p>
+					</div>
+					<div class="flex-1 right">
+						
+						<img src="../../../image/mmt_wrz_02.png" />
+						<p class="title">NE555 NE555DR SOP-8 高精度计时器 多谐振荡器</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥3.90</span></p>
+						
+					</div>
+				</div>
+				
+				<div class="flex-box free" style="margin-top: 10px;">
+					<div class="flex-1 left">
+						<img src="../../../image/mmt_wrz_02.png" />
+						<p class="title">MC1455DR2G SOP-8 ON安森美热销芯片正品</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span></p>
+					</div>
+					<div class="flex-1 right">
+						
+						<img src="../../../image/mmt_wrz_02.png" />
+						<p class="title">正品 IC 电子元器件 TI 进口 全新原装 SE555P</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span></p>
+						
+					</div>
+				</div>
+				
+				<div class="flex-box free" style="margin-top: 10px;">
+					<div class="flex-1 left">
+						<img src="../../../image/mmt_wrz_02.png" />
+						<p class="title">贴片 NE556 NE556D 品双通道时钟定时芯片</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span></p>
+					</div>
+					<div class="flex-1 right">
+						
+						<img src="../../../image/mmt_wrz_02.png" />
+						<p class="title">MC1455DR2G SOP-8 ON安森美热销芯片正品</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span></p>
+						
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js" ></script>
+	<script>
+		function openglwrite(){
+			api.openWin({
+				name: "mmtglwrite",
+			url: api.wgtRootDir + "/html/window/P-win_mmt_mydp_glwrite.html"
+			});
+		}
+	</script>
+</html>

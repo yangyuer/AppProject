@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css..//style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <link rel="stylesheet" href="../../css/swiper.min.css" />
+	    <script type="text/javascript" src="../../script/swiper.min.js" ></script>
+	    <style>
+	    	body{
+	    		background: #F3F3F3;
+	    	}
+	    	.case_nav{
+	    		height: 40px;
+	    		line-height: 40px;
+	    		text-align: center;
+	    		padding-right: 20px;
+	    		color: #828282;
+	    	}
+	    	.hover{
+	    		color: #2BBAFE;
+	    		border-bottom: 3px solid #2BBAFE;
+	    	}
+	    	.conten_title{
+		      	margin-top: 10px;
+		      	background: #FFFFFF;
+		      	}
+	    	 h2{
+		         font-size: 14px;
+		         color: #474E50;
+		         padding: 15px;
+		      }
+		      p{
+		      	line-height: 20px;
+		      	color: #737373;
+		      	padding: 0 15px;
+		      }
+		      .timer span{
+		      	color: #3295C8;
+		      	padding-top: 15px;
+		      	margin-right: 20px;
+		      }
+		      .timer i{
+		      	position: relative;
+		        left: 50%;
+		        margin-left: -85px;
+		      }
+	    </style>
+	</head>
+	<body>
+		<div class="flex-box case_nav">
+			<div class="flex-1 hover">
+				全部
+			</div>
+			<div class="flex-1">
+				方案分享
+			</div>
+			<div class="flex-1">
+				生产服务
+			</div>
+			<div class="flex-1">
+				优化替代
+			</div>
+		</div>
+		<div class="flex-box">
+    	<div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="../../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../../image/banner_1.gif">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- 左右图标按钮 -->
+         <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> 
+    </div>
+    </div> 
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2 onclick="openYhc();">安全又可靠的10元电池方案</h2>
+    		<p onclick="openYhc();">功率探头组合在一起，在功率探头中射频信号被转换成电压信号，经过放大，数字化之后，在主机中显示....</p>
+    		<p class="timer"><span>方案分享</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>安全又可靠的10元电池方案</h2>
+    		<p>功率探头组合在一起，在功率探头中射频信号被转换成电压信号，经过放大，数字化之后，在主机中显示....</p>
+    		<p class="timer"><span>优化替代</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>安全又可靠的10元电池方案</h2>
+    		<p>功率探头组合在一起，在功率探头中射频信号被转换成电压信号，经过放大，数字化之后，在主机中显示....</p>
+    		<p class="timer"><span>生产服务</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+    <!--测试-->
+    <!--测试-->
+    <!--测试-->
+    <style>
+    	#anniu{
+    		width: 200px;
+    		height: 200px;
+    		background: url(../../image/btn_bg.png) no-repeat;
+    		position: fixed;
+    		top: 400px;
+    		right: -100px;
+    		z-index: 33;
+    	}
+    	
+    	#nav{
+    		width: 180px;
+    		height: 120px;
+    		line-height: 40px;
+    		margin-top: 10px;
+    		text-align: center;
+    		position: fixed;
+    		background: #FFFFFF;
+    		z-index: 9999;
+    		left: 50%;
+    		top: 50%;
+    		display: none;
+    		margin-left: -100px;
+    	}
+ 
+    	 #shadow{
+            position: fixed;
+            opacity: 0.5;
+            filter:alpha(opacity=50);
+            bottom:0;
+            left: 0;
+            right: 0;
+            top: 0;
+            background:black;
+            z-index: 100;
+           display: none;
+        }
+    </style>
+   
+    		<div id="anniu">
+    		  
+    		</div>
+    		<div id="nav">
+    			<div style="border-bottom: 1px solid#707171;">发布方案分享</div>
+    			<div style="border-bottom: 1px solid#707171;">发布生产服务</div>
+    			<div>发布优化替代</div>
+    		</div>
+    <div id="shadow"></div>
+  <script>
+    window.onload=function(){
+    		var btn=document.getElementById("anniu");
+		  	var nav=document.getElementById("nav");
+		  	var oshadow=document.getElementById('shadow');
+		  	 btn.onclick=function(){
+		  		nav.style.display='block';
+		  		oshadow.style.display='block';
+		  	}
+		  	 
+		  oshadow.onclick=function(){
+		  	nav.style.display="none";
+		  	oshadow.style.display="none";
+		  }
+    }
+  
+  </script>  	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    <!--测试-->
+    <!--测试-->
+    <!--测试-->
+    	
+    <script type="text/javascript" src="../script/api.js" ></script>
+    <script>
+    	function openYhc(){
+    		api.openWin({
+		    name: 'youhua_content113',
+		    url: api.wgtRootDir +'/html/window/win_l_youhua_content.html',
+		});
+    	}
+    </script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        //左右图标按钮
+           nextButton: '.swiper-button-next',
+           prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    </script>
+	</body>
+</html>

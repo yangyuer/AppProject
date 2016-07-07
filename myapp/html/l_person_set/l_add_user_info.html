@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/api.css" />
+		<style>
+			.email{
+				height: 50px;
+				line-height: 50px;
+				padding-left: 10px;
+			}
+			.qq{
+				height: 50px;
+				line-height: 50px;
+				padding-left: 10px;
+			}
+			input{
+				border-bottom: 1px solid #636363;
+			}
+			.submit{
+				text-align: center;
+				height: 40px;
+				line-height: 40px;
+				background: #54BCF1;
+				color: white;
+				width: 75%;
+				margin: 0 auto;
+				margin-top: 50px;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box email">
+			<div class="flex-1">
+				邮箱:
+			</div>
+			<div class="flex-3">
+				<input type="text" placeholder="请输入邮箱地址" name="email" />
+			</div>
+		</div>
+		<div class="flex-box qq">
+			<div class="flex-1">
+				QQ:
+			</div>
+			<div class="flex-3">
+				<input type="text" placeholder="请输入QQ号码" name="qq" />
+			</div>
+		</div>
+		<div class="flex-box submit" onclick="submitInfo();">
+			<div class="flex-1">
+				提交
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+		    apiready=function(){
+		       
+	      }
+			function submitInfo(){
+				var email=$api.val($api.dom("[name=email]"));
+				var qq=$api.val($api.dom("[name=qq]"));
+				api.ajax({
+				    url: 'http://ikeo.com.cn/index.php/Home/App/add_data',
+				    method: 'post',
+				    data: {
+				        values: { 
+				        	id:$api.getStorage("uid"),
+				            email: email,
+				            qq: qq
+				            
+				        }
+				    }
+				},function(ret, err){
+					//当数据提交成功过后，后台响应给我们的东西
+				    if (ret) {
+				    	//后台响应回来的有两个参数，一个是flag（成功或者失败）1表示注册成功，-1表示注册失败
+						if(ret.flag==1){
+//							 alert($api.setStorage("uid"));
+							 api.closeWin();
+						}else{
+							//当我们注册失败后，打印出失败的原因
+							alert(ret.msg);
+						}
+						
+				    } 
+				});
+			}
+		</script>
+	</body>
+</html>

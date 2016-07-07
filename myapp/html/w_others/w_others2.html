@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/index.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/swiper.min.css" />
+		<script type="text/javascript" src="../../script/swiper.min.js" ></script>
+		<style>
+			.swiper-slide img{
+        	width: 100%;
+        	height: 150px;
+        }
+        .one{
+        	width: 95%;
+        	margin: 0 auto;
+        	margin-top: 10px;
+        	color: #323237;
+        	text-align: center;
+        	font-size: 18px;
+        	background-color: darkgray;
+        }
+        .one img{
+        	width: 100%;
+        	height: 150px;
+        }
+		</style>
+	</head>
+	<body>
+		<div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="../../image/4.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../../image/4.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../../image/4.gif">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- 左右图标按钮 -->
+         <!--<div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> -->
+    </div> 
+    <div class="one" onclick="openjigou()">
+    	<img src="../../image/jigou.gif" />
+    	深圳市华测检测技术
+    </div>
+     <div class="one">
+    	<img src="../../image/jigou1.gif" />
+    	PONY谱尼测试集团
+    </div>
+	</body>
+	<script>
+		var swiper = new Swiper('.swiper-container', {
+	        pagination: '.swiper-pagination',
+	        //左右图标按钮
+//	           nextButton: '.swiper-button-next',
+//	           prevButton: '.swiper-button-prev',
+	        paginationClickable: true,
+	        spaceBetween: 30,
+	        centeredSlides: true,
+	        autoplay: 2500,
+	        autoplayDisableOnInteraction: false
+	    });
+	    
+	     function openjigou(){
+	    	api.openWin({
+	    		name:'others4',
+	    		url:api.wgtRootDir+'/html/window/w_others2_win.html'
+	    	})
+	    }
+	</script>
+</html>

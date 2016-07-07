@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css..//style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <link rel="stylesheet" href="../../css/swiper.min.css" />
+	    <script type="text/javascript" src="../../script/swiper.min.js" ></script>
+	    <style>
+	    	.company img{
+	    		width: 95%;
+	    	}
+	    	.company{
+	    		margin-top: 10px;
+	    		text-align: center;
+	    	}
+	    	.company_info{
+	    		text-align: center;
+	    		background: #EEEEEE;
+	    		height: 30px;
+	    		line-height: 30px;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div class="flex-box">
+    	<div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="../../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../../image/banner_1.gif">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- 左右图标按钮 -->
+         <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> 
+    </div>
+    </div> 
+    <div class="flex-box" onclick="openTestConten();">
+      <div class="flex-1 company">
+      	<img src="../../image/company01.png" />
+      </div>
+    </div>
+    <div class="flex-box">
+       <div class="flex-1 company_info">
+       	深圳市华测检测技术
+       </div>
+    </div>
+    <div class="flex-box">
+      <div class="flex-1 company">
+      	<img src="../../image/company02.png" />
+      </div>
+    </div>
+     <div class="flex-box">
+       <div class="flex-1 company_info">
+       	PONY谱尼测试集团
+       </div>
+    </div>
+    <script type="text/javascript" src="../script/api.js" ></script>
+    <script>
+    	function openTestConten(){
+    		api.openWin({
+		    name: 'company_sz',
+		    url: api.wgtRootDir +'/html/window/win_l_company_content.html',
+		});
+    	}
+    </script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        //左右图标按钮
+           nextButton: '.swiper-button-next',
+           prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    </script>
+	</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>商品列表</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style type="text/css">
+			#header{
+				height: 49px;
+				border-bottom: 1px solid #5FADD4;
+				line-height: 50px;
+				font-size: 16px;
+			}
+			.ct-icon-angle-left{
+				font-size: 28px;
+				position: relative;
+				top: 5px;
+				padding-left: 10px;
+			}
+			.ct-icon-shop{
+				font-size: 30px;
+				position: relative;
+				top: 6px;
+			}
+			
+			#footer{
+				width: 100%;
+				height: 60px;
+				background-color: #fff;
+				border-top: 1px solid #;
+			}
+			#footer .left,#footer .right{
+				text-align: center;
+				line-height: 50px;
+				border-radius: 8px;
+				color: #fff;
+				font-size: 18px;
+				margin: 5px 10px;
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box">
+					<div class="flex-1" style="">
+						<i class="ct-icon-angle-left" onclick="api.closeWin();"></i>
+						商品详情
+					</div>
+					
+					<div class="flex-1" style="text-align: right;padding-right: 10px;" onclick="openmmtdp();">
+						进入店铺
+						<i class="ct-icon-shop" style=""></i>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div class="flex-box">
+					<div class="flex-1">
+						<div class="left" style="background-color: #19B5FE;">
+							<i class="ct-icon-cart"></i>
+							加入测试车
+						</div>
+					</div>
+					<div class="flex-1">
+						<div class="right" style="background-color: #F15352;">
+							<i class="ct-icon-card" style="font-size: 24px;position: relative;top: 5px;"></i>
+							立即购买
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+				headerPos=$api.offset(header);
+				mainPos=$api.offset(main);
+				
+			api.openFrame({
+				name: "mmtlist3",
+				url: api.wgtRootDir + "/html/index/P-mmt/P-mmt_list_xq_rz.html",
+				rect:{
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});
+		}
+		
+		function openmmtdp(){
+			api.openWin({
+				name: "mmtdp",
+				url: api.wgtRootDir + "/html/window/P-win_mmt_dp_rz.html"
+			});
+		}
+	</script>
+</html>

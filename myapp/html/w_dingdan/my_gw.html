@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<style>
+			.one{
+				padding: 10px 10px;
+				font-size: 14px;
+				border-bottom: 1px solid gainsboro;
+			}
+			.one div{
+				height: 30px;
+				line-height: 30px;
+			}
+			.one i{
+				font-size: 20px;
+				position: relative;
+				top: 2px;
+			}
+			.two img{
+				width: 30px;
+			}
+			.thr{
+				color: #0A0A0A;
+				padding: 20px 10px;
+				border-bottom: 1px solid gainsboro;
+			}
+			.fou{
+				padding: 20px 10px;
+				text-align: right;
+				color: #999;
+				border-bottom: 1px solid gainsboro;
+			}
+			.fou span{
+				margin-left: 5px;
+				color: #0A0A0A;
+			}
+			.fif{
+				padding: 10px 10px;
+				text-align: right;
+			}
+			.fif span{
+				border: 1px solid gainsboro;
+				height: 25px;
+				width: 60px;
+				text-align: center;
+				line-height: 25px;
+				border-radius: 5px;
+				color: #0A0A0A;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box one">
+			<div class="flex-3" onclick="opengwxq()">
+				<i class="ct-icon-order_buy"></i>
+				<span>购物单号:4381297</span>
+				<i class="ct-icon-angle-right"></i>
+			</div>
+			<div class="flex-1" style="text-align:right;color: #2991C6;">
+				已发货
+			</div>
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1 two" style="text-align: center;">
+				<img src="../../image/danpianji.gif" />
+			</div>
+			<div class="flex-3">
+				ARM微控制器单片机ST意法半导体STM32F103VET6
+			</div>
+			<div class="flex-1" style="text-align: right;">
+				<div>￥27.0</div>
+				<div style="color: #999;">x10</div>
+			</div>
+		</div>
+		<div class="fou">
+			共1种商品  实付: <span>￥280.00</span>
+		</div>
+		<div class="fif">
+			<span>申请退货</span>
+			<span>查看物流</span>
+			<span style="background-color: #47A1CE;color: #fff;">确认收货</span>
+		</div>
+		<div class="flex-box one">
+			<div class="flex-3">
+				<i class="ct-icon-order_buy"></i>
+				<span>购物单号:438157</span>
+				<i class="ct-icon-angle-right"></i>
+			</div>
+			<div class="flex-1" style="text-align:right;color: #2991C6;">
+				订单完成
+			</div>
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1 two" style="text-align: center;">
+				<img src="../../image/danpianji1.gif" />
+			</div>
+			<div class="flex-3">
+				ARM微控制器单片机ST意法半导体STM32F103VET6
+			</div>
+			<div class="flex-1" style="text-align: right;">
+				<div>￥8.80</div>
+				<div style="color: #999;">x100</div>
+			</div>
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1 two" style="text-align: center;">
+				<img src="../../image/danpianji2.gif" />
+			</div>
+			<div class="flex-3">
+				ARM微控制器单片机ST意法半导体STM32F103VET6
+			</div>
+			<div class="flex-1" style="text-align: right;">
+				<div>￥4.90</div>
+				<div style="color: #999;">x100</div>
+			</div>
+		</div>
+		<div class="fou">
+			共2种商品  实付: <span>￥1380.00</span>
+		</div>
+		<div class="fif">
+			<span>删除订单</span>
+			<span>查看物流</span>
+			<span style="background-color: #47A1CE;color: #fff;">订单评价</span>
+		</div>
+	</body>
+	<script>
+		function opengwxq(){
+			api.openWin({
+				name:'gwxq1',
+				url:api.wgtRootDir+'/html/window/w_my_gwxq_win.html'
+			})
+		}
+	</script>
+</html>

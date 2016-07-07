@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>企业招标</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			#header{
+				line-height: 49px;
+				border-bottom: 1px solid #ECECEC;
+				font-size: 16px;
+			}
+			#header i{
+				font-size: 20px;
+				position: relative;
+				top: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header" class="flex-box">
+				<div class="flex-1" style="text-align: left;padding-left:10px ;">
+					<i class="ct-icon-angle-left" style="font-size: 30px;" onclick="api.closeWin();"></i>
+					<span onclick="openmydp();">我的店铺</span>
+				</div>
+				<div class="flex-1" style="text-align: center;">
+					企业招标
+				</div>
+				<div class="flex-1" style="text-align: right;padding-right:10px ;">
+					<i class="ct-icon-search" style="font-size: 24px;" onclick="opensous();"></i>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+				headerPos=$api.offset(header);
+				mainPos=$api.offset(main);
+				
+			api.openFrame({
+				name: "mmtone",
+				url: api.wgtRootDir + "/html/index/P-mmt.html",
+				rect:{
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});
+		}
+		
+		function opensous(){
+			api.openWin({
+				name:"mmtsousuo",
+				url: api.wgtRootDir + "/html/window/P-win_mmt_sous.html"
+			});
+		}
+		
+		function openmydp(){
+			api.openWin({
+				name: "mmtmydp",
+				url: api.wgtRootDir + "/html/window/win.html",
+				pageParam:{
+					headerTitle: "我的店铺",
+					frameName: "mmt_mydp",
+					frameUrl: api.wgtRootDir + "/html/index/P-mmt/P-mmt_mydp.html"
+				}
+			});
+		}
+	</script>
+</html>

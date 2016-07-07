@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	    	 #header{
+	        	height: 50px;
+	        	border-bottom: 1px solid #007AFF;
+	        	background: #FFFFFF;
+	        }
+	    	.list{
+	    		height: 50px;
+	    		line-height: 50px;
+	    	}
+	    	.ct-icon-angle-left{
+	    		font-size: 32px;
+	    		position: relative;
+	    		top: 8px;
+	    		padding-left: 10px;
+	    		padding-right: 20px;
+	    	}
+	    	body{
+	    		background: #F3F3F3;
+	    	}
+	    	.foot{
+	    		text-align: center;
+	    		height: 50px;
+	    		line-height: 45px;
+	    		background: #FFFFFF;
+	    	}
+	    	.add_cart{
+	    		background: #19B5FE;
+	    		height: 40px;
+	    		margin-top: 5px;
+	    		margin-left: 20px;
+	    		margin-right: 20px;
+	    		color: white;
+	    		border-radius: 5px;
+	    		
+	    	}
+	    	.buy_now{
+	    		background: #F15352;
+	    		height: 40px;
+	    		margin-top: 5px;
+	    		margin-right: 20px;
+	    		color: white;
+	    		border-radius: 5px;
+	    	}
+	    	
+	    </style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box list">
+					<div class="flex-1">
+						<i class="ct-icon-angle-left" onclick="api.closeWin();"></i>测试详情
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div class="flex-box foot">
+					<div class="flex-1 add_cart">
+						<i class="ct-icon-cart">加入测试车</i>
+					</div>
+					<div class="flex-1 buy_now">
+						<i class="ct-icon-card">立即购买</i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+			apiready=function(){
+				var header=$api.byId("header");
+				$api.fixIos7Bar(header);
+				$api.fixStatusBar(header);
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'productone_framin11111',
+				    url: api.wgtRootDir +'/html/product_content/person_test_taocan.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+		</script>
+	</body>
+</html>

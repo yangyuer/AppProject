@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>我的店铺认证</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<style>
+			#main{
+				background-color: #F3F3F3;
+			}
+			.one,.two{
+				padding: 0 10px;
+			}
+			.one .onenum{
+				margin: 5px;
+				text-align: center;
+			}
+			.one .onenum div{
+				border: 1px dashed #D3D3D3;
+				border-radius:8px ;
+				height: 120px;
+				line-height: 120px;
+			}
+			.one .onenum p{
+				line-height: 40px;
+			}
+			.two .twoC div{
+				font-size: 16px;
+				text-align: center;
+				margin: 5px 0;
+			}
+			.two .twoC div input{
+				border: 1px solid #D3D3D3;
+				border-radius:5px ;
+				height: 30px;
+				width: 200px;	
+			}
+			.two .twoC div textarea{
+				width: 200px;
+				border-radius:5px ;
+				border: 1px solid #D3D3D3;
+			}
+			
+			.free{
+				text-align: center;
+				margin-top: 20px;
+			}
+			.free span{
+				background-color: #40B5F0;
+				border-radius:8px ;
+				color: #fff;
+				padding: 10px 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="main">
+			<div class="one">
+				<p>1.上传相关证件：</p>
+				<div class="flex-box">
+					<div class="flex-1 onenum">
+						<div>点击上传</div>
+						<p>身份证正面图</p>
+					</div>
+					<div class="flex-1 onenum">
+						<div>点击上传</div>
+						<p>实体店营业执照</p>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="two">
+				<p>2.填写相关资料：</p>
+				<div class="twoC">
+					<div>姓名：<input type="text" /></div>
+					<div>店名：<input type="text" /></div>
+					<div><span style="position: relative; bottom: 60px;">地址：</span><textarea rows="5" style=""></textarea>
+					</div>
+				</div>
+			</div>
+			
+			<div class="free">
+				<span>提交审核</span>
+			</div>
+			
+		</div>
+	</body>
+</html>

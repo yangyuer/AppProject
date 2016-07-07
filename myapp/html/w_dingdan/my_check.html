@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<style>
+			.one{
+				padding: 10px 10px;
+				font-size: 14px;
+				border-bottom: 1px solid gainsboro;
+			}
+			.one div{
+				height: 30px;
+				line-height: 30px;
+			}
+			.one i{
+				font-size: 20px;
+				position: relative;
+				top: 2px;
+			}
+			.two img{
+				width: 30px;
+			}
+			.thr{
+				color: #0A0A0A;
+				padding: 20px 10px;
+				border-bottom: 1px solid gainsboro;
+			}
+			.fou{
+				padding: 20px 10px;
+				text-align: right;
+				color: #999;
+				border-bottom: 1px solid gainsboro;
+			}
+			.fou span{
+				margin-left: 5px;
+				color: #0A0A0A;
+			}
+			.fif{
+				padding: 10px 10px;
+				text-align: right;
+			}
+			.fif span{
+				border: 1px solid gainsboro;
+				height: 25px;
+				width: 60px;
+				text-align: center;
+				line-height: 25px;
+				border-radius: 5px;
+				color: #0A0A0A;
+			}
+			.sev{
+					height: 30px;
+					line-height: 30px;
+					text-align: center;
+					padding-right: 10px;
+					padding-left: 20px;
+					margin-top: 30px;
+				}
+				.sev div{
+					border: 1px solid grey;
+					border-radius: 5px;
+					margin-right: 10px;
+				}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box one">
+			<div class="flex-3">
+				<i class="ct-icon-box"></i>
+				<span>检测单号:4381297</span>
+				<i class="ct-icon-angle-right"></i>
+			</div>
+			<div class="flex-1" style="text-align:right;color: #2991C6;" onclick="seach()">
+				样品检测中
+			</div>
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1 two" style="text-align: center;">
+				<img src="../../image/taocan.gif" />
+			</div>
+			<div class="flex-3">
+				半导体分立器件测试
+			</div>
+			<div class="flex-1" style="text-align: right;">
+				<div>￥280.00</div>
+				<div style="color: #999;">x1</div>
+			</div>
+		</div>
+		<div class="fou">
+			共1种商品  实付: <span>￥280.00</span>
+		</div>
+		<div class="fif">
+			<span onclick="opencuidan()">我要催单</span>
+			<span style="background-color: #47A1CE;color: #fff;">查看物流</span>
+		</div>
+		<div class="flex-box one">
+			<div class="flex-3">
+				<i class="ct-icon-box"></i>
+				<span>检测单号:438157</span>
+				<i class="ct-icon-angle-right"></i>
+			</div>
+			<div class="flex-1" style="text-align:right;color: #2991C6;">
+				测试完成
+			</div>
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1 two" style="text-align: center;">
+				<img src="../../image/taocan.gif" />
+			</div>
+			<div class="flex-3">
+				半导体分立器件测试
+			</div>
+			<div class="flex-1" style="text-align: right;">
+				<div>￥280.00</div>
+				<div style="color: #999;">x1</div>
+			</div>
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1 two" style="text-align: center;">
+				<img src="../../image/taocan1.gif" />
+			</div>
+			<div class="flex-3">
+				半导体封装测试
+			</div>
+			<div class="flex-1" style="text-align: right;">
+				<div>￥300.00</div>
+				<div style="color: #999;">x1</div>
+			</div>
+		</div>
+		<div class="fou">
+			共2种商品  实付: <span>￥580.00</span>
+		</div>
+		<div class="flex-box sev"> 
+			<div class="flex-1">
+				删除订单
+			</div>
+			<div class="flex-1">
+				查看物流
+			</div>
+			<div class="flex-1">
+				订单评价
+			</div>
+			<div class="flex-1" style="margin-right:0;background-color: #007AFF;color: #fff;" onclick="sendbg()">
+				发送报告
+			</div>
+		</div>
+	</body>
+	<script>
+		function opencuidan(){
+			api.alert({
+				title:'催单成功',
+				msg:'我们会尽快进行该订单的测试',
+			})
+		}
+		
+		function seach(){
+			api.openWin({
+				name:'ddxq',
+				url:api.wgtRootDir+'/html/window/w_my_check1_win.html'
+			})
+		}
+		function sendbg(){
+			api.openWin({
+				name:'baogao',
+				url:api.wgtRootDir+"/html/window/win.html",
+				pageParam:{
+					headerTitle:'发送报告',
+					frameName:'fsbg',
+					frameUrl:api.wgtRootDir+'/html/w_dingdan/my_check2.html'
+				}
+			})
+		}
+	</script>
+</html>

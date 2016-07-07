@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../css..//style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	    #header{
+	    	height: 50px;
+	    	line-height: 50px;
+	    	border-bottom: 1px solid #19B5FE;
+	    	background: #FFFFFF;
+	    }
+	    .company_infromation{
+	    	color: #5C636B;
+	    }
+	    .company_infromation i{
+	    	padding:0 10px;
+	    	font-size: 32px;
+	    	position: relative;
+	    	top: 5px;
+	    }
+	    body{
+	    	background: #F3F3F3;
+	    }
+	    #footer{
+	    	height: 50px;
+	    	background: #FFFFFF;
+	    }
+	    .contact{
+	    	height: 40px;
+	    	line-height: 40px;
+	    	text-align: center;
+	    	margin-top: 5px;
+	    	color: #FFFFFF;
+	    }
+	    .map{
+	    	background: #40B5F0;
+	    	margin:0 10px;
+	    	border-radius: 5px;
+	    }
+	    .phone{
+	    	background: #1DE175;
+	    	margin-right: 10px;
+	    	border-radius: 5px;
+	    }
+	    </style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box">
+					<div class="flex-1 company_infromation" onclick="api.closeWin();">
+						<i class="ct-icon-angle-left"></i>
+						<span>机构详情</span>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div class="flex-box contact">
+					<div class="flex-1 map">
+						<i class="ct-icon-adress"></i>
+						查看地图
+					</div>
+					<div class="flex-1 phone">
+						<i class="ct-icon-call"></i>
+						立即拨打
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+			apiready=function(){
+				var header=$api.byId("header");
+				$api.fixIos7Bar(header);
+				$api.fixStatusBar(header);
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'company_content111',
+				    url: api.wgtRootDir +'/html/l_test_company/l_test_company_infromation.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+		</script>
+	</body>
+</html>

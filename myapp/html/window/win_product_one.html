@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	        #header{
+	        	height: 50px;
+	        	border-bottom: 1px solid #007AFF;
+	        }
+	    	.list{
+	    		height: 50px;
+	    		line-height: 50px;
+	    	}
+	    	.ct-icon-angle-left{
+	    		font-size: 32px;
+	    		position: relative;
+	    		top: 8px;
+	    		padding-left: 10px;
+	    	}
+	    	.litter{
+	    		font-size: 12px;
+	    		text-align: right;
+	    		padding-right: 10PX;
+	    	}
+	    	.hover{
+	    		color: #40B5F0;
+	    	}
+	    	#footer{
+	    		height: 60px;
+	    		color: white;
+	    		line-height: 60px;
+	    	}
+	    	.footer img{
+	    		height: 50px;
+	    	}
+	    	.footer{
+	    		position: absolute;
+	    		left: 50%;
+	    		margin-left: -75px;
+	    	}
+	    	.footer span{
+	    		background: #40B5F0;
+	    		margin-left: 10px;
+	    		width: 100px;
+	    		text-align: center;
+	    		line-height: 40px;
+	    		height: 40px;
+	    		margin-top: 8px;
+	    		border-radius: 5px;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box list">
+					<div class="flex-1">
+						<i class="ct-icon-angle-left" onclick="api.closeWin();"></i>
+					</div>
+					<div class="flex-1" style="text-align: center">
+						我要测
+					</div>
+					<div class="flex-1 litter">
+						<span id="tc" onclick="openPtaocan();">套餐</span>
+						<i class="ct-icon-exchange"></i>
+						<span class="hover" id="dp" onclick="openPdp();">单品</span>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div class="flex-box footer">
+					<img src="../../image/shopping_cart.png" />
+					<span>我的测试车</span>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+			apiready=function(){
+				var header=$api.byId("header");
+				$api.fixIos7Bar(header);
+				$api.fixStatusBar(header);
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'productone_framin',
+				    url: api.wgtRootDir +'/html/index/product_one.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+			function openPtaocan(){
+				var hover=$api.byId("tc");
+				var hover1=$api.byId("dp");
+				$api.addCls(hover,"hover");
+			    $api.removeCls(hover1,"hover");
+				var header=$api.byId("header");
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'productone_framin123',
+				    url: api.wgtRootDir +'/html/index/person_product_taocan.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+			function openPdp(){
+				var hover=$api.byId("dp");
+				var hover1=$api.byId("tc")
+				$api.addCls(hover,"hover");
+				$api.removeCls(hover1,"hover");
+				var header=$api.byId("header");
+				var main=$api.byId("main");
+				    headerPos=$api.offset(header);
+				    mainPos=$api.offset(main);
+				api.openFrame({
+				    name: 'productone_framin321',
+				    url: api.wgtRootDir +'/html/index/product_one.html',
+				    rect: {
+				        x: 0,
+				        y: headerPos.h,
+				        w: 'auto',
+				        h: mainPos.h
+				    }
+				});
+			}
+//          apiready=function(){
+//          	var header=$api.byId("header");
+//          	var main=$api.byId("main");
+//				    headerPos=$api.offset(header);
+//				    mainPos=$api.offset(main);
+//          	api.openFrameGroup ({
+//			    name: 'group1',
+//			    scrollEnabled: false,
+//			    rect: {
+//			         x: 0, 
+//			         y: headerPos.h, 
+//			         w: 'auto', 
+//			         h: mainPos.h
+//			    },
+//			    index: 1,
+//			    frames: [{
+//			        name: 'frame1', 
+//			        url:api.wgtRootDir + '/html/index/product_one.html'
+//			    },{
+//			        name: 'frame2', 
+//			        url:api.wgtRootDir + '/html/index/person_product_taocan.html' 
+//			    }]
+//			}, function (name,index){
+//			    if( index=1 ){
+//			         api.setFrameAttr({
+//                                  name: 'frame1',
+//                                  index:0
+//                        });
+//			    }else{
+//			          api.setFrameAttr({
+//                                  name: 'frame2',
+//                                  index:1
+//                        });
+//			    }
+//			});
+//          }
+//          function openPtaocan(){
+//          	
+//          }
+//			
+		</script>
+		
+	</body>
+</html>

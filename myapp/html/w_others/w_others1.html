@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/index.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<style>
+			.all div{
+				text-align: center;
+				line-height: 50px;
+			}
+			.one{
+				background-color: #FE9F07;
+			}
+			.one i{
+				font-size: 30px;
+				color: #fff;
+				position: relative;
+				top: 8px;
+			}
+			.two{
+				color: #999;
+				font-size: 18px;
+			}
+			.thr{
+				font-size: 30px;
+				color: #999;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box all" onclick="openjr()">
+			<div class="flex-1 one">
+				<i class="ct-icon-pig"></i>
+			</div>
+			<div class="flex-2 two" style="text-align: left;padding-left: 20px;">金融机构</div>
+			<div class="flex-1 thr" style="text-align: right;padding-right: 10px;">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box all" style="margin-top: 20px;">
+			<div class="flex-1 one" style="background-color: #6ACFF7;">
+				<i class="ct-icon-shield"></i>
+			</div>
+			<div class="flex-2 two" style="text-align: left;padding-left: 20px;">保险机构</div>
+			<div class="flex-1 thr" style="text-align: right;padding-right: 10px;">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box all" style="margin-top: 20px;">
+			<div class="flex-1 one" style="background-color: #FE5640;">
+				<i class="ct-icon-libra"></i>
+			</div>
+			<div class="flex-2 two" style="text-align: left;padding-left: 20px;">律师机构</div>
+			<div class="flex-1 thr" style="text-align: right;padding-right: 10px;">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+	</body>
+	<script>
+		function openjr(){
+			api.openWin({
+				name:'jg1',
+				url:api.wgtRootDir+'/html/window/w_others1_win.html'
+			})
+			
+		}
+	</script>
+</html>

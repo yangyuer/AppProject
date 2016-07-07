@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>云API</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/swiper.min.css" />
+    <script type="text/javascript" src="../script/swiper.min.js" ></script>
+    <link rel="stylesheet" href="../css/layout.css" />
+    <style>
+    .index_flex div{
+	height: 50px;
+}
+    .index_flex div i{
+	font-size: 22px;
+	position: relative;
+	top: 4px;
+}
+     .list1{
+    	margin: 10px 8px 0 8px;
+    }
+      .list1 div{
+      	height: 180px;
+      	text-align: center;
+      	line-height: 50px;
+      	border-radius: 5px;
+      }
+      .list1 div img{
+      	margin-top: 15px;
+      }
+    
+    .list2{
+    	margin: 10px 8px 0 8px;
+    }
+    .list2 div{
+    	height: 90px;
+    	border-radius: 5px;
+    	text-align: center;
+    	line-height: 90px;
+    	
+    }
+    .list2 div img{
+    	width: 60px;
+    	position: relative;
+    	top: 18px;
+    	
+    }
+    .flex-1{
+    	color: #FFFFFF;
+    }
+    </style>
+</head>
+<body>
+     <div class="flex-box">
+    	<div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../image/banner_1.gif">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- 左右图标按钮 -->
+         <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> 
+    </div>
+    </div> 
+    <div class="flex-box list1">
+    	<div class="flex-1" onclick="openProduct();" style="background: #62ACFD;">
+    		<p>我要测</p>
+    		<img src="../image/index_pic1.png"  width="60px"/>
+    	</div>
+    	<div class="flex-1" style="background: #3C98FD; margin: 0 5px;" onclick="openCo();">
+    		<p>企业测</p>
+    		<img src="../image/index_pic2.png"  width="60px"/>
+    	</div>
+    	<div class="flex-1" style="background: #5062F1;" onclick="openqyzb();">
+    		<p>企业招标</p>
+    		<img src="../image/index_pic3.png"  width="60px" style="position: relative; top: 10px; left: 10px;"/>
+    	</div>
+    </div>
+    <div class="flex-box list2">
+      <div class="flex-1" style="background: #FE9F07; margin-right: 5px;" onclick="openmmt();">
+      	<img src="../image/index_pic4.png"  />
+      	买卖通
+      </div>
+      <div class="flex-1" style="background: #F98B3C" onclick="openTestC();">
+        <img src="../image/index_pic5.png" style="width: 40px" />
+                   测试机构
+      </div>
+    </div>
+    <div class="flex-box list2">
+      <div class="flex-1" style="background: #46D6B9; margin-right: 5px;" onclick="openYh();">
+      	<img src="../image/index_pic6.png"  />
+      	优化方案
+      </div>
+      <div class="flex-1" style="background: #6ACFF7" onclick="openother();">
+        <img src="../image/index_pic7.png" style="width: 55px" />
+                   其他
+      </div>
+    </div>
+    <script type="text/javascript" src="js/swiper.min.js"></script>
+    <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        //左右图标按钮
+           nextButton: '.swiper-button-next',
+           prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    </script>
+    <script type="text/javascript" src="../script/api.js" ></script>
+    <script>
+    	function openProduct(){
+    		api.openWin({
+		    name: 'product_dan',
+		    url: api.wgtRootDir +'/html/window/win_product_one.html',
+		});
+    	}
+    	function openCo(){
+    		api.openWin({
+		    name: 'product_co1',
+		    url: api.wgtRootDir +'/html/window/win_co_test.html',
+		});
+    	}
+    	function openTestC(){
+    		api.openWin({
+    		name: 'product_test111',
+		    url: api.wgtRootDir +'/html/window/win_l_test_company.html',	
+    		});
+    	}
+    	function openYh(){
+    		api.openWin({
+    			name:'youhua_frame11',
+    			url:api.wgtRootDir +'/html/window/win_l_youhua.html',
+    		});
+    	}
+    	
+    	 function openqyzb(){
+	    	api.openWin({
+	    		name:'mycewin',
+	    		url: api.wgtRootDir +'/html/window/P-win_qyzb.html'
+	    	});
+	    }
+    	 
+    	  function openmmt(){
+	    	api.openWin({
+	    		name:'mmtwin',
+	    		url: api.wgtRootDir +'/html/window/P-win_mmt.html'
+	    	});
+	    }
+    	  
+    	     function openother(){
+	    	api.openWin({
+	    		name:'other',
+	    		url: api.wgtRootDir +'/html/window/w_others1_win.html'
+	    	});
+	    }
+    </script>
+</body>
+</html>

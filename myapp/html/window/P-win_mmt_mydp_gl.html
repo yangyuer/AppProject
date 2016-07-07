@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>商品列表</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<style type="text/css">
+			#header{
+				line-height: 50px;
+				border-bottom:1px solid #459FCD ;
+			}
+			#header i{
+				font-size: 32px;
+				padding-left: 10px;
+				position: relative;
+				top: 8px;
+			}
+			#footer{
+				line-height: 60px;
+			}
+			#footer span{
+				padding: 10px 20px;
+				border-radius:5px ;
+				margin: 0 5px;
+				color: #fff;
+				font-size: 18px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box">
+					<div class="flex-1">
+						<i class="ct-icon-angle-left" onclick="api.closeWin();"></i>
+					</div>
+					<div class="flex-1" style="text-align: center;">
+						 商品管理
+					</div>
+					<div class="flex-1" style="text-align: right;padding-right: 10px;" onclick="openglrz();" >
+						商品认证
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div class="flex-box">
+					<div class="flex-1" style="text-align: right;">
+						<span style="background-color: #19B5FE;" onclick="openadd();">添加商品</span>
+					</div>
+					<div class="flex-1">
+						<span style="background-color: #F15352;" onclick="openshangxiajia();">商品上下架</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript">
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+				headerPos=$api.offset(header);
+				mainPos=$api.offset(main);
+			
+			api.openFrame({
+				name: "mmtmydpgl",
+				url: api.wgtRootDir + "/html/index/P-mmt/P-mmt_mydp_gl.html",
+				rect:{
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});
+		}
+		
+		function openglrz(){
+			api.openWin({
+				name: "mmtmydpglrz",
+				url: api.wgtRootDir + "/html/window/win.html",
+				pageParam:{
+					headerTitle: "未认证商品",
+					frameName: "mmtmydpglrz",
+					frameUrl: api.wgtRootDir + "/html/index/P-mmt/P-mmt_mydp_glrz.html"
+				}
+			});
+		}
+		
+		function openadd(){
+			api.openWin({
+				name: "mmtmydpadd",
+				url: api.wgtRootDir + "/html/window/win.html",
+				pageParam:{
+					headerTitle: "请选择所添加商品分类",
+					frameName: "mmtmydpgadd",
+					frameUrl: api.wgtRootDir + "/html/index/P-mmt/P-mmt_my_add.html"
+				}
+			});
+		}
+		
+		function openshangxiajia(){
+			api.openWin({
+				name: "mmtmydpglrz",
+				url: api.wgtRootDir + "/html/window/P-win_mmt_mydp_glSXJ.html"
+			});
+		}
+	</script>
+</html>

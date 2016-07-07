@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			.pay{
+				padding-left: 20px;
+				padding-top: 40px;
+				margin-bottom: 20px;
+			}
+			.wechart img{
+				width: 45%;
+				
+			}
+			.alipay img{
+				width: 35%;
+				
+			}
+			input{
+				margin: 30px 0;
+				margin-left: 20px;
+			}
+			.order{
+					line-height: 60px;
+					margin-top: 20px;
+					border-top: 1px solid #EDEDED;
+					padding-left: 20px;
+			}	
+			.count{
+				padding-left: 50px;
+				line-height: 50px;
+			}
+			.count span{
+				color: #F1571E;
+				font-size: 20px;
+			}
+			.pay_now{
+				margin: 0 auto;
+				text-align: center;
+				line-height: 50px;
+				margin-top: 20px;
+				background: #F15352;
+				width: 80%;
+				color: #FFFFFF;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box pay">
+			选择支付方式
+		</div>
+		<div class="flex-box wechart">
+			<label>
+				<input type="radio" value="微信支付" name="pay" />
+			<img src="../../image/pay_wechat.png"  />
+			</label>
+		</div>
+		<div class="flex-box alipay">
+			<label>
+				<input type="radio" value="支付宝支付" name="pay" />
+			<img src="../../image/pay_alipay.png"  />
+			</label>
+		</div>
+		<div class="flex-box order">
+			确认订单价格
+		</div><div class="flex-box count">
+			需支付总价：<span>50.00</span>元
+		</div>
+		<div class="flex-box pay_now">
+			<div class="flex-1">
+				确认付款
+			</div>
+		</div>
+	</body>
+</html>

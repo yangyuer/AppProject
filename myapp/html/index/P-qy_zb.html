@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>企业招标</title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<link rel="stylesheet" href="../../css/swiper.min.css" />
+		<script type="text/javascript" src="../../script/swiper.min.js" ></script>
+		<style>
+			.wrap{
+				width: 100%;
+			}
+			.title{
+				text-align: center;
+				line-height: 30px;
+				background-color: #F9F9F9;
+			}
+			.hover{
+				color: #19B5FE;
+				border-bottom: 3px solid #19B5FE;
+			}
+			
+				.two img{
+				width: 100%;
+				height: 250px;
+			}
+			.free{
+				color: #808080;
+				font-size: 12px;
+				padding: 8px 10px;
+				margin-bottom: 8px;
+				background-color: #fff;
+			}
+			.free h3{
+				color:#242D2F ;
+				font-size: 15px;
+				line-height: 30px;
+			}
+			.free p{
+				line-height: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="flex-box title">
+				<div class="flex-1 hover">全部</div>
+				<div class="flex-2">招标信息</div>
+				<div class="flex-2">供求信息</div>
+				<div class="flex-2">库存招标</div>
+			</div>
+			
+			<div class="two">
+    		<div class="swiper-container">
+		        <div class="swiper-wrapper">
+		            <div class="swiper-slide">
+		              <img src="../../image/banner_1.gif">
+		            </div>
+		            <div class="swiper-slide">
+		              <img src="../../image/banner_1.gif">
+		            </div>
+		            <div class="swiper-slide">
+		              <img src="../../image/banner_1.gif">
+		            </div>
+		        </div>
+		        <!-- Add Pagination -->
+		        <div class="swiper-pagination"></div>
+		        <!-- 左右图标按钮 -->
+		        <!-- <div class="swiper-button-next"></div>
+		        <div class="swiper-button-prev"></div> -->
+		    </div> 
+    	</div>
+    	
+    	<div class="free" onclick="openqyzbxq();">
+    		<h3>可实现远程探测的二极管功率探头</h3>
+    		<p>功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示……</p>
+    		<div class="flex-box" style="margin-top: 8px;">
+    			<div class="flex-2">
+    				<span class="" style="color: #2F94C7;font-size: 14px;margin-right: 5px;">招标信息</span>2015-04-21&nbsp;15:12
+    			</div>
+    			<div class="flex-1" style="text-align: right;">
+    				<i class="ct-icon-news"></i>
+    				(18)
+    			</div>
+    		</div>
+    	</div>
+			
+			<div class="free">
+    		<h3>可实现远程探测的二极管功率探头</h3>
+    		<p>功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示……</p>
+    		<div class="flex-box" style="margin-top: 8px;">
+    			<div class="flex-2">
+    				<span class="" style="color: #2F94C7;font-size: 14px;margin-right: 5px;">供求信息</span>2015-04-21&nbsp;15:12
+    			</div>
+    			<div class="flex-1" style="text-align: right;">
+    				<i class="ct-icon-news"></i>
+    				(18)
+    			</div>
+    		</div>
+    	</div>
+			
+		<div class="free">
+    		<h3>可实现远程探测的二极管功率探头</h3>
+    		<p>功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示……</p>
+    		<div class="flex-box" style="margin-top: 8px;">
+    			<div class="flex-2">
+    				<span class="" style="color: #2F94C7;font-size: 14px;margin-right: 5px;">库存招标</span>2015-04-21&nbsp;15:12
+    			</div>
+    			<div class="flex-1" style="text-align: right;">
+    				<i class="ct-icon-news"></i>
+    				(18)
+    			</div>
+    		</div>
+    	</div>
+			
+		</div>
+	</body>
+	
+	<script>
+    	 var swiper = new Swiper('.swiper-container', {
+	        pagination: '.swiper-pagination',
+	        //左右图标按钮
+	        // nextButton: '.swiper-button-next',
+	        // prevButton: '.swiper-button-prev',
+	        paginationClickable: true,
+	        spaceBetween: 30,
+	        centeredSlides: true,
+	        autoplay: 2500,
+	        autoplayDisableOnInteraction: false
+	    });
+	    
+	    function openqyzbxq(){
+	    	api.openWin({
+	    		name:"openqyzbxq",
+	    		url: api.wgtRootDir + "/html/window/P-win_qyzb_xq.html"
+	    	});
+	    }
+    </script>
+</html>

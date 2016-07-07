@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>商品列表</title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style type="text/css">
+			#header{
+				height: 49px;
+				border-bottom: 1px solid #5FADD4;
+				line-height: 50px;
+			}
+			#header input{
+				text-align: right;
+				border: 1px solid #ECECEC;
+				border-radius:5px ;
+				height: 30px;
+				width: 100%;
+			}
+			.ct-icon-angle-left{
+				font-size: 28px;
+				position: relative;
+				top: 5px;
+				padding-left: 10px;
+			}
+			.ct-icon-home_1{
+				font-size: 30px;
+				position: relative;
+				top: 6px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box">
+					<div class="" style="">
+						<i class="ct-icon-angle-left" onclick="api.closeWin();"></i>
+					</div>
+					<div class="flex-3" style="padding: 0 10px">
+						<input type="text" placeholder="搜索店铺商品" />
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+				headerPos=$api.offset(header);
+				mainPos=$api.offset(main);
+				
+			api.openFrame({
+				name: "mmtlist1",
+				url: api.wgtRootDir + "/html/index/P-mmt/P-mmt_tp.html",
+				rect:{
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	    	body{
+       	background: #F3F3F3;
+       }
+       .about_person_info{
+     	height: 80px;
+     	line-height: 80px;
+     	border-bottom: 1px solid #F3F3F3;
+     	color: #999;
+     	font-weight: 700;
+     	background: #FFFFFF;
+     }
+     .about_person_info div img{
+     	height: 50px;
+     	position: relative;
+     	top: 20px;
+     	padding-left: 10px;
+     	padding-right: 10px;
+     }
+     .about_person_info div i{
+     	font-size: 50px;
+     	color: #999;
+     }
+     .right_icon{
+     	text-align: right;
+     	padding-right: 10px;
+     	margin-top: 15px;
+     }
+	    </style>
+	</head>
+	<body>
+	<div class="flex-box about_person_info" style="margin-top: 10px;">
+		<div class="flex-3">
+			<img src="../../image/l_icon_1.png"  />
+			头像设置
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<div class="flex-box about_person_info">
+		<div class="flex-3">
+			<img src="../../image/l_icon_2.png"  />
+			昵称设置
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<div class="flex-box about_person_info" onclick="openAddress();">
+		<div class="flex-3">
+			<img src="../../image/l_icon_3.png"  />
+			地址管理
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<div class="flex-box about_person_info" onclick="openEmail();">
+		<div class="flex-3">
+			<img src="../../image/l_icon_4.png"  />
+			邮箱管理
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<div class="flex-box about_person_info" onclick="openchangP();">
+		<div class="flex-3">
+			<img src="../../image/l_icon_5.png"  />
+			修改密码
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<div class="flex-box about_person_info" style="margin-top: 10px;" onclick="openLibi();">
+		<div class="flex-3">
+			<img src="../../image/l_icon_6.png"  />
+			利币管理
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<div class="flex-box about_person_info">
+		<div class="flex-3">
+			<img src="../../image/l_icon_7.png"  />
+			推荐好友
+		</div>	
+		<div class="flex-1 right_icon">
+			<i class="ct-icon-angle-right"></i>
+		</div>
+	</div>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script>
+		function openEmail(){
+			api.openWin({
+				name:'email_frame2',
+				url: api.wgtRootDir +'/html/window/win_l_email.html',
+			});
+		}
+		function openAddress(){
+			api.openWin({
+				name:'address_frame',
+				url: api.wgtRootDir +'/html/window/win_l_my_address.html',
+			});
+		}
+		function openchangP(){
+			api.openWin({
+				name:'pwd_frame',
+				url: api.wgtRootDir +'/html/window/win_l_change_pwd.html',
+			});
+		}
+		function openLibi(){
+			api.openWin({
+				name:'libi_frame',
+				url: api.wgtRootDir +'/html/window/win_l_libi_manage.html',
+			});
+		}
+	</script>
+	</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>开发</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/swiper.min.css" />
+    <script type="text/javascript" src="../script/swiper.min.js" ></script>
+    <style>
+     body{
+     	background: #F9F9F9;
+     }
+      .sub_nav{
+      	color: #949494;
+      	text-align: center;
+      	height: 40px;
+      	line-height: 40px;
+      }
+      .conten_title{
+      	margin-top: 10px;
+      	background: #FFFFFF;
+      }
+      .hover{
+      	color: #4DC4FD;
+      	border-bottom: 2px solid #4DC4FD;
+      }
+      h2{
+         font-size: 14px;
+         color: #474E50;
+         padding: 15px;
+      }
+      p{
+      	line-height: 20px;
+      	color: #737373;
+      	padding: 0 15px;
+      }
+      .timer span{
+      	color: #3295C8;
+      	padding-top: 15px;
+      	margin-right: 20px;
+      }
+      .timer i{
+      	position: relative;
+        left: 50%;
+        margin-left: -50px;
+      }
+    </style>
+</head>
+<body>
+	<div class="flex-box sub_nav">
+		<div class="flex-1 hover" style="padding-left: 10px; text-align: left;">全部</div>
+		<div class="flex-1" style="text-align: left;">最新动态</div>
+		<div class="flex-1" style="text-align: left; padding-left: 20px;">鉴真术</div>
+		<div class="flex-1" style="text-align: left; padding-left: 10px;">公益基金</div>
+		<div class="flex-2" style="text-align: center;">法规及曝光</div>
+	</div>
+	  <div class="flex-box">
+    	<div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../image/banner_1.gif">
+            </div>
+            <div class="swiper-slide">
+              <img src="../image/banner_1.gif">
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- 左右图标按钮 -->
+         <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div> 
+    </div>
+    </div>
+     <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        //左右图标按钮
+           nextButton: '.swiper-button-next',
+           prevButton: '.swiper-button-prev',
+        paginationClickable: true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: 2500,
+        autoplayDisableOnInteraction: false
+    });
+    </script>
+    <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2 onclick="openZixun();">可实现远程测量的二级管功率探头</h2>
+    		<p onclick="openZixun();">功率探头组合在一起，在功率探头中射频信号被转换成电压信号，经过放大，数字化之后，在主机中显示....</p>
+    		<p class="timer"><span>最新动态</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>可实现远程测量的二级管功率探头</h2>
+    		<p>功率探头组合在一起，在功率探头中射频信号被转换成电压信号，经过放大，数字化之后，在主机中显示....</p>
+    		<p class="timer"><span>最新动态</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>可实现远程测量的二级管功率探头</h2>
+    		<p>功率探头组合在一起，在功率探头中射频信号被转换成电压信号，经过放大，数字化之后，在主机中显示....</p>
+    		<p class="timer"><span>最新动态</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+    <script type="text/javascript" src="../script/api.js" ></script>
+    <script>
+    	function openZixun(){
+    		api.openWin({
+		    name: 'zixun_frame1',
+		    url: api.wgtRootDir +'/html/window/win_l_zixun_content.html',
+		});
+    	}
+    </script>
+</body>
+</html>

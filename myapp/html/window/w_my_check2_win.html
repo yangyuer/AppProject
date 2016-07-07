@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<style>
+			.one div{
+				height: 50px;
+				line-height: 50px;
+				text-align: center;
+				font-size: 20px;
+				color:#323237;
+			}
+			.dibu{
+				width: 90%;
+				height: 40px;
+				margin: 0 auto;
+				line-height: 40px;
+				text-align: center;
+				border-radius: 5px;
+				background-color: #007AFF;
+				color: #fff;
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box one">
+					<div class="flex-1" style="font-size: 30px;text-align: left;padding-left: 10px;">
+						<i class="ct-icon-angle-left" onclick="api.closeWin()"></i>
+					</div>
+					<div class="flex-1">发送报告</div>
+					<div class="flex-1" style="font-size: 30px;text-align: right;padding-right: 10px;" onclick="openadds()">
+						<i class="ct-icon-circle-plus"></i>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer">
+				<div class="dibu">提交发送</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+			
+			headerPos=$api.offset(header);
+			mainPos=$api.offset(main);
+			
+			api.openFrame({
+				name:'others3',
+				url:api.wgtRootDir+"/html/w_dingdan/my_check3.html",
+				rect:{
+					x:0,
+					y:headerPos.h,
+					w:"auto",
+					h:mainPos.h
+				}
+			})
+		}
+		
+		function openadds(){
+			api.openWin({
+				name:'addss',
+				url:api.wgtRootDir+'/html/window/win.html',
+				pageParam:{
+					headerTitle:'添加邮箱',
+					frameName:'addyx',
+					frameUrl:api.wgtRootDir+'/html/w_dingdan/my_check4.html'
+				}
+			})
+		}
+	</script>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>添加商品分类</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<script type="text/javascript" src="../../../script/api.js" ></script>
+		<style>
+			.two_left{
+				line-height: 50px;
+				text-align: center;
+			}
+			.two_left div{
+				border: 1px solid #E4E6E5;
+				background-color: #F3F3F3;
+				border-left: none;
+			}
+			.two_left .hover{
+				border: 1px solid #fff;
+				background-color: #fff;
+				border-left: none;
+			}
+			.two_right{
+				text-align: center;
+			}
+			.two_right img{
+				width: 95%;
+			}
+			.two_right .left{
+				text-align: center;
+			}
+			.two_right .left p{
+				line-height: 20px;
+				font-size: 14px;
+			}
+			.ct-icon-others{
+				font-size: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="flex-box two">
+	    		<div class="flex-1 two_left">
+	    			<div class="hover">时钟与定时</div>
+	    			<div>通信</div>
+	    			<div>数据采集</div>
+	    			<div>分立元件</div>
+	    			<div>接口</div>
+	    			<div>存储器</div>
+	    			<div>微控制器</div>
+	    			<div>多媒体</div>
+	    		</div>
+	    		<div class="flex-3 two_right">
+	    			<div class="flex-box">
+	    				<div class="flex-1 left" onclick="openaddsp();">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>时钟缓冲器</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>时钟合成器</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>锁相环</p>
+	    				</div>
+	    			</div>
+	    			
+	    			<div class="flex-box">
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>定时器</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>延迟线</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>实时时钟</p>
+	    				</div>
+	    			</div>
+	    			
+	    			<div class="flex-box">
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>时钟与数据恢复</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>逻辑器件</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					<img src="../../../image/measure_list.png" />
+	    					<p>零延迟缓冲器</p>
+	    				</div>
+	    			</div>
+	    			
+	    			<div class="flex-box">
+	    				<div class="flex-1 left" style="margin-top: 10px;">
+	    					<i class="ct-icon-others"></i>
+	    					<p>其它元件</p>
+	    				</div>
+	    				<div class="flex-1 left">
+	    					
+	    				</div>
+	    				<div class="flex-1 left">
+	    					
+	    				</div>
+	    			</div>
+	    		</div>
+	    	</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		function openaddsp(){
+			api.openWin({
+				name: "mmtmydpaddsp",
+				url: api.wgtRootDir + "/html/window/win.html",
+				pageParam:{
+					headerTitle: "添加商品",
+					frameName: "mmtmydpgaddsp",
+					frameUrl: api.wgtRootDir + "/html/index/P-mmt/P-mmt_mydp_glwrite.html"
+				}
+			});
+		}
+	</script>
+</html>

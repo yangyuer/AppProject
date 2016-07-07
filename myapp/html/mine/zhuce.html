@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>文档</title>
+   
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../css/layout.css" />
+    <style>
+       .logo{
+       	text-align: center;
+       	padding: 40px 0;
+       }
+       .username{
+       	padding: 30px;
+       }
+       .username i{
+       	font-size: 32px;
+       	width: 30px;
+       	height: 40px;
+       	position: relative;
+       	top: 10px;
+       }
+       .phone input{
+       	width: 100%;
+       	height: 100%;
+       	line-height: 40px;
+       	border-bottom: 1px solid #DDDDDD;
+       	text-indent: 2em;
+       	margin-left: 10px;
+       }
+       .btn{
+       	margin: 0 30px;
+       	height: 40px;
+       	background: #40B5F0;
+       	text-align: center;
+       	line-height: 40px;
+       	color: #FFFFFF;
+        margin-top: 10px;
+        border-radius: 5px;
+       }
+       .forget{
+       	margin-top: 10px;
+       	color: #CACACA;
+       	text-align: right;
+       	padding-right: 25px;
+       }
+       .newuser{
+       	margin: 40px auto;
+       	text-align: center;
+       }
+        p{
+      	text-align: center;
+      	line-height: 20px;
+      }
+      .imag{
+        	text-align: center;
+        }
+      .imag img{
+      		width: 160px;
+      		margin-top: 10px;
+      }
+       .btn1{
+      	margin: -10px 30px 0;
+      	line-height: 40px;
+      	color: #fff;
+      	border-radius: 3px;
+      	text-align: center;
+      	height: 40px;
+      	position: relative;
+      	background-color: #007AFF;
+      }
+    </style>
+</head>
+<body>
+	<div id="wrap">
+	<div id="main">
+	<div class="logo">
+		<img src="../../image/logo.png" width="80px" />
+	</div>
+	<div class="flex-box username">
+		<i class="ct-icon-phone"></i>
+		<div class="flex-1 phone">
+			<input type="text" name="phone" placeholder="请输入手机号" />
+		</div>
+	</div>
+	<div class="flex-box username">
+		<i class="ct-icon-message" style="font-size:30px ;"></i>
+		<div class="flex-1 phone">
+			<input type="text" placeholder="请输入验证码" />
+		</div>
+	</div>
+	<div class="flex-box username">
+		<i class="ct-icon-lock"></i>
+		<div class="flex-1 phone">
+			<input type="text" name="pwd" placeholder="请输入密码" />
+		</div>
+	</div>
+	<div class="flex-box username">
+		<i class="ct-icon-key"></i>
+		<div class="flex-1 phone">
+			<input type="text" placeholder="请再次输入密码" />
+		</div>
+	</div>
+	<div class="btn" onclick="register()">注册</div>
+	</div>
+	</div>
+	<script type="text/template" template="success">
+		<div class="logo">
+	          <img src="../../image/logo.png" width="80px" />
+	        </div>
+		       <p>恭喜你，注册成功</p>
+		       <p>欢迎使用维亚利</p>
+	    	<div class="imag">
+	    		<img src="../../image/balloon.png"/>
+	    	</div>
+	    <div class="btn1" onclick="api.closeWin()">现在进入</div>
+	</script>
+	 <script type="text/javascript" src="../../script/api.js" ></script>
+    <script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script>
+	apiready=function(){
+		
+	}
+		function register(){
+			var phone=$api.val($api.dom('[name=phone]'));
+			var pwd=$api.val($api.dom('[name=pwd]'));
+			if(phone){
+				if(!/^1[3,5,7,8]\d{9}$/.test(phone)){
+					api.toast({
+				    msg: '请输入正确的手机号码',
+				    duration: 2000,
+				    location: 'middle'
+				});
+				return;
+				}
+			}else{
+				api.toast({
+				    msg: '手机号码不能为空',
+				    duration: 2000,
+				    location: 'middle'
+				});
+				return;
+			}
+			if(!pwd){
+				api.toast({
+			    msg: '密码不能为空',
+			    duration: 2000,
+			    location: 'middle'
+			});
+			return;
+			}
+			api.ajax({
+		    url: 'http://ikeo.com.cn/index.php/Home/App/reg',
+		    method: 'post',
+		    data: {
+		        values: { 
+		            username: phone,
+		            password: pwd
+		        }
+		    }
+		},function(ret, err){
+			//当数据提交成功过后，后台响应给我们的东西
+		    if (ret) {
+		    	//后台响应回来的有两个参数，一个是flag（成功或者失败）1表示注册成功，-1表示注册失败
+				if(ret.flag==1){
+					$api.setStorage("uid",ret.uid);
+					$api.html($api.dom("#main"),doT.template($api.html($api.dom("[template=success]")))(""));
+				}else{
+					//当我们注册失败后，打印出失败的原因
+					alert(ret.msg);
+				}
+				
+		    } else {
+		         api.alert({msg:JSON.stringify(err)});
+		    }
+		});
+	}
+	</script>
+</body>
+</html>

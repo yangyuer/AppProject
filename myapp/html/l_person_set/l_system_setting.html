@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	       body{
+	       	background: #F3F3F3;
+	       }
+	    	.service{
+	    		height: 60px;
+	    		line-height: 60px;
+	    		border-bottom: 1px solid #F3F3F3;
+	    		background: #FFFFFF;
+	    	}
+	    	.online_service i{
+	    		background: #64CBFF;
+	    		color: #FFFFFF;
+	    		padding: 7px;
+	    		font-size: 25px;
+	    		margin-left: 10px;
+	    		border-radius: 5px;
+	    		position: relative;
+	    		top: 5px;
+	    	}
+	    	.online_service span{
+	    		padding-left: 10px;
+	    		color: #696969;
+	    		font-size: 16px;
+	    	}
+	    	.right_icon{
+	    		text-align: right;
+	    		padding-right: 10px;
+	    		font-size: 40px;
+	    		color: #A9A9A9;
+	    		position: relative;
+	    		top: 5px;
+	    	}
+	    	.phone i{
+	    		background: #16E891;
+	    	}
+	    	.about_us i{
+	    		background: #40B5F0;
+	    	}
+	    	.advise i{
+	    		background: #535353;
+	    	}
+	    	.help i{
+	    		background: #F04040;
+	    	}
+	    	.vocie i{
+	    		background: #3AD0CE;
+	    	}
+	    	.logout i{
+	    		background: #EDB72F;
+	    	}
+	    	.help_me{
+	    		border-bottom: 5px solid #F3F3F3;
+	    	}
+	    </style>
+	</head>
+	<body>
+		<div class="flex-box service">
+			<div class="flex-3 online_service">
+				<i class="ct-icon-news"></i>
+				<span>在线客服</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box service">
+			<div class="flex-3 online_service phone">
+				<i class="ct-icon-call"></i>
+				<span>电话客服</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box service">
+			<div class="flex-3 online_service about_us">
+				<i class="ct-icon-about"></i>
+				<span>关于我们</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box service" onclick="openAdvise();">
+			<div class="flex-3 online_service advise">
+				<i class="ct-icon-complain"></i>
+				<span>投诉建议</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box service help_me">
+			<div class="flex-3 online_service help">
+				<i class="ct-icon-help"></i>
+				<span>帮助及反馈</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box service">
+			<div class="flex-3 online_service vocie">
+				<i class="ct-icon-uninterference"></i>
+				<span>消息免打扰</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		<div class="flex-box service">
+			<div class="flex-3 online_service logout">
+				<i class="ct-icon-logout"></i>
+				<span>退出</span>
+			</div>
+			<div class="flex-1 right_icon">
+				<i class="ct-icon-angle-right"></i>
+			</div>
+		</div>
+		 <script type="text/javascript" src="../script/api.js" ></script>
+    <script>
+    	function openAdvise(){
+    		api.openWin({
+		    name: 'advise_frame',
+		    url: api.wgtRootDir +'/html/window/win_l_advise_submit.html',
+		});
+    	}
+    	</script>
+	</body>
+</html>

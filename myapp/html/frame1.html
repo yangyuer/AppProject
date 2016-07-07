@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <title>端API</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/layout.css" />
+    <script type="text/javascript" src="../script/api.js" ></script>
+    <style>
+.fr div{
+	text-align: center;
+	height: 60px;
+	line-height: 60px;
+	color: #888;
+	font-size: 18px;
+	margin-top: 10px;
+}
+.fr img{
+	width: 40px;
+	margin-top: 10px;		
+}
+.se i{
+	font-size: 32px;
+	position: relative;
+	top: 10px;
+}
+    </style>
+</head>
+<body>
+   <div class="flex-box fr" onclick="opencs()">
+   		<div class="flex-1">
+   			<img src="../image/index_pic1.gif" />
+   		</div>
+   		<div class="flex-2" style="text-align: left;">测试订单</div>
+   		<div class="flex-1 se" style="text-align: right;padding-right: 10px;">
+   			<i class="ct-icon-angle-right"></i>
+   		</div>
+   </div>
+   <div class="flex-box fr" onclick="opengw()">
+   		<div class="flex-1">
+   			<img src="../image/index_pic3.gif" />
+   		</div>
+   		<div class="flex-2" style="text-align: left;">购物订单</div>
+   		<div class="flex-1 se" style="text-align: right;padding-right: 10px;">
+   			<i class="ct-icon-angle-right"></i>
+   		</div>
+   </div>
+   <div class="flex-box fr" onclick="opensc()">
+   		<div class="flex-1">
+   			<img src="../image/index_pic4.gif" />
+   		</div>
+   		<div class="flex-2" style="text-align: left;">产品收藏</div>
+   		<div class="flex-1 se" style="text-align: right;padding-right: 10px;">
+   			<i class="ct-icon-angle-right"></i>
+   		</div>
+   </div>
+   <div class="flex-box fr" onclick="openQy();">
+   		<div class="flex-1">
+   			<img src="../image/index_pic5.gif" />
+   		</div>
+   		<div class="flex-2" style="text-align: left;">企业收藏</div>
+   		<div class="flex-1 se" style="text-align: right;padding-right: 10px;">
+   			<i class="ct-icon-angle-right"></i>
+   		</div>
+   </div>
+   <div class="flex-box fr" onclick="opentx()">
+   		<div class="flex-1">
+   			<img src="../image/index_pic6.gif" />
+   		</div>
+   		<div class="flex-2" style="text-align: left;">订单提醒</div>
+   		<div class="flex-1 se" style="text-align: right;padding-right: 10px;">
+   			<i class="ct-icon-angle-right"></i>
+   		</div>
+   </div>
+   <div class="flex-box fr" onclick="wuliu();">
+   		<div class="flex-1">
+   			<img src="../image/index_pic7.gif" />
+   		</div>
+   		<div class="flex-2" style="text-align: left;">联系物流</div>
+   		<div class="flex-1 se" style="text-align: right;padding-right: 10px;">
+   			<i class="ct-icon-angle-right"></i>
+   		</div>
+   </div>
+</body>
+<script>
+	function opencs(){
+		api.openWin({
+			name:'cesdd',
+			url:api.wgtRootDir+'/html/window/w_my_check_win.html'
+		})
+	}
+	function opensc(){
+		api.openWin({
+			name:'shoucan',
+			url:api.wgtRootDir+'/html/window/w_my_sc_win.html'
+		})
+	}
+	function opengw(){
+		api.openWin({
+			name:'gouwu',
+			url:api.wgtRootDir+'/html/window/w_my_gw_win.html'
+		})
+	}
+	function opentx(){
+		api.openWin({
+			name:'shoucan',
+			url:api.wgtRootDir+'/html/window/win.html',
+			pageParam:{
+				headerTitle:'订单提醒',
+				frameName:'tixing',
+				frameUrl:api.wgtRootDir+'/html/w_dingdan/my_tixing.html'
+			}
+		})
+	}
+	function openQy(){
+		api.openWin({
+			name:'qiyeshouc',
+			url:api.wgtRootDir+'/html/window/w_my_qysc_win.html'
+		});
+	}
+	function wuliu(){
+		api.openWin({
+			name:'qiyeshouc',
+			url:api.wgtRootDir+'/html/window/win_wuliu_choice.html'
+		});
+	}
+</script>
+</html>

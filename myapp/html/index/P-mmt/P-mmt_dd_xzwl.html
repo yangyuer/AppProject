@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>	
+		<title>选择物流</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<style>
+			#main{
+			}
+			.one{
+				margin: 10px;
+			}
+			.one p{
+				border-left: 3px solid #1EB7FE;
+				padding-left: 10px;
+			}
+			.ct-icon-code,.ct-icon-camera,.ct-icon-move,.ct-icon-angle-right{
+				font-size: 30px;
+				position: relative;
+				top: 8px;
+			}
+			.oneradio{
+				text-align: center;
+				margin: 20px 0;
+			}
+			.oneradio span{
+				background-color: #6AA3C7;
+				padding: 10px 80px;
+				border-radius:5px ;
+				color: #fff;
+				font-size: 16px;
+			}
+			.two{
+				text-align: center;
+				margin: 10px ;
+			}
+			.two p{
+				
+			}
+			.two img{
+				width: 50%;
+				margin:50px 0;
+			}
+			.twodss{
+				text-align: left;
+				position: absolute;
+				left: 50%;
+				margin-left: -100px;
+			}
+			.twodss p{
+				line-height: 25px;
+				color: #6C6C6C;
+				padding-right: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="one">
+					<p>已联系，填写快递信息</p>
+					<div class="flex-box" style="margin-top:8px ;">
+						<div class="flex-3" style="">
+							<i class="ct-icon-code"></i>
+							<input type="text" placeholder="请输入快递单号" />
+						</div>
+						<div class="flex-1" style="text-align: right;color: #74AEF6;"><i class="ct-icon-camera"></i></div>
+					</div>
+					
+					<div class="flex-box" style="margin-top:8px ;">
+						<div class="flex-3" style="">
+							<i class="ct-icon-move"></i>
+							<input type="text" placeholder="请输入快递单号" />
+						</div>
+						<div class="flex-1" style="text-align: right;color: #74AEF6;"><i class="ct-icon-angle-right"></i></div>
+					</div>
+					
+					<div class="oneradio">
+						<span>确认提交</span>
+					</div>
+					
+				</div>
+				
+				<div class="two">
+					<p style="text-align: left;border-left: 3px solid #1EB7FE;padding-left: 10px;">未联系，快速联系快递</p>
+					<img src="../../../image/car.png" onclick="openlxwl();" />
+					
+					<div class="twodss">
+						<p>买家收货地址：广东东莞市南城区莞太路111号民间金融大厦</p>
+						<p>收货人：鲁直华</p>
+						<p>电话：13726360615</p>
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js" ></script>
+	<script>
+		function openlxwl(){
+			api.openWin({
+				name: "mmtmydprz",
+				url: api.wgtRootDir + "/html/window/P-win_mmt_mydp_dd_lxwl.html"
+				});
+		}
+	</script>
+</html>

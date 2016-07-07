@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<style>
+.tou{
+	height: 50px;
+	border-bottom: 1px solid #40B5F0;
+}
+.tou div{
+	height: 50px;
+	line-height: 50px;
+}
+.tou div i{
+	font-size: 32px;
+	line-height: 50px;
+}
+select{
+	border: none;
+}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box tou">
+					<div class="flex-1">
+						<i class="ct-icon-angle-left" onclick="api.closeWin()"></i>
+					</div>
+					<div class="flex-3" style="text-align: center;">
+						购物订单
+					</div>
+					<div class="flex-1" style="text-align: right;padding-right: 10px;">
+						<select>
+							<option>全部</option>
+							<option>待支付</option>
+							<option>已付款</option>
+							<option>已发货</option>
+							<option>未确认</option>
+							<option>退款中</option>
+							<option>待评价</option>
+							<option>已完成</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+			
+			headerPos=$api.offset(header);
+			mainPos=$api.offset(main);
+			
+			api.openFrame({
+				name:'gouwu1',
+				url:api.wgtRootDir+"/html/w_dingdan/my_gw.html",
+				rect:{
+					x:0,
+					y:headerPos.h,
+					w:"auto",
+					h:mainPos.h
+				}
+			})
+		}
+	</script>
+</html>

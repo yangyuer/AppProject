@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		 <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>商品列表</title>
+		<link rel="stylesheet" href="../../../css/api.css" />
+		<link rel="stylesheet" href="../../../css/layout.css" />
+		<link rel="stylesheet" href="../../../css/style.css" />
+		<style>
+			.top{
+				border-bottom:1px solid #73B6DA ;
+				line-height: 50px;
+			}
+			.top select{
+				background-color: #fff;
+				border: none;
+				font-size: 16px;
+				outline: none;
+			}
+			.cent img{
+				width: 95%;
+				
+			}
+			.cent .title{
+				font-size:16px ;
+				color: #606060;
+			}
+			.cent p{
+				margin-bottom:8px ;
+				color: #9A9A9A;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			
+			<div class="flex-box top">
+				<div class="flex-1" style="padding-left: 30px;">
+					<select>
+						<option>默认排序</option>
+					</select>
+				</div>
+				<div class="flex-1" style="text-align: right;padding-right: 30px;">
+					<select>
+						<option>全部地区</option>
+					</select>
+				</div>
+			</div>
+			
+			<div class="cent">
+				<div class="flex-box" style="margin-top: 10px;" onclick="openmmtxq();">
+					<div class="flex-1">
+						<img src="../../../image/mmt_wrz_02.png" />
+					</div>
+					<div class="flex-2" style="border-bottom:1px solid #F3F3F3 ;">
+						<p class="title">TLC555QDRQ1【IC OSC SGL TIMER 2.1MHZ 8-SOIC】</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥5.00</span>运费：￥12</p>
+						<p style="text-align: right;padding-right: 10px;">已售1350件<span style="padding-left: 10px;">深圳</span></p>
+					</div>
+				</div>
+				
+				<div class="flex-box" style="margin-top: 10px;" onclick="openmmtxqrz();">
+					<div class="flex-1">
+						<img src="../../../image/mmt_renz_02.png" />
+					</div>
+					<div class="flex-2" style="border-bottom:1px solid #F3F3F3 ;">
+						<p class="title">NE555 NE555DR SOP-8 高精度计时器 多谐振荡器</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥3.90</span>运费：￥12</p>
+						<p style="text-align: right;padding-right: 10px;">已售1350件<span style="padding-left: 10px;">东莞</span></p>
+					</div>
+				</div>
+				
+				<div class="flex-box" style="margin-top: 10px;">
+					<div class="flex-1">
+						<img src="../../../image/mmt_renz_02.png" />
+					</div>
+					<div class="flex-2" style="border-bottom:1px solid #F3F3F3 ;">
+						<p class="title">MC1455DR2G SOP-8 ON安森美热销芯片正品</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span>运费：￥12</p>
+						<p style="text-align: right;padding-right: 10px;">已售1350件<span style="padding-left: 10px;">东莞</span></p>
+					</div>
+				</div>
+				
+				<div class="flex-box" style="margin-top: 10px;">
+					<div class="flex-1">
+						<img src="../../../image/mmt_wrz_02.png" />
+					</div>
+					<div class="flex-2" style="border-bottom:1px solid #F3F3F3 ;">
+						<p class="title">正品 IC 电子元器件 TI 进口 全新原装 SE555P</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span>运费：￥12</p>
+						<p style="text-align: right;padding-right: 10px;">已售1350件<span style="padding-left: 10px;">东莞</span></p>
+					</div>
+				</div>
+				
+				<div class="flex-box" style="margin-top: 10px;">
+					<div class="flex-1">
+						<img src="../../../image/mmt_wrz_02.png" />
+					</div>
+					<div class="flex-2" style="border-bottom:1px solid #F3F3F3 ;">
+						<p class="title">贴片 NE556 NE556D 品双通道时钟定时芯片</p>
+						<p><span style="color: #E82A1A;padding-right: 10px;font-size: 18px;">￥2.00</span>运费：￥12</p>
+						<p style="text-align: right;padding-right: 10px;">已售1350件<span style="padding-left: 10px;">东莞</span></p>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+	</body>
+	<script type="text/javascript" src="../../../script/api.js" ></script>
+	<script>
+		
+		function openmmtxq(){
+			api.openWin({
+				name: "mmtxqwrz",
+				url: api.wgtRootDir + "/html/window/P-win_mmt_list_xq.html"
+			});
+		}
+		
+		function openmmtxqrz(){
+			api.openWin({
+				name: "mmtxqwrz",
+				url: api.wgtRootDir + "/html/window/P-win_mmt_list_xqrz.html"
+			});
+		}
+	</script>
+</html>

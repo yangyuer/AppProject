@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<style>
+			.one div{
+				text-align: center;
+				color: #242D2F;
+			}
+			.two{
+				text-align: center;
+				width: 60px;
+				height: 20px;
+				background-color: #86D8CA;
+				border-radius: 5px;
+				line-height: 20px;
+			}
+			.thr div{
+				text-align: right;
+				height: 40px;
+			}
+			.thr i{
+				font-size: 25px;
+				position: relative;
+				top: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box one">
+			<div class="flex-1" style="text-align: left;padding-left: 10px;">林炽棋</div>
+			<div class="flex-1">137****9956</div>
+			<div class="flex-1" style="text-align: right;padding-right: 10px;">
+				<span class="two">默认</span>
+			</div>
+		</div>
+		<div style="color: #242D2F;padding: 15px 10px 0 10px;line-height: 23px;">
+			广东东莞市南城区三元里社区财津商务大厦1628室-连接科技
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-1" style="padding-right: 10px;">
+				<span onclick="openedit()">
+					<i class="ct-icon-edit2"></i>
+					编辑
+				</span>
+				
+				<i class="ct-icon-delete"></i>
+				删除
+			</div>
+		</div>
+		
+		<div class="flex-box one" style="margin-top: 15px;">
+			<div class="flex-1" style="text-align: left;padding-left: 10px;">卢志华</div>
+			<div class="flex-1">137****9956</div>
+			<div class="flex-1"></div>
+		</div>
+		<div style="color: #242D2F;padding: 15px 10px 0 10px;line-height: 23px;">
+			广东东莞市南城区三元里社区财津商务大厦1628室-连接科技
+		</div>
+		<div class="flex-box thr">
+			<div class="flex-2">
+				<i class="ct-icon-radio_1"></i>
+				设为默认
+			</div>
+			<div class="flex-3" style="padding-right: 10px;">
+				<span onclick="openedit()">
+					<i class="ct-icon-edit2"></i>
+					编辑
+				</span>
+				
+				<i class="ct-icon-delete"></i>
+				删除
+			</div>
+		</div>
+	</body>
+	<script>
+		function openedit(){
+			api.openWin({
+				name:'edit1',
+				url:api.wgtRootDir+'/html/window/win.html',
+				pageParam:{
+					headerTitle:'编辑地址',
+					frameName:'bianji',
+					frameUrl:api.wgtRootDir+'/html/w_dingdan/my_check7.html'
+				}
+			})
+		}
+	</script>
+</html>

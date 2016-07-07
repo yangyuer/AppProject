@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+	    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	    <link rel="stylesheet" href="../../css/layout.css" />
+	    <style>
+	        body{
+	    		background: #F3F3F3;
+	    	}
+	    	.conten_title{
+		      	margin-top: 10px;
+		      	background: #FFFFFF;
+		      	}
+	    	 h2{
+		         font-size: 14px;
+		         color: #474E50;
+		         padding: 15px;
+		      }
+		      p{
+		      	line-height: 20px;
+		      	color: #737373;
+		      	padding: 0 15px;
+		      }
+		      .timer span{
+		      	color: #CACACA;
+		      	padding-top: 15px;
+		      	margin-right: 20px;
+		      	font-size: 12px;
+		 
+		      }
+		      .timer i{
+		      	position: relative;
+		        left: 50%;
+		        margin-left: -130px;
+		      }
+	    </style>
+	</head>
+	<body>
+		<div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>可实现远程测量的二极管功率探头
+</h2>
+    		<p>功率探头组合在一起。在功率探头中射频信号被转换成 电压信号，经过放大、数字化之后，在主机中显示••••
+</p>
+    		<p class="timer"><span>用户：非凡半导体</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>仅一颗磁性传感器，即可实现高精度3D感测</h2>
+    		<p>英飞凌科技股份公司今日宣布推出其3D磁性传感器 TLV493D-A1B6,该传感器采用小巧的6脚TS0P封装…•
+</p>
+    		<p class="timer"><span>用户：非凡半导体</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+     <div class="flex-box conten_title">
+    	<div class="flex-1">
+    		<h2>一款能增强你听觉享受的革命性音频芯片</h2>
+    		<p>推动高能效创新的安森美半导体(ON Semi conductor)宣 布已与Studio One Media Inc.的子公司AfteMast....
+</p>
+    		<p class="timer"><span>用户：非凡半导体</span>2015-04-21 15:12<i class="ct-icon-news">(18)</i></p>
+    	</div>
+    </div>
+    <!--测试中-->
+    
+     <style>
+    	#anniu{
+    		width: 200px;
+    		height: 200px;
+    		background: url(../../image/btn_bg.png) no-repeat;
+    		position: fixed;
+    		top: 400px;
+    		right: -100px;
+    		z-index: 33;
+    	}
+    	
+    	#nav{
+    		width: 180px;
+    		height: 120px;
+    		line-height: 40px;
+    		margin-top: 10px;
+    		text-align: center;
+    		position: fixed;
+    		background: #FFFFFF;
+    		z-index: 9999;
+    		left: 50%;
+    		top: 50%;
+    		display: none;
+    		margin-left: -100px;
+    	}
+ 
+    	 #shadow{
+            position: fixed;
+            opacity: 0.5;
+            filter:alpha(opacity=50);
+            bottom:0;
+            left: 0;
+            right: 0;
+            top: 0;
+            background:black;
+            z-index: 100;
+           display: none;
+        }
+    </style>
+   
+    		<div id="anniu">
+    		  
+    		</div>
+    		<div id="nav">
+    			<div style="border-bottom: 1px solid#707171;">发布方案分享</div>
+    			<div style="border-bottom: 1px solid#707171;">发布生产服务</div>
+    			<div>发布优化替代</div>
+    		</div>
+    <div id="shadow"></div>
+  <script>
+    window.onload=function(){
+    		var btn=document.getElementById("anniu");
+		  	var nav=document.getElementById("nav");
+		  	var oshadow=document.getElementById('shadow');
+		  	 btn.onclick=function(){
+		  		nav.style.display='block';
+		  		oshadow.style.display='block';
+		  	}
+		  	 
+		  oshadow.onclick=function(){
+		  	nav.style.display="none";
+		  	oshadow.style.display="none";
+		  }
+    }
+  
+  </script>  	
+    
+    
+    
+    
+    
+    <!--测试中-->
+	</body>
+</html>
