@@ -73,10 +73,19 @@
 		</div><div class="flex-box count">
 			需支付总价：<span>50.00</span>元
 		</div>
-		<div class="flex-box pay_now">
+		<div class="flex-box pay_now" onclick="openPay();">
 			<div class="flex-1">
 				确认付款
 			</div>
 		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+		<script>
+			function openPay(){
+				api.openWin({
+					name:'pay_frame',
+					url:api.wgtRootDir+'/html/window/win_l_pay_sucess.html'
+				});
+			}
+		</script>
 	</body>
 </html>

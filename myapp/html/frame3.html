@@ -149,7 +149,7 @@
 			<i class="ct-icon-angle-right"></i>
 		</div>
 	</div>
-	<div class="flex-box about_person_info">
+	<div class="flex-box about_person_info" onclick="openMessage();">
 		<div class="flex-3">
 			<img src="../image/index_me2.gif"  />
 			消息记录
@@ -176,7 +176,7 @@
 			<i class="ct-icon-angle-right"></i>
 		</div>
 	</div>
-	<div class="flex-box about_person_info">
+	<div class="flex-box about_person_info" onclick="myCommit();">
 		<div class="flex-3">
 			<img src="../image/index_me3.gif"  />
 			我的评论
@@ -312,6 +312,23 @@
 		        url: api.wgtRootDir +'/html/window/win_l_fund_record.html',
 		     });
 	     }
+	     function openMessage(){
+	     		api.openWin({
+				name: 'message_frame',
+		        url: api.wgtRootDir +'/html/window/win_l_message.html',
+		     });
+	     }
+	     function myCommit(){
+    		api.openWin({
+		    name: 'my_commit_frame',
+		    url: api.wgtRootDir +'/html/window/win.html',
+		    pageParam:{
+		    	headerTitle:'我的评论',
+		    	frameName:'pinglun',
+		    	frameUrl:api.wgtRootDir+'/html/l_person_set/l_my_commit.html'
+		    }
+		});
+    	}
 	</script>
 	
 		
