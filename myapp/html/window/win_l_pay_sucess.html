@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/api.css" />
+	</head>
+	<style>
+		     #header{
+		     	height: 50px;
+		     	line-height: 50px;
+		     	border-bottom: 1px solid #007AFF;
+		     }
+			.userinfo{
+				text-align: center;
+			}
+		</style>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="flex-box userinfo">
+					<div class="flex-1">
+						支付成功
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+		<script type="text/javascript" src="../../script/api.js" ></script>
+	<script>
+		apiready=function(){
+			var header=$api.byId("header");
+			$api.fixIos7Bar(header);
+			$api.fixStatusBar(header);
+			var main=$api.byId("main");
+				headerPos=$api.offset(header);
+				mainPos=$api.offset(main);
+				
+			api.openFrame({
+				name: "pay_sucess",
+				url: api.wgtRootDir + "/html/l_person_set/l_pay_sucess.html",
+				rect:{
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});
+		}
+		</script>
+	</body>
+</html>

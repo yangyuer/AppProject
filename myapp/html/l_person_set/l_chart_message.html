@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" href="../../css/layout.css" />
+		<link rel="stylesheet" href="../../css/api.css" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			.touxiang div img{
+				width: 100%;
+				height: auto;
+			}
+			.content{
+				font-size: 12px;
+				color: #BFBFBF;
+				margin-top: 15px;
+			}
+			.time{
+				color: #BFBFBF;
+				font-size: 12px;
+				padding-top: 10px;
+			}
+			.name{
+				margin-top: 5px;
+			}
+			.message{
+				padding-left: 10px;
+			}
+			.count{
+				height: 15px;
+				width: 15px;
+				text-align: center;
+				background: #FF440A;
+				border-radius: 50%;
+				color: #FFFFFF;
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="flex-box touxiang" style="margin-top: 10px;">
+			<div class="flex-1">
+				<img src="../../image/test_touxiang.png" />
+				<span class="count">1</span>
+			</div>
+			<div class="flex-3 message">
+				<p class="name">韩千叶</p>
+				<p class="content">hey~ 我是xx公司这边的，你...</p>
+			</div>
+			<div class="flex-1 time">
+				<span>今天10:40</span>
+			</div>
+		</div>
+		<div class="flex-box touxiang">
+			<div class="flex-1">
+				<img src="../../image/test_touxiang.png" />
+				<span class="count">1</span>
+			</div>
+			<div class="flex-3 message">
+				<p class="name">韩千叶</p>
+				<p class="content">hey~ 我是xx公司这边的，你...</p>
+			</div>
+			<div class="flex-1 time">
+				<span>今天10:40</span>
+			</div>
+		</div>
+		<div class="flex-box touxiang">
+			<div class="flex-1">
+				<img src="../../image/test_touxiang.png" />
+				<span class="count">1</span>
+			</div>
+			<div class="flex-3 message">
+				<p class="name">韩千叶</p>
+				<p class="content">hey~ 我是xx公司这边的，你...</p>
+			</div>
+			<div class="flex-1 time">
+				<span>今天10:40</span>
+			</div>
+		</div>
+		<div class="flex-box touxiang">
+			<div class="flex-1">
+				<img src="../../image/test_touxiang.png" />
+				<span class="count">1</span>
+			</div>
+			<div class="flex-3 message">
+				<p class="name">韩千叶</p>
+				<p class="content">hey~ 我是xx公司这边的，你...</p>
+			</div>
+			<div class="flex-1 time">
+				<span>今天10:40</span>
+			</div>
+		</div>
+		<div class="flex-box touxiang">
+			<div class="flex-1">
+				<img src="../../image/test_touxiang.png" />
+				<span class="count">1</span>
+			</div>
+			<div class="flex-3 message">
+				<p class="name">韩千叶</p>
+				<p class="content">hey~ 我是xx公司这边的，你...</p>
+			</div>
+			<div class="flex-1 time">
+				<span>今天10:40</span>
+			</div>
+		</div>
+		<script>
+		window.onload=function(){
+		var span=document.getElementsByClassName("count");
+			
+			var img=document.getElementsByTagName("img");
+			var imgWidth;
+			var imgHeight;
+			for(var i=0;i<img.length;i++){
+				imgWidth=img[i].offsetWidth-12+"px";
+				imgHeight=img[i].offsetHeight+8+"px";
+				
+			}
+		   for(var j=0;j<span.length;j++){
+				
+				span[j].style.left=imgWidth;
+			    span[j].style.top="-"+imgHeight;
+			}
+		}
+			
+			
+		</script>
+	</body>
+</html>
