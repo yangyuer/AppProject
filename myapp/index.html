@@ -40,7 +40,7 @@
             		</div>
             		<div class="flex-1" style="color: #48b4ff;">登陆</div>
             		
-            		<div class="flex-1" style="text-align: right; padding-right: 5px;">
+            		<div class="flex-1" style="text-align: right; padding-right: 5px;" onclick="search();">
             			<i class="ct-icon-search"></i>
             			搜索
             		</div>
@@ -143,5 +143,16 @@
 		    name: 'sns_frame1',
 		    url: api.wgtRootDir +'/html/window/win_l_sns_comment.html',
 		});
+    	}
+    	function search(){
+    		api.openWin({
+    			name: 'search',
+    			url: api.wgtRootDir+'/html/window/win.html',
+    			pageParam:{
+    				headerTitle:'搜索',
+    				frameName: 'search_service',
+    				frameUrl: api.wgtRootDir+'/html/index/l_search.html'
+    			}
+    		});
     	}
 </script>

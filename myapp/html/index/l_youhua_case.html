@@ -7,7 +7,7 @@
 		<title></title>
 		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
 	    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
-	    <link rel="stylesheet" type="text/css" href="../css..//style.css"/>
+	   <link rel="stylesheet" href="../../css/style.css" />
 	    <link rel="stylesheet" href="../../css/layout.css" />
 	    <link rel="stylesheet" href="../../css/swiper.min.css" />
 	    <script type="text/javascript" src="../../script/swiper.min.js" ></script>
@@ -157,7 +157,7 @@
     		<div id="nav">
     			<div style="border-bottom: 1px solid#707171;">发布方案分享</div>
     			<div style="border-bottom: 1px solid#707171;">发布生产服务</div>
-    			<div>发布优化替代</div>
+    			<div onclick="submitContent();">发布优化替代</div>
     		</div>
     <div id="shadow"></div>
   <script>
@@ -175,7 +175,17 @@
 		  	oshadow.style.display="none";
 		  }
     }
-  
+    function submitContent(){
+    		api.openWin({
+		    name: 'my_commit_frame',
+		    url: api.wgtRootDir +'/html/window/win.html',
+		    pageParam:{
+		    	headerTitle:'发布|领工资',
+		    	frameName:'fabu123',
+		    	frameUrl:api.wgtRootDir+'/html/index/l_youhua_submit.html'
+		    }
+		});
+    	}
   </script>  	
     	
     	
