@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .header_log{
+     
+
+       	background-color: #fff;
+       	
+       }
+      .img_logo{
+      	 background: url(../../image/measure_list.png) no-repeat scroll center center / cover;
+      	 width: 80px;
+      	 height: 80px;
+      	 margin: 10px 10px;
+      }
+      .shop_title{
+      	color: #000;
+      	font-size: 0.9em;
+      	margin-top: 10px;
+      }
+      .shop_img{
+      	line-height: 45px;
+      }
+      .dianpu{
+      color:#5f5f5f;
+
+      }
+      .log_two{
+      	text-align: right;
+      }
+      .shop_dizhi{
+      	margin-top: 50px;
+      	font-size: 1em;
+      }
+      .log_two p{
+      	margin-right: 5px;
+      	
+      }
+       .measure_view {
+       background-color: #F8F8F8;
+       	position: relative;
+       	padding: 5px 5px 0 5px;
+       }
+       .measure_view_left,
+       .measure_view_right
+       {
+       	background-color: #fff;
+       	margin: 5px 5px 0 5px;
+       }
+       .img {
+       	background: no-repeat;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       }
+       .img-frm{
+       	background: url(../../image/measure_list.png) no-repeat center;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       	position: relative;
+       	margin-left: -60px;
+       	left: 50%;
+       }
+       	#main, .main{
+       		padding-bottom: 90px;
+       	}
+
+       .measur_font{
+       		font-size: 0.8em;
+       		color: #777575;
+       		padding: 0 .8em;
+       		word-break: break-word;
+       		line-height: 20px;
+       		height: 40px;
+       	}
+       	.yuan{
+       		color: red;
+       		text-align: center;
+       		line-height: 25px;
+       		font-weight: 600;
+       		font-size: 1em;
+       	}
+       .ct-icon-square-check{
+       	text-align: center;
+       	margin-bottom: 5px;
+       	font-size: 1.2em;
+       	color:#40b5f0;
+       }
+       .shop_checkbox{
+       	text-align: center;
+       	font-size: 1em;
+       }
+       .ct-icon-square-uncheck{
+       	color: #999;
+       }
+     input[type=checkbox].ace-switch+.lbl {
+	position: relative
+		}
+		input[type=checkbox].ace-switch, input[type=radio].ace-switch {
+			opacity: 0;
+			position: absolute;
+			z-index: 12;
+			
+		}
+		input[type=checkbox].ace-switch+.lbl::before {
+			
+			content: "已下架";
+			border:1px solid #e2e2e2;
+			font-weight:normal;
+			font-size: 14px;
+			border-radius: 30px;
+			display: inline-block;
+			background-color: #FFF;
+			color: #f2f2f2;
+			width: 80px;
+			height: 30px;
+			line-height: 30px;
+			text-indent:30px;
+			color:#999;
+			-webkit-transition: background .1s ease;
+			transition: background .1s ease
+		}
+		input[type=checkbox].ace-switch:checked+.lbl::before {
+			content: "已上架";
+			text-indent:5px;
+			color: #FFF;
+			border-color: #4baddf;
+			background-color: #4baddf;
+		}
+		/*.shangjia{
+			content: "已上架";
+			text-indent:5px;
+			color: #FFF;
+			border-color: #4baddf;
+			background-color: #4baddf;
+		}*/
+		input[type=checkbox].ace-switch+.lbl::after {
+			content: '';
+			position: absolute;
+			top: 4px;
+			left: 2px;
+			border-radius: 50%;
+			width: 22px;
+			height: 22px;	
+			background-color: #6d6e76;
+			border: 1px solid #e2e2e2;
+			-webkit-transition: left .2s ease;
+			transition: left .2s ease
+		}
+		input[type=checkbox].ace-switch:checked+.lbl::after {
+			left: 50px;
+			background-color: #FFF;
+			
+		}
+		label{
+			position: relative;
+			left:50%;
+			margin-left: -40px;
+			padding-bottom:10px ;
+		}
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			 <div id="main">
+			 	
+			 	
+			 	
+			 	<div style="background-color:#F8F8F8">
+					<div class="measure-list ">
+						<div class="flex-box measure_view">
+							<div class="measure_view_left">
+								<div class="img-frm">
+									<div class="img"></div>
+								</div>
+				
+								<div class="measur_font">
+									采用V93000系列dd集成电d路测试系统
+								</div>
+								<p class="yuan">￥5.00</p>
+								<label>
+									<input name="" class="ace-switch ace-switch-6" type="checkbox">
+									<span class="lbl"></span>
+								</label>
+							</div>
+							<div class="measure_view_right">
+								<div class="img-frm">
+									<div class="img"></div>
+								</div>
+								<div class="measur_font">
+									采用V93000系列集d成dd电路测试系统d
+								</div>
+								<p class="yuan">￥2.00</p>
+								<label>
+									<input name="" class="ace-switch ace-switch-6" type="checkbox">
+									<span class="lbl"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~it :value:index}}
+				{{? index%2==0 }}
+					<div class="measure-list" onclick="SingleListDetail({{= value.id}})">
+						<div class="flex-box measure_view">
+							<div style="width:{{= (api.frameWidth-30)/2 }}px;background-color: ;" tapmode="" class=" measure_view_left">
+								<div class="img-frm" >
+									<div class="img" data-echo-background="{{= value.cover }}"></div>
+								</div>
+								<div class="measur_font">
+									{{= value.title  }}
+								</div>
+								<p class="yuan">￥{{= value.price }}</p>
+								<label>
+									<input name="" class="ace-switch ace-switch-6" type="checkbox">
+									<span class="lbl"></span>
+								</label>
+							</div>
+							{{? index+1<it.length }}
+							<div class="measure_view_right" style="width:{{= (api.frameWidth-30)/2 }}px;background-color: ;">
+								<div class="img-frm">
+									<div class="img" data-echo-background="{{= it[index+1].cover }}"></div>
+								</div>
+								<div class="measur_font">
+									{{= it[index+1].title  }}
+								</div>
+								<p class="yuan">￥{{= it[index+1].price }}</p>
+								<label>
+									<input name="" class="ace-switch ace-switch-6" type="checkbox">
+									<span class="lbl"></span>
+								</label>
+							</div>
+							{{?}}
+						</div>
+					</div>	
+				{{?}}
+			{{~}}	
+		{{ }else{ }}
+		  <div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>
+		{{ } }}
+		</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+	function reload(shopid){
+		tool.ajax.get({
+				ctrl:"Shop",
+				fn:"shopGoodsUpDownList",
+				hideLoading:true,
+				data:{
+					values:{
+						id:$api.getStorage('memberId'),
+		  		  token:$api.getStorage('token'),
+		  		  shopid:shopid
+					}
+				}
+			},function (ct){
+				 $api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				 echo.init();
+				 api.parseTapmode();
+			});
+		}
+		apiready = function(){
+//			alert(api.pageParam.shopid);
+			reload(api.pageParam.shopid);
+		}
+	</script>
+</html> 

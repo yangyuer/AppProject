@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<title>Document</title>
+		<style type="text/css">
+			body,
+			#main > .list-view{
+				background-color: #F8F8F8;
+			}
+			.list-view{
+				min-height: 60px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				/*padding-left: 10px;*/
+			}
+			.img-frm,
+			.img{
+				background: transparent url(../../res/loading.png) no-repeat center;
+				background-size: cover;
+			}
+			.img-frm{
+				height: 100%;
+				width: 90px;
+			}
+			.img{
+				height: 100%;
+				width: 100%;
+			}
+			.list-view .title{
+				margin-bottom: 5px;
+			}
+			.flex-center-v{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}			
+			.datetime,
+			.comment{
+				font-size: 13px;
+				color: #aaa;
+			}
+			.title{
+				font-size: 14px;
+				line-height: 1.4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="title">
+							您的账户中有一张优惠码未使用 ，请前往使用。
+						</div>
+						<div class="flex-box">
+							<div class="datetime flex-1">
+								2015-04-09
+								&nbsp;
+								10:12:50
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		{{ if(it instanceof Array && it.length!=0){ }}	
+			{{~ it :value:index }}
+				<div class="list-view flex-box"  tapmode="">
+					<!--<div class="img-frm">
+						<div class="img" img-cache="{{= value.banner }}" data-echo-background="{{= value.banner }}"></div>
+					</div>-->
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="title text-overflow">{{= value.content }}</div>
+						<div class="flex-box">
+							<div class="datetime flex-1">{{= formatDateByRequire(value.datetime, '-') }}</div>
+							<!--<div class="comment flex-1 text-right">{{= value.comment||0 }}评论</div>-->
+						</div>
+					</div>
+				</div>
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>
+		{{ } }}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+		function reload(){
+			tool.ajax.get({
+				ctrl: 'Order',
+				fn:'orderRemind',
+				data:{
+					values:{
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token')
+					}
+				}
+			},function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});
+		}
+		apiready = function() {
+			reload();
+			Refresh.init({
+				ctrl: 'Order',
+				fn: 'orderRemind'
+			});
+		}
+	</script>
+
+</html>

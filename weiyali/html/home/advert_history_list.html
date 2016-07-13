@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+       body {
+       	min-width: 320px;
+       }
+       #main{
+       	padding: 0 10px;
+       }
+       .swipe-wrap .img {
+       	height: 120px;
+       	background-image: url(../../res/loading_1080x300.png);
+       }
+       .mech_main {
+       	margin: auto;
+       	background-color: #fff;
+       	padding: 10px;
+       }
+       .mech_img {
+       	background: url(../../image/banner_temporary.png) no-repeat center;
+       	background-size: cover;
+       	height: 200px;
+       	position: relative;
+       }
+       .mech_title {
+       	height: 35px;
+       	width: 100%;
+       	line-height: 35px;
+       	position: absolute;
+       	bottom: 0px;
+       	color: #fff;
+       	text-align: center;
+       	background-color: rgba(0, 0, 0, 0.5);
+       }
+       .mech_center {
+       	line-height: 35px;
+       	background-color: #eeeeed;
+       	margin: auto;
+       	text-align: center;
+       	font-size: 0.9em;
+       }
+  	</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+      <div id="main" >
+        <div class="mech_main hidden ">
+        	<div class="img-frm ">
+        		<div class="mech_img">
+        			<div class="mech_title">center testing international</div>
+        		</div>
+        		<div class="mech_center">深圳市华测检测技术</div>
+        	</div>
+        </div>
+      </div>
+		</div>
+	</body>
+	
+	<script type="text/template" template='main'>
+   <div style="background-color:#F8F8F8">
+			{{ if(it instanceof Array && it.length!=0){ }}
+				{{~ it :value:index }}
+					<div class="mech_main " onclick="openadverDetail({{= value.id }})" tapmode="">
+	        	<div class="img-frm ">
+	        		<div class="mech_img" data-echo-background="{{= value.banner }}">
+	        			<div class="mech_title">{{= value.title}}</div>
+	        		</div>
+	        	</div>
+	        </div>
+				{{~}}
+			{{ }else{ }}
+				<div class="null flex-box">
+					<div class="flex-1">
+						暂无相关内容~
+					</div>
+				</div>
+			{{ } }}
+		</div>	
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+    function openadverDetail(id){
+    	api.openWin({
+				name: 'adcerDetail',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '威雅利',
+					frameName: '_adver_detail',
+					frameUrl: api.wgtRootDir + '/html/home/history_adver_detail.html',
+					hasFrameParam: true,
+					frameParam: {
+						id: id
+					}
+				},
+				bounces: false
+			});	
+    }
+	  function reload(){
+	  	tool.ajax.get({
+				ctrl: "Index",
+				fn: "adverHistorytList",
+				hideLoading:true,
+			},function(ct){
+				 $api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				 echo.init();
+				 api.parseTapmode();
+			});
+	  }
+		apiready = function(){
+			reload();
+			Refresh.init({
+				ctrl: 'Index',
+				fn: 'adverHistorytList',
+			});
+		}
+	</script>
+</html> 

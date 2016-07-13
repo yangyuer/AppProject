@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+      .order_test{
+      	margin-top: 8px;
+      
+      	background-color: #fff;
+      }
+      .order_one{
+      	height: 40px;
+      	width: 92%;
+      	position: relative;
+      	border-bottom: 1px solid #eae9e9;
+      	margin: auto;
+      	line-height: 40px;
+      }
+    
+      .ct-icon-box2{
+	     position: relative;
+	     top:2px;
+      }
+      .ct-icon-angle-right{
+      	position: relative;
+      	top:1px;
+      	left: 5px;
+      	color: #999;
+      }
+      .yangping{
+      	font-size: 0.8em;
+      	color: #00ABFD;
+      	position: absolute;
+      	right:2px;
+      }
+      .order_two{
+      	width: 92%;
+      	height: 80px;
+      	margin: auto;
+      	border-bottom: 1px solid #eae9e9;
+      }
+      .order_img{
+      	 background: url(../../image/measure_list.png) no-repeat scroll center center / cover;
+      	 width: 60px;
+      	 height: 60px;
+      	 background-size: 100%;
+      	 margin-top: 10px;
+      	 margin-left: 5px;
+      }
+      .order_title{
+      	margin-top: 20px;
+      	font-size: 0.9em;
+      }
+      .order_num{
+      	text-align: right;
+      	margin-right: 2px;
+      	margin-top: 20px;
+      }
+      .order_moble{
+      	height: 40px;
+      	width: 92%;
+      	margin: auto;
+      	text-align: right;
+      	line-height: 40px;
+      	color: #999;
+      	border-bottom: 1px solid #eae9e9;
+      	font-size: 0.8em;
+      }
+      .order_moble span{
+      	color: #999;
+      	
+      }
+      .submint_order{
+      	padding: 5px 0 5px;
+      	/*height: 55px;*/
+      	position: relative;
+      	justify-content: flex-end;
+      	-webkit-justify-content: flex-end;
+      	-webkit-box-pack: end;
+      }
+      .submint_order > .btn{
+      	margin-right: 5px;
+      }
+      .chakan_wuliu{
+      	padding-right: 5px;
+      	padding-left: 5px;
+      	height: 28px;
+      	line-height: 28px;
+      	font-size: 0.8em;
+      	color: #5b5959;
+      	position: absolute;
+      	right: 10px;
+      	border-radius: 4px;
+      	margin-top: 10px;
+      	border:1px solid #cacaca;
+      }
+      .chakan_baogao{
+      	padding-right: 5px;
+      	padding-left: 5px;
+      	height: 28px;
+      	line-height: 28px;
+      	font-size: 0.8em;
+      	color: #fff;
+      	position: absolute;
+      	right: 10px;
+      	border-radius: 4px;
+      	margin-top: 10px;
+      	background-color: #00ABFD;
+      	
+      }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<!--<div class="null flex-box">
+					<div class="flex-1">
+						加载中...
+					</div>
+				</div>				-->
+			   <div class="order_test hidden">
+			   	<div class="flex-box order_one">
+			   		<div class="">
+			   			<span class="ct-icon-box2"></span>
+			   			<span style="font-size: 0.8em;">单号：4312584312584312</span>
+			   			<span class="ct-icon-angle-right"></span>
+			   		</div>
+			   		<div class="yangping">样品检测中</div>
+			   	</div>
+			   	<div class="flex-box order_two">
+			   		<div class="flex-1 img-frm">
+			   		  <div class=" order_img"></div>
+			   		</div>
+			   		<div class="flex-2 order_title">半导体分立器件测试</div>
+			   		<div class="flex-1 order_num">
+			   			<p style="color:#000;line-height: 20px;">280</p>
+			   			<p>x1</p>
+			   		</div>
+			   	</div>
+			   	<div class="order_moble">共<span>1</span>个测试 &nbsp;实付：<span style="font-size: 1.2em; color:#000;">￥280.00</span></div>
+			   	<div class="flex-box submint_order">
+			   		<div class="btn btn-default btn-sm">查看物流</div>
+			   		<div class="btn btn-info btn-sm">发布报告</div>
+			   	</div>
+			   </div>
+
+			</div>
+		</div>
+	</body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/template" template="main">
+	
+		
+		
+		<div style="background-color:#F8F8F8">
+			{{ if(it instanceof Array && it.length!=0){ }}
+				{{~it :value:index}}
+				   <div class="order_test">
+				   	<div class="flex-box order_one">
+				   		<div class="">
+				   			<span class="ct-icon-box2" ></span>
+				   			<span style="font-size: 0.8em;">单号：{{= value.goodsorderno }}</span>
+				   			<span class="ct-icon-angle-right"></span>
+				   		</div>
+				   		<div class="yangping">
+				   			
+					   		{{? value.state == '1' }}
+					   			等待买家支付
+					   		{{?? value.state == '2' }}
+						   		买家已付款
+					   		{{?? value.state == '3' }}
+					   			等待买家发货
+					   		{{?? value.state == '4' }}
+					   			退款中
+					   		{{?? value.state == '5' }}
+					   			完成
+					   		{{?? value.state == '6' }}
+					   			已取消
+					   		{{?}}			   			
+				   		</div>
+				   	</div>
+				   	{{ for(var i=0;i<value.Goodsorderdetail.length;i++){ }}
+				   	<div class="flex-box order_two">
+				   		<div class="flex-1 img-frm">
+				   		  <div class=" order_img" style="background-image: url({{= value.Goodsorderdetail[i].cover }});"></div>
+				   		</div>
+				   		<div class="flex-2 order_title">{{= value.Goodsorderdetail[i].title }}</div>
+				   		<div class="flex-1 order_num">
+				   			<p style="color:#000;line-height: 20px;">{{= value.Goodsorderdetail[i].price }}</p>
+				   			<p>x{{= value.Goodsorderdetail[i].num }}</p>
+				   		</div>
+				   	</div>
+				   	{{ } }}
+				   	<div class="order_moble">共<span>{{= value.Goodsorderdetail.length }}</span>个测试 &nbsp;实付：<span style="font-size: 1.2em; color:#000;">￥{{= value.money }}</span></div>
+				   	<div class="flex-box submint_order">
+				   	  	{{? value.state == '0' }}
+				   			<div class="btn btn-default btn-sm">取消订单</div>
+					   		
+				   		 {{?? value.state == '1' }}
+					   		<div class="btn btn-default btn-sm">取消订单</div>
+					   		<div class="btn btn-info btn-sm">确认发货</div>
+					   		{{?? value.state == '2' }}
+					   		<div class="btn btn-default btn-sm">查看物流</div>
+				   		 {{?? value.state == '3' }}
+				   		 <div class="btn btn-default btn-sm">取消退款</div>
+				   			<div class="btn btn-info btn-sm">同意退款</div>
+				   			{{?? value.state == '4' }}
+				   			<div class="btn btn-default btn-sm">删除订单</div>
+					   		<div class="btn btn-default btn-sm">查看物流</div>
+				   		{{?? value.state == '5' }}
+				   			<div class="btn btn-default btn-sm">删除订单</div>
+				   		{{?}}
+				   	</div>
+				   </div>
+				{{~}}
+			 {{ }else{ }}
+				<div class="null flex-box">
+					<div class="flex-1">
+						暂无相关内容~
+					</div>
+				</div>		 	
+			 {{ } }}
+		 </div>
+	</script>	
+	<script type="text/javascript">
+		function reload(state){
+//			alert(state);
+			tool.ajax.get({
+				ctrl: 'Shop',
+				fn: 'shopOrderList',
+				hideLoading:true,
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						state: state
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});			
+		}
+//		//评价订单
+//		function openOrderEvaluation(orderid){
+//			api.openWin({
+//				name:'orderEvaluation',
+//				url: api.wgtRootDir + '/html/window/win.html',
+//					pageParam: {
+//						headerTitle: '评价订单',
+//						frameName: 'order_evaluation',
+//						frameUrl: api.wgtRootDir + '/html/order/evaluation_order.html',
+//						hasFrameParam: true,
+//						frameParam: {
+//							orderid: orderid
+//						}
+//					},
+//					bounces: false
+//			});
+//		}
+//		//订单详情
+//		function orderTestDetail(orderid){
+//			api.openWin({
+//				name:'orderTestDetails',
+//				url: api.wgtRootDir + '/html/window/win.html',
+//					pageParam: {
+//						headerTitle: '订单详情',
+//						frameName: 'order_test_detail',
+//						frameUrl: api.wgtRootDir + '/html/order/test_order_detail.html',
+//						hasFrameParam: true,
+//						frameParam: {
+//							orderid: orderid
+//						}
+//					},
+//					bounces: false
+//			});
+//		}
+//		//发送报告
+//		function openSendReport(tid){
+//			api.openWin({
+//				name:'sendReport',
+//				url: api.wgtRootDir + '/html/window/win.html',
+//					pageParam: {
+//						headerTitle: '发送报告',
+//						frameName: 'send_report',
+//						frameUrl: api.wgtRootDir + '/html/order/send_report_list.html',
+//					  hasFrameParam: true,
+//						frameParam: {
+//							tid: tid
+//						}
+//					},
+//					bounces: false
+//			});
+//		}
+		apiready = function(){
+			reload(api.pageParam.state);
+//			Refresh.init({
+//				ctrl: 'Shop',
+//				fn: 'shopOrderList',
+//				values: {
+//					id: $api.getStorage('memberId'),
+//						token: $api.getStorage('token'),
+//						state: api.pageParam.state
+//				}
+//			});
+		}
+	</script>
+</html> 
+

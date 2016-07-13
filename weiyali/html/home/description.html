@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			
+			.title{
+				color: #B3A69A;
+				line-height: 50px;
+				margin: 0;
+				/*background-color: red;*/
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.comment-num,
+			.read-num{
+				font-size: 12px;
+				padding: 5px 8px;
+				color: #fff;
+				line-height: 1;
+				border-radius: 4px;
+				margin-right: 5px;
+			}
+			.comment-num{
+				background-color: #40B5F0;
+			}
+			.read-num{
+				background-color: #B3A69A;
+				margin-right: 5px;
+			}
+			.comment-num::after{
+				content: ' 评价';
+			}
+			.read-num::after{
+				content: ' 浏览';
+			}
+			/*frame*/
+			#main{
+				padding: 10px 12px;
+			}
+			.l::before{
+				content: 'c';
+				display: inline-block;
+				color: transparent;
+				width: 5px;
+				top: 5px;
+				margin-right: 5px;
+				background-color: #36B1EF;
+			}
+			header{
+				position: relative;
+				padding-left: 15px;
+				line-height: 30px;
+				/*height: 30px;*/
+				margin-top: 10px;
+			}
+			header span{
+				font-size: 14px;
+				padding-left: 6px;
+			}
+			.z dd::before{
+				content: 'c';
+				display: inline-block;
+				color: transparent;
+				width: 5px;
+				height: 30px;
+				top: 5px;
+				margin-right: 10px;
+				background-color: #36B1EF;
+			}
+			.datetime{
+				color: #B2B3B4;
+				margin-bottom: 20px;
+				margin-top: 0;
+			}
+			p{
+				font-size: 14px;
+				line-height: 1.5;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+					<p class="hidden">
+						以前，功率计都是由功率计主机和经电缆连接的外部功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示。这样的优点是可以为当前的任务选择合适的功率探头，而不需要更换功率主机，不足之处是功率探头不能独立工作，没有主机就无法使用。
+					</p>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<p>
+			{{= it||'无相关内容' }}
+		</p>	
+	</script>
+	<script type="text/template" template="header">
+		<div class="topbar flex-box">
+			<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+			<h4 class="flex-1 title text-center">详情</h4>
+			<div class="text-right" style="position: absolute;right:10px;top:0">
+				<span class="comment-num" onclick="openEnterpriseTenderComment({{= it.id }})" tapmode="">{{= it.count||0 }}</span>
+				{{ if($api.getStorage('memberInfo').tendercollection.indexOf(it.id.toString())>=0){ }}
+					<span class="ct-icon-star_select" onclick="tenderCollect({{= it.tendertype_id }}, {{= it.id }}, this)" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+				{{ }else{ }}
+					<span class="ct-icon-star" onclick="tenderCollect({{= it.tendertype_id }}, {{= it.id }}, this)" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+				{{ } }}						
+			</div>
+		</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function reload(type, id){
+			tool.ajax.get({
+				ctrl: 'Test',
+				fn: 'getDescription',
+				hideLoading:true,
+				showError: true,
+				data: {
+					values: {
+						type: type,
+						id: id
+					}
+				}
+			}, function(ct){
+				mt('#main', 'main', ct);
+			});	
+		}
+		apiready = function(){
+//				alert(JSON.stringify(data))
+			var param = api.pageParam;
+			reload(param.type, param.id);
+		};
+	</script>
+</html>

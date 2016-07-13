@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>提交测试订单</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+			.steps{
+				padding: 20px 20px 40px 20px;
+				border-bottom: 1px solid #ddd;
+			}
+			.sp-title{
+				font-size: 12px;
+				color: #999;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			.sp-num{
+				margin-top: 10px;
+				height: 5px;
+				background-color: #ECECEC;
+				position: relative;
+			}
+			.sp-num::before{
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				text-align: center;
+				color: #B5B5B5;
+				background-color: #ECECEC;
+				border-radius: 50%;
+				position: relative;
+				top: -8px;
+			}
+			.sp:nth-child(1) .sp-num::before{
+				content: '1';
+			}
+			.sp:nth-child(2) .sp-num::before{
+				content: '2';
+			}
+			.sp:nth-child(3) .sp-num::before{
+				content: '3';
+			}
+			.sp:nth-child(4) .sp-num::before{
+				content: '4';
+			}
+			.sp.active .sp-title{
+				color: #00ABFD;
+			}
+			.sp.active .sp-num{
+				background-color: #00ABFD;
+			}
+			.sp.active .sp-num::before{
+				background-color: #00ABFD;
+				color: #fff;
+			}
+			textarea{
+				width: 100%;
+				border: 1px solid #ddd;
+				border-radius: 4px;
+				resize: none;
+			}
+			.info{
+				margin: 15px 0;
+			}
+			.info li{
+				line-height: 40px;
+				font-size: 14px;
+				border-bottom: 1px solid #ddd;
+			}
+			.info li:not(:last-child){
+				
+			}
+			.ct-icon-radio_1,
+			.ct-icon-radio_2{
+				font-size: 20px;
+			}
+			.ct-icon-radio_2{
+				color: #00ABFD;
+			}
+			.ct-icon-square-check,
+			.ct-icon-square-uncheck{
+				font-size: 20px;
+			}
+			.ct-icon-square-check{
+				color: red;
+			}
+			.count li{
+				line-height: 30px;
+				font-size: 20px;
+			}
+			.tiaokuan .ct-icon-square-uncheck{
+				color:#999;
+			}
+			.tiaokuan .ct-icon-square-check{
+				color:#71BB5C;
+			}
+			#integral-limit,
+			#supersede{
+				color: #00ABFD;
+			}
+			.order-list{
+				padding: 10px 20px;
+				line-height: 2;
+				border-bottom: 1px solid #ddd;
+			}
+    </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<header>
+				<div class="flex-box steps">
+					<div class="flex-1 sp active">
+						<div class="sp-title">提交订单</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+					<div class="flex-1 sp ">
+						<div class="sp-title">支付方式</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+					<div class="flex-1 sp ">
+						<div class="sp-title">支付完成</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+					<div class="flex-1 sp hidden">
+						<div class="sp-title">选择物流</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+				</div>
+			</header>
+			<div id="main">
+				<section class="hidden">
+					<div class="order-list">
+						<div class="flex-box">
+							<div class="flex-1">
+								半导体分离器件测试
+							</div>
+							<div>
+								<small>￥40x1</small>
+							</div>
+						</div>
+					</div>
+					
+					<div style="padding: 10px 20px;">
+						<h5>测试备注</h5>
+						<textarea name="" rows="8"></textarea>
+						<div>
+							<ul class="info">
+								<li freight="12">
+									快递运费12元
+								</li>
+								<li class="flex-box">
+									<div class="flex-1">
+										样品保存150元/年
+									</div>
+									<div onclick="saveSample(this)" save-sample="false" pay="">
+										<span class="ct-icon-square-uncheck"></span>
+									</div>
+								</li>
+								<li class="flex-box">
+									<div class="flex-1">
+										加急测试250元/次
+									</div>
+									<div onclick="quick(this)" quick="false" pay="">
+										<span class="ct-icon-square-uncheck"></span>
+									</div>
+								</li>
+								<li class="flex-box">
+									<div class="flex-1" style="line-height: 1.5;padding: 8px 0;">
+										<div style="color: #00ABFD;">
+											积分余额：<span id="integral" style="color: #00ABFD;">153</span>积分
+										</div>
+										<div style="color: #00ABFD;">
+											本次最多能使用<span id="integral-limit">100</span>积分抵用<span id="supersede">10</span>元
+										</div>
+									</div>
+									<div class="flex-box flex-h-ce" onclick="integral(this)" integral="false" limit="" percentage="">
+										<span class="ct-icon-radio_1"></span>
+									</div>
+								</li>
+								<li class="flex-box">
+									<div class="flex-1 flex-box">
+										<div>
+											已使用优惠码：
+										</div>
+										<div class="form-control">
+											<select name="favourable">
+												<option value="">334524 | 优惠50元</option>
+											</select>
+										</div>
+									</div>
+									<div onclick="favourable(this)" favourable="false">
+										<span class="ct-icon-radio_2"></span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div style="padding: 10px 20px">
+						<ul class="count">
+							<li class="text-right">
+								应付金额：
+								<span id="pay" style="color: red;">150.00</span>元
+							</li>
+							<li class="text-right" style="color:#999">
+								<small>
+									本次为您节省：
+									<span id="economize" style="color:#999">130</span>元
+								</small>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="text-center tiaokuan" style="font-size: 14px;color:#999;margin-top:20px">
+						<span class="ct-icon-square-check" style="font-size: 14px;"></span>
+						提交订单即代表同意本协议《威雅利xxx协议》
+					</div>
+					
+					<div class="text-center" style="padding: 10px 20px 30px;">
+						<button onclick="commitOrder()" class="btn btn-danger btn-lg btn-block">
+							提交订单
+						</button>
+					</div>					
+				</section>
+
+			</div>		
+		</div>
+	</body>
+	<script type="text/template" template="main">
+				<div class="order-list"></div>
+				<div style="padding: 10px 20px;">
+					<h5>测试备注</h5>
+					<textarea name="remark" rows="8"></textarea>
+					<div>
+						<ul class="info">
+							<li freight="12">
+								快递运费{{= it.freight }}元
+							</li>
+							<li class="flex-box">
+								<div class="flex-1">
+									样品保存{{= it.savefee }}元/年 x{{= countGoodsNum() }}
+								</div>
+								<div onclick="isSample(this)" sample="false" pay="{{=it.savefee}}">
+									<span class="ct-icon-square-uncheck"></span>
+								</div>
+							</li>
+							<li class="flex-box">
+								<div class="flex-1">
+									加急测试{{= it.fastfee }}元/次 x{{= countGoodsNum() }}
+								</div>
+								<div onclick="isQuick(this)" quick="false" pay="{{= it.fastfee }}">
+									<span class="ct-icon-square-uncheck"></span>
+								</div>
+							</li>
+							<li class="flex-box">
+								<div class="flex-1" style="line-height: 1.5;padding: 8px 0;">
+									<div style="color: #00ABFD;">
+										积分余额：<span id="integral" style="color: #00ABFD;">{{= it.integral||0  }}</span>积分
+									</div>
+									<div style="color: #00ABFD;">
+										本次最多能使用<span id="integral-limit">{{= it.toplimit }}</span>积分抵用
+										<span id="supersede">{{= parseInt(it.toplimit)*parseFloat(it.proportion) }}</span>元
+									</div>
+								</div>
+								{{? parseInt(it.integral)>0 }}
+								<div class="flex-box flex-h-ce" onclick="isIntegral(this)" integral="false" limit="" percentage="">
+									<span class="ct-icon-radio_1" style="color: #00ABFD;"></span>
+								</div>
+								{{?}}
+							</li>
+							<li class="flex-box hidden">
+								<div class="flex-1 flex-box">
+									<div>
+										已使用优惠码：
+									</div>
+									<div class="form-control">
+										<select name="favourable" onchange="selectYouhui(this)">
+											{{? it.youhui instanceof Array && it.youhui.length!=0 }}
+												<option value="">--请选择优惠码--</option>
+												{{~it.youhui :value:index}}
+													{{ if(value.range == '1'){ }}
+														{{? value.type=='1' }}
+														<option value="{{= value.id }}">{{= value.youhuino }} | {{= parseFloat(value.discount)*10 }}折优惠</option>
+														{{?? value.type=='2' }}
+														<option value="{{= value.id }}">{{= value.youhuino }} | 免邮费</option>
+														{{?? value.type=='3' }}
+														<option value="{{= value.id }}">{{= value.youhuino }} | 优惠{{= value.cash }}元</option>
+														{{?}}
+													{{ } }}	
+												{{~}}
+											{{??}}
+												<option value="">--无优惠码可用--</option>
+											{{?}}
+											<option value="-1">输入优惠码</option>
+										</select>
+									</div>
+								</div>
+								<div class="" onclick="isFavourable(this)" favourable="false">
+									<span class="ct-icon-radio_1"></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				
+				<div style="padding: 10px 20px">
+					<ul class="count">
+						<li class="text-right">
+							应付金额：
+							<span id="pay" style="color: red;">150.00</span>元
+						</li>
+						<li class="text-right" style="color:#999">
+							<small>
+								本次为您节省：
+								<span id="economize" style="color:#999">0</span>元
+							</small>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="text-center tiaokuan" style="font-size: 14px;color:#999;margin-top:20px">
+					<span class="ct-icon-square-check" style="font-size: 14px;"></span>
+					提交订单即代表同意本协议《威雅利xxx协议》
+				</div>
+				
+				<div class="text-center" style="padding: 10px 20px 30px;">
+					<button onclick="commitOrder()" class="btn btn-danger btn-lg btn-block">
+						提交订单
+					</button>
+				</div>		
+	</script>
+	<script type="text/template" template="order-list">
+		{{~it :value:index}}
+			{{? value.isSelect }}
+					<div class="flex-box">
+						<div class="flex-1">
+							{{= value.title }}
+						</div>
+						<div>
+							<small>￥{{= value.price }}&nbsp;x&nbsp;{{= value.num }}</small>
+						</div>
+					</div>
+			{{?}}		
+		{{~}}
+	</script>
+	<script type="text/template" template="favourable">
+		{{? it.youhui instanceof Array && it.youhui.length!=0 }}
+			<option value="">--请选择优惠码--</option>
+			{{~it.youhui :value:index}}
+				{{ if(value.range == '1'){ }}
+					{{? value.type=='1' }}
+					<option value="{{= value.id }}|{{= value.type }}|{{= value.discount }}">{{= value.youhuino }} | {{= parseFloat(value.discount)*10 }}折优惠</option>
+					{{?? value.type=='2' }}
+					<option value="{{= value.id }}|{{= value.type }}">{{= value.youhuino }} | 免邮费</option>
+					{{?? value.type=='3' }}
+					<option value="{{= value.id }}|{{= value.type }}|{{= value.cash }}">{{= value.youhuino }} | 优惠{{= value.cash }}元</option>
+					{{?}}
+				{{ } }}	
+			{{~}}
+		{{??}}
+			<option value="">--无优惠码可用--</option>
+		{{?}}
+		<option value="-1">输入优惠码</option>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/cart.js" ></script>
+	<script type="text/javascript">
+		//预定义原价
+		var original = countOriginal(),
+				coin = 0,
+				save = 0,
+				fast = 0,
+				youhui = '';
+		
+		apiready = function(){
+//			mt('.order-list', 'order-list', $api.getStorage('myTestCart'));
+			$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template="main"]')))($api.getStorage('memberInfo')));
+			$api.html($api.dom('.order-list'), doT.template($api.html($api.dom('[template="order-list"]')))($api.getStorage('myTestCart')));
+			//显示原价
+			$api.text($api.dom('#pay'), original);
+		}
+		function countGoodsNum(){
+			//统计商品数量
+			var cart = $api.getStorage('myTestCart'),
+					num = 0;
+			for(var i=0;i<cart.length;i++){
+				if(cart[i].isSelect){
+					num += cart[i].num;
+				}
+			}
+			return num;
+		}		
+		function isSample(_this){
+			var isSelect = $api.attr(_this, 'sample'),
+					checkBox = $api.dom(_this, 'span');
+			if(isSelect == 'false'){
+				$api.addCls($api.removeCls(checkBox, 'ct-icon-square-uncheck'), 'ct-icon-square-check');
+				$api.attr(_this, 'sample', 'true');
+				save = 1;
+			}else{
+				$api.addCls($api.removeCls(checkBox, 'ct-icon-square-check'), 'ct-icon-square-uncheck');
+				$api.attr(_this, 'sample', 'false');
+				save = 0;
+			}
+			countAll();
+		}
+		function isQuick(_this){
+			var isSelect = $api.attr(_this, 'quick'),
+					checkBox = $api.dom(_this, 'span');
+			if(isSelect == 'false'){
+				$api.addCls($api.removeCls(checkBox, 'ct-icon-square-uncheck'), 'ct-icon-square-check');
+				$api.attr(_this, 'quick', 'true');
+				fast = 1;
+			}else{
+				$api.addCls($api.removeCls(checkBox, 'ct-icon-square-check'), 'ct-icon-square-uncheck');
+				$api.attr(_this, 'quick', 'false');
+				fast = 0;
+			}
+			countAll();
+		}
+		function isIntegral(_this){
+			var radioDom = $api.dom(_this, 'span');
+			radioDom.className = 'ct-icon-radio_2';
+			$api.attr(_this, 'integral', 'true');
+			countAll();
+		}
+		function selectYouhui(_this){
+			var youhui = $api.val(_this);
+			if(youhui){
+				if(youhui=='-1'){
+					_this.options[0].selected = true;
+					var youhuino = prompt("请输入优惠码", '');
+					if(!youhuino){
+						return;
+					}
+					tool.ajax.get({
+						ctrl: 'Test',
+						fn: 'binding',
+						data: {
+							id: $api.getStorage('memberId'),
+							token: $api.getStorage('token'),
+							youhuino: youhuino,
+							type: 1
+						},
+						hideLoading: true,
+						showError: true
+					}, function(ct){
+						var memberInfo = $api.getStorage('memberInfo');
+						memberInfo.youhui.push(ct);
+						$api.setStorage('memberInfo', memberInfo);
+						$api.html($api.dom('select[name=favourable]'), doT.template($api.html($api.dom('[template="favourable"]')))(memberInfo));
+					});
+				}else{
+					countAll();
+				}
+			}
+		}
+		function countOriginal(){
+			var cart = $api.getStorage('myTestCart'),
+					original = 0;
+			for(var i=0;i<cart.length;i++){
+				if(cart[i].isSelect){
+					original += parseInt(cart[i].num) * parseInt(cart[i].price);
+				}
+			}
+			return original;
+		}
+		function countAll(){
+			var sampleCheck = $api.dom('[sample]'),
+					quickCheck = $api.dom('[quick]'),
+					integralRadio = $api.dom('[integral]'),
+//					favourable = $api.val($api.dom('select[name=favourable]')),
+					memberInfo = $api.getStorage('memberInfo'),
+					integral = parseInt(memberInfo.integral),
+					toplimit = parseInt(memberInfo.toplimit),//积分使用上限
+					economize = 0,
+					all = original;
+			//是否保存样品
+			if($api.attr(sampleCheck, 'sample')=='true'){
+				all += parseInt($api.attr(sampleCheck, 'pay')) * countGoodsNum();
+			}
+			//是否加急测试
+			if($api.attr(quickCheck, 'quick')=='true'){
+				all += parseInt($api.attr(quickCheck, 'pay')) * countGoodsNum();
+			}
+			//是否使用积分
+			if(integral > 0){
+				if($api.attr(integralRadio, 'integral')=='true'){
+					var temp;
+					if(integral > toplimit){
+						temp = toplimit * parseFloat(memberInfo.proportion);
+						coin = toplimit;
+					}else{
+						temp = integral * parseFloat(memberInfo.proportion);
+						coin = integral;
+					}
+					economize += temp
+					all -= temp;
+				}
+			}
+			//是否使用优惠码
+//			if(favourable){
+//				var favo = favourable.split('|');
+//				youhui = favo[0];
+//				switch(favo[1]){
+//					case '1':
+//						temp = original * parseFloat(favo[2]);
+//						economize += temp;
+//						all -= temp;
+//						break;
+//					case '2':
+//						//免邮费
+//						break;
+//					case '3':
+//						economize += parseFloat(favo[2]);
+//						all -= parseFloat(favo[2]);
+//						break;
+//				}
+//			}
+			$api.text($api.dom('#pay'), all);
+			$api.text($api.dom('#economize'), economize);
+		}
+		function commitOrder(){
+			var cart = $api.getStorage('myTestCart'),
+					list = [],
+					remark = $api.val($api.dom('[name=remark]'));
+			for(var i=0;i<cart.length;i++){
+				if(cart[i].isSelect){
+					list.push({
+						testid: cart[i].tid,
+						type: cart[i].type,
+						num: cart[i].num
+					});
+				}
+			}
+//			alert(JSON.stringify(list))
+			tool.ajax.get({
+				ctrl: 'Test',
+				fn: 'generateOrder',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						coin: coin,
+						save: save,
+						fast: fast,
+						youhui: youhui,
+						remark: remark||'',
+						list: list
+					}
+				},
+				showError: true,
+				hideLoading: true
+			}, function(ct, status){
+				var memberInfo = $api.getStorage('memberInfo');
+				memberInfo.integral = parseInt(memberInfo.integral) - coin;
+				$api.setStorage('memberInfo', memberInfo);
+				Cart.clearCartAfterBuy('myTestCart');//购买完成后，清除商品数据
+//				alert(JSON.stringify(ct));
+				openMyTestPay(ct.testorderno);
+			});
+		}
+	</script>
+</html> 

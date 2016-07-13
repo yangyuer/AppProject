@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.topbar{
+				border-bottom-color: #75B6D7;
+			}
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+				font-size: 20px;
+			}
+			.ct-icon-home_1{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				right: 5px;
+				top: 0;
+				color: #B3A69A;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+	        <span class="title"></span>
+	        <span class="ct-icon-home_1" onclick="api.closeWin()" tapmode="" style="font-size: 30px;"></span>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function setTitle(title){
+			$api.text($api.dom('span.title'), title);
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					winParam = api.pageParam,
+					mainPos = $api.offset(main);
+			
+			api.addEventListener({
+				name: 'keyback'
+			}, function(ret, err){
+//				toast(api.winName);
+					api.closeWin();
+			});
+
+			if(winParam.hasFrameParam){
+				api.openFrame({
+					name: winParam.frameName,
+					url: winParam.frameUrl,
+					bounces: winParam.bounces||false,
+					pageParam: winParam.frameParam,
+					rect: {
+						x: 0,
+						y: headerPos.h,
+						w: 'auto',
+						h: mainPos.h
+					},
+					reload: true
+				});
+			}else{
+				api.openFrame({
+					name: winParam.frameName,
+					url: winParam.frameUrl,
+					bounces: winParam.bounces||false,
+					rect: {
+						x: 0,
+						y: headerPos.h,
+						w: 'auto',
+						h: mainPos.h
+					},
+					reload:true
+				});
+			}
+			$api.html($api.dom(header, '.title'), winParam.headerTitle||'');
+		}
+	</script>
+</html>

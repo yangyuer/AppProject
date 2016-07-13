@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+			<style>
+				body {
+					min-width: 320px;
+				}
+				#main,
+				.main {
+					padding-bottom: 56px;
+				}
+				.swipe {
+					border-bottom: 1px solid #75b6d7;
+				}
+				.taoti {
+					background-color: #fff;
+					line-height: 50px;
+				}
+				.taoti span {
+					padding-left: 1.4em;
+					font-size: 1.2em;
+					font-weight: 700;
+					width: 96%;
+					border-bottom: 1px solid #ededed;
+				}
+				.jiage {
+					background-color: #fff;
+					line-height: 50px;
+				}
+				.jiage .font_jiage {
+					padding-left: 2.2em;
+					color: #999;
+					font-size: 0.8em;
+				}
+				.jiage .font_num {
+					color: red;
+					padding-left: 0.5em;
+					font-size: 1.2em;
+					line-height: 46px;
+				}
+				.tuwen_details {
+					margin-top: 10px;
+					line-height: 50px;
+					background-color: #fff;
+					border: 1px solid #ededed;
+				}
+				.tuwen {
+					font-size: 25px;
+					margin-right: 0.5em;
+					margin-left: 0.5em;
+					margin-top: 0.5em;
+					color: #999;
+				}
+				.ce_datails {
+					color: #000;
+				}
+				.tuwen_details .datails_wifi {
+					color: #999;
+					font-size: 0.8em;
+					line-height: 52px;
+					;
+				}
+				.text-pingjia {
+					line-height: 50px;
+					border-bottom: 1px solid #ededed;
+					background-color: #fff;
+				}
+				.font-yunfei {
+					color: #999;
+					font-size: 0.8em;
+					position: absolute;
+					right: 55px;
+				}
+				.font-yunfei span {
+					color: #999;
+				}
+				.font_dizhi {
+					color: #999;
+					font-size: 0.8em;
+					position: absolute;
+					right: 15px;
+				}
+				.add {
+					width: 50px;
+					height: 50px;
+					background-color: #54D165;
+					padding: 5px;
+					border-radius: 50%;
+					position: fixed;
+					right: 10px;
+					bottom: 80px;
+					z-index: 2;
+				}
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div class="add text-center" onclick="" tapmode="">
+				<span class="ct-icon-talk" style="font-size: 30px;color: #fff;top:5px"></span>
+			</div>			
+			<header class="hidden">
+				<div id="detail" class="swipe">
+					<div class="swipe-wrap">
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+					</div>
+					<div id="pointer">
+						<a class="active"></a>
+						<a class=""></a>
+						<a class=""></a>
+						<a class=""></a>
+						<a class=""></a>
+					</div>
+				</div>				
+			</header>
+			<div id="main" class="hidden">
+				<div class="flex-box taoti">
+					<span>半导体封装测试</span>
+				</div>
+				<div class="flex-box jiage">
+					<div class="flex-1" style="padding-left:15px ;">价格：<span style="color: red;font-size: 1.4em;">￥ddd</span></div>
+					<div class="flex-1 flex-box">
+						<div class="flex-1" style="font-size: 0.8em;">运费：￥12</div>
+						<div class="flex-1" style="font-size: 0.8em;text-align: right;padding-right: 15px;">订单</div>
+					</div>
+					<!--<span class="font_jiage">价格:</span>
+					<span class="font_num">￥5.00</span>
+					<span class="font-yunfei">运费：<span>￥120.0</span></span>
+					<span class="font_dizhi">深圳</span>-->
+				</div>
+				<div class="flex-box tuwen_details">
+					<span class="ct-icon-nickname tuwen" style=""></span>
+					<span class="ce_datails">图文详情</span>
+					<span class="datails_wifi">（建议在wifi下查看）</span>
+				</div>
+				<div class="flex-box text-pingjia">
+					<span class="ct-icon-join tuwen" ></span>
+					<span class="ce_datails">评价</span>
+					<span class="ce_datails">（18）</span>
+				</div>
+				<div class="flex-box text-pingjia">
+					<span class="ct-icon-star tuwen"></span>
+					<span class="ce_datails">收藏商品</span>
+					
+				</div>
+				<div class="flex-box text-pingjia" style="margin-top: 10px;">
+					<span class="ct-icon-order_test tuwen" ></span>
+					<span class="ce_datails">商品测试</span>
+					
+				</div>
+			</div>
+		
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/shopCart.js" ></script>
+	<script type="text/template" template="wrap">
+			<div class="add text-center" onclick="" tapmode="">
+				<span class="ct-icon-talk" style="font-size: 30px;color: #fff;top:5px"></span>
+			</div>			
+			{{ if(it.cover instanceof Array && it.cover.length!=0){ }}
+			<header>
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap">
+						{{~it.cover :value:index}}
+						<div>
+							<div class="img-frm">
+								<div class="img" style="background-image: url({{= value }});" onclick="" tapmode=""></div>
+							</div>
+						</div>
+						{{~}}
+					</div>
+					<div id="pointer">
+						{{~it.cover :value:index}}
+						<a class="{{= value==0?'active':'' }}"></a>
+						{{~}}
+					</div>
+				</div>				
+			</header>
+			{{ } }}
+			
+			<div id="main">
+				<div class="taoti">
+					<span>{{= it.title }}</span>
+				</div>
+				<!--<div class="flex-box jiage">
+					<span class="font_jiage">价格:</span>
+					<span class="font_num">￥{{= it.price }}</span>
+					<span class="font-yunfei">运费：<span>￥<!--{{= it.freight||0 }}--></span></span>
+					<!--<span class="font_dizhi">{{= it.area }}</span>
+				</div>-->
+				<div class="flex-box jiage">
+					<div class="flex-1" style="padding-left:15px ;">价格：<span style="color: red;font-size: 1.4em;">￥{{= it.price }}</span></div>
+					<div class="flex-1 flex-box">
+						<div class="flex-1" style="font-size: 0.8em;">运费：￥12</div>
+						<div class="flex-1" style="font-size: 0.8em;text-align: right;padding-right: 15px;">{{= it.area }}</div>
+					</div>
+				</div>
+				<div class="flex-box tuwen_details" onclick="openShopGoodsDescribe({{= it.id }})" tapmode="">
+					<span class="ct-icon-nickname tuwen" style=""></span>
+					<span class="ce_datails">图文详情</span>
+					<span class="datails_wifi">（建议在wifi下查看）</span>
+				</div>
+				<div class="flex-box text-pingjia" onclick="openStarCommentList('Shop', 'testComment', {{=it.id}})" tapmode="">
+					<span class="ct-icon-join tuwen" ></span>
+					<span class="ce_datails">评价</span>
+					<span class="ce_datails">（{{= it.comment }}）</span>
+				</div>
+				{{? $api.getStorage('memberInfo') }}
+			  <div class="flex-box text-pingjia " onclick="goodscollection('{{= it.id }}')" tapmode=""> 
+					{{ if($api.getStorage('memberInfo')){ }}
+						{{ if($api.getStorage('memberInfo').goodscollection.indexOf(it.id.toString())>=0){ }}						
+							<span class="ct-icon-star_select tuwen collect" ></span>
+					{{ }else{ }}		
+							<span class="ct-icon-star tuwen collect" tapmode=""></span>
+						{{ } }}
+					{{ } }}
+					<span class="ce_datails">收藏测试</span>
+				</div>
+				{{?}}
+				<div class="flex-box text-pingjia" style="margin-top: 10px;">
+					<span class="ct-icon-order_test tuwen" ></span>
+					<span class="ce_datails">商品测试</span>
+				</div>
+			</div>		
+	</script>
+	<script type="text/javascript">
+		/*预定义变量，用于加入购物车*/
+		var shopId, shopName, id, title, price, cover;
+		function addCart(){
+			ShopCart.push({
+				shopId: shopId,
+				shopName: shopName,
+				id: id,
+				title: title,
+				price: price,
+				cover: cover,
+				num: 1
+			});
+			toast('已添加到购物车');
+		}
+		function goodscollection(id){
+			var flag = 0;
+			if(!$api.hasCls($api.dom('.collect'), 'ct-icon-star_select')){
+				flag = 1;
+			}
+			tool.ajax.get({
+				hideLoading:true,
+				ctrl: 'Shop',
+				fn: 'goodsCollect',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						goodsid: id
+					}
+				}
+			}, function(ct){
+				var memberInof = $api.getStorage('memberInfo');
+				if(flag){
+					toast('收藏成功');
+					$api.addCls($api.removeCls($api.dom('.collect'), 'ct-icon-star'), 'ct-icon-star_select');
+					memberInof.goodscollection.push(id);
+				}else{
+					toast('已取消收藏');
+					$api.addCls($api.removeCls($api.dom('.collect'), 'ct-icon-star_select'), 'ct-icon-star');
+					var _index = memberInof.goodscollection.indexOf(id);
+					memberInof.goodscollection.splice(_index, 1);
+				}
+				$api.setStorage('memberInfo', memberInof);
+			});
+		}	
+		function openShopGoodsDescribe(gid){
+			api.openWin({
+				name: 'ShopGoodsDescribe',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '图片详情',
+					frameName: 'shop_goods_describe',
+					frameUrl: api.wgtRootDir + '/html/home/shop_goods_describe.html',
+					hasFrameParam: true,
+					frameParam: {
+						gid: gid
+					}
+				},
+				bounces: false
+			});	
+		}
+//		swipeInit();
+			function reload(id, freight, area){
+//				alert(id);
+				tool.ajax.get({
+					ctrl: 'Shop',
+					fn: 'goodsDetail',
+					data: {
+						values: {
+							gid: id
+						}
+					},hideLoading: true,
+					template: 'wrap'
+				}, function(ct){
+					shopId = ct.shop_id;
+					shopName = ct.company;
+					id = ct.id;
+					title = ct.title;
+					price = ct.price;
+					cover = ct.cover[0];
+					api.execScript({
+						name: api.winName,
+						script: 'set('+ ct.shop_id +')'
+					});
+					ct.freight = freight;
+					ct.area = area
+					$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+					swipeInit();
+					echo.init();
+				});				
+			}
+		apiready = function(){
+			reload(api.pageParam.id, api.pageParam.freight, api.pageParam.area);
+		}
+	</script>
+</html> 

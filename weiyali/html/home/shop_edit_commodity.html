@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+    	body,
+    	#main,
+    	#main > div{
+    		 background-color:#F8F8F8;
+    	}
+    	textarea{
+				outline:0;
+				display: block;
+				width: 100%;
+				font-size: 14px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				line-height: 1.42857143;
+				color: #555;
+				resize: none;
+				padding: 6px 6px;
+				background-color: #fff;
+			}
+    	#main > div:not(.btn-group-under){
+				padding: 12px 12px
+			}
+			.form-control{
+				position: relative;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				padding: 6px 6px;
+				background-color: #fff;
+			}    
+			.form-control input{
+				width: 100%;
+			}
+			.imgs > div,
+			.imgs .img-frm,
+			.imgs .img,
+			.upload-status{
+				border-radius: 8px;
+			}
+			.imgs > div{
+				position: relative;
+				border: 1px dashed #ddd;
+				height: 80px;
+				background: url(../../image/click_upload.png) no-repeat center;
+				background-size: auto 10px;
+			}
+			.imgs > div:not(:last-child){
+				margin-right: 12px;
+			}
+			.ct-icon-circle-cross{
+				position: absolute;
+				top: 2px;
+				right: 2px;
+				font-size: 20px;
+				color: #40B5F0;
+				background-color: #fff;
+				border-radius: 50%;
+				z-index: 2;
+			}
+			.imgs .img-frm{
+				height: 100%;
+			}
+			.imgs .img{
+				height: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			.upload-status > div{
+				color: #fff;
+			}
+			.price .form-control::after{
+				/*content: '元';*/
+			}
+    </style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div>
+					<h5>商品名称：</h5>
+					<div class="form-control">
+						<input type="text" name='title'/>
+					</div>
+				</div>	
+				<div>
+					<h5>商品封面图片：</h5>
+					<div class="flex-box imgs">
+						<div class="flex-1" upload="empty" onclick="upload(this, 'postEnterpriseTenderImg0')" tapmode="">
+							<div class="img-frm hidden">
+								<span class="ct-icon-circle-cross" onclick="cancelImg(this, event)" tapmode=""></span>
+								<div class="img" index="">
+									<div class="upload-status flex-box">
+										<div class="flex-1" onclick="" tapmode="">
+											重新上传
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex-1" upload="empty" onclick="upload(this, 'postEnterpriseTenderImg1')" tapmode=""></div>
+						<div class="flex-1" upload="empty" onclick="upload(this, 'postEnterpriseTenderImg2')" tapmode=""></div>
+					</div>
+				</div>				
+				<div>
+					<h5>商品简介：</h5>
+					<textarea rows="8" cols="" name="content"></textarea>
+				</div>
+				
+				<div>
+					<h5>商品简介图片：</h5>
+					<div class="flex-box imgs">
+						<div class="flex-1" upload="empty" onclick="upload(this, 'postEnterpriseTenderImg0')" tapmode="">
+							<div class="img-frm hidden">
+								<span class="ct-icon-circle-cross" onclick="cancelImg(this, event)" tapmode=""></span>
+								<div class="img" index="">
+									<div class="upload-status flex-box">
+										<div class="flex-1" onclick="" tapmode="">
+											上传失败，点击重新上传
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex-1" upload="empty" onclick="upload(this, 'postEnterpriseTenderImg1')" tapmode=""></div>
+						<div class="flex-1" upload="empty" onclick="upload(this, 'postEnterpriseTenderImg2')" tapmode=""></div>
+					</div>
+				</div>	
+				<div class="price">
+					<h5>商品价格：</h5>
+					<div class="flex-box flex-h-zhu">
+						<div class="form-control">
+							<input type="text" name='title'/>
+						</div> 
+						<div style="line-height: 35px;margin-left: 10px;">元</div>
+					</div>
+				</div>
+				<div class="btn-group-under v">
+					<button class="btn btn-info btn-block btn-lg">
+						保存
+					</button>
+					<button class="btn-btn-default btn-block btn-lg" style="border: 1px solid #ddd;background-color: #fff;">
+						取消
+					</button>
+				</div>
+
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/upload.js" ></script>
+	<script type="text/template" template="add">
+				<div>
+					<h5>商品名称：</h5>
+					<div class="form-control">
+						<input type="text" name='title' />
+					</div>
+				</div>	
+				<div>
+					<h5>商品封面图片：</h5>
+					<div class="flex-box imgs" id="cover">
+						<div class="flex-1" callback="postCover0" key="" upload="empty" onclick="upload(this, 0)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode="">
+						</div>
+						<div class="flex-1" callback="postCover1" key="" upload="empty" onclick="upload(this, 0)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode=""></div>
+						<div class="flex-1" callback="postCover2" key="" upload="empty" onclick="upload(this, 0)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode=""></div>
+					</div>
+				</div>				
+				<div>
+					<h5>商品简介：</h5>
+					<textarea rows="8" cols="" name="summary"></textarea>
+				</div>
+				
+				<div>
+					<h5>商品简介图片：</h5>
+					<div class="flex-box imgs" id="pic">
+						<div class="flex-1" callback='postPic0' key="" upload="empty" onclick="upload(this, 1)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode="">
+						</div>
+						<div class="flex-1" callback='postPic1' key="" upload="empty" onclick="upload(this, 1)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode=""></div>
+						<div class="flex-1" callback='postPic2' key="" upload="empty" onclick="upload(this, 1)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode=""></div>
+					</div>
+				</div>	
+				<div class="price">
+					<h5>商品价格：</h5>
+					<div class="flex-box flex-h-zhu">
+						<div class="form-control">
+							<input type="number" name='price'/>
+						</div>
+						<div style="line-height: 35px;margin-left: 10px;">元</div>
+					</div>
+				</div>
+				<div class="btn-group-under v">
+					<button class="btn btn-info btn-block btn-lg" id="addShop" onclick="addShop()">
+						保存
+					</button>
+					<button class="btn-btn-default btn-block btn-lg" onclick="api.closeWin();" tapmode="" style="border: 1px solid #ddd;background-color: #fff;">
+						取消
+					</button>
+				</div>		
+	</script>
+	
+	
+	
+	<script type="text/template" template="edit">
+				<div>
+					<h5>商品名称：</h5>
+					<div class="form-control">
+						<input type="text" name='title' value="{{= it.title }}"/>
+					</div>
+				</div>	
+				
+				<div>
+					<h5>商品封面图片：</h5>
+					<div class="flex-box imgs" id="cover">
+						{{~ it.cover :value:index}}
+							<div class="flex-1" key="{{= value.replace(/http:\/\/7xj8rh.com1.z0.glb.clouddn.com\//, '') }}"  callback="postCover{{= index }}" upload="done" onclick="upload(this, 0)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode="">
+								<div class="img-frm">
+									<span class="ct-icon-circle-cross" onclick="cancelImg(this, event)" tapmode=""></span>
+									<div class="img" style="background-image: url({{= value }});">
+										<!--<div class="upload-status flex-box hidden">
+											<div class="flex-1" onclick="" tapmode="">
+												重新上传
+											</div>
+										</div>-->
+									</div>
+								</div>						
+							</div>
+						{{~}}
+						
+						{{? it.cover.length<3 }}
+							{{ for(var i=0;i<3-it.cover.length;i++){ }}
+							<div class="flex-1" callback="postCover{{= it.cover.length+i }}" upload="empty" onclick="upload(this, 0)" style="height:{{= (api.frameWidth-48)/3 }}px"></div>
+							{{ } }}
+						{{?}}
+					</div>
+				</div>	
+				
+				<div>
+					<h5>商品简介：</h5>
+					<textarea rows="8" cols="" name="summary">{{= it.summary}}</textarea>
+				</div>
+				{{~ it.pic :value:index}}
+				<div>
+					<h5>商品简介图片：</h5>
+					<div class="flex-box imgs" id="pic">
+						{{~ it.pic :value:index}}
+							<div class="flex-1" key="{{= value.replace(/http:\/\/7xj8rh.com1.z0.glb.clouddn.com\//, '') }}" callback='postPic{{= index }}' upload="done" onclick="upload(this, 1)" style="height:{{= (api.frameWidth-48)/3 }}px">
+								<div class="img-frm">
+									<span class="ct-icon-circle-cross" onclick="cancelImg(this, event)" tapmode=""></span>
+									<div class="img" style="background-image: url({{= value }});">
+										<!--<div class="upload-status flex-box hidden">
+											<div class="flex-1" onclick="" tapmode="">
+												重新上传
+											</div>
+										</div>-->
+									</div>
+								</div>							
+							</div>
+						{{~}}
+						
+						{{? it.pic.length<3 }}
+							{{ for(var i=0;i<3-it.pic.length;i++){ }}
+							<div class="flex-1" callback="postPic{{= it.pic.length+i }}" upload="empty" onclick="upload(this, 0)" style="height:{{= (api.frameWidth-48)/3 }}px" tapmode=""></div>
+							{{ } }}
+						{{?}}
+					</div>
+				</div>	
+				{{~}}
+				<div class="price">
+					<h5>商品价格：</h5>
+					<div class="flex-box flex-h-zhu">
+						<div class="form-control">
+							<input type="text" name='price' value="{{= it.price }}" />
+						</div>
+						<div style="line-height: 35px;margin-left: 10px;">元</div>
+					</div>
+				</div>
+				<div class="btn-group-under v">
+					<button class="btn btn-info btn-block btn-lg" tapmode="" id="editShopp" onclick="editShopp()">
+						保存
+					</button>
+					<button class="btn-btn-default btn-block btn-lg" onclick="api.closeWin();" tapmode="" style="border: 1px solid #ddd;background-color: #fff;">
+						取消
+					</button>
+				</div>		
+	</script>	
+	<script type="text/template" template="img">
+		<div class="img-frm">
+			<span class="ct-icon-circle-cross hidden" onclick="cancelImg(this, event)" tapmode=""></span>
+			<div class="img" index="{{= it.index }}" style="background-image: url({{= it.path }});">
+				<div class="upload-status flex-box">
+					<div class="flex-1" onclick="" tapmode="">
+						等待上传
+					</div>
+				</div>
+			</div>
+		</div>							
+	</script>
+	<script type="text/javascript">
+		/*预定义 商品分类id*/
+		var goodstypeid, shopid;
+		function addShop(){
+//			alert(id);
+			var title = $api.val($api.dom('[name=title]')),
+			    summary = $api.val($api.dom('[name=summary]')),
+			    price = $api.val($api.dom('[name=price]')),
+			    emptyImgDoms = $api.domAll('[upload=empty]'),
+			    uploadingImgDoms = $api.domAll('[upload=uploading]'),
+			    errorImgDoms = $api.domAll('[upload=error]'),
+			    coverDoneImgDoms = $api.domAll('#cover [upload=done]'),
+			    picDoneImgDoms = $api.domAll('#pic [upload=done]'),
+			    coverArr = [],
+			    picArr = [];
+			    if(!title){
+			    	toast('请输入标题');
+			    	return;
+			    }
+			    if(!summary){
+			    	toast('请输入简介');
+			    	return;
+			    }
+			    if(!price){
+			    	toast('请输入价格');
+			    	return;
+			    }
+					if(emptyImgDoms.length > 0){
+						if(uploadingImgDoms.length == 0){
+							if(errorImgDoms.length != 0){
+								toast('图片上传失败，请重新上传或删除图片');
+								return;
+							}
+						}else{
+							toast('图片正在上传中，请稍后...');
+							return;
+						}
+					}else{
+						toast('请上传图片');
+						return;
+					}
+					if(coverDoneImgDoms.length==0){
+						toast('请上传封面图片');
+						return;
+					}
+					if(picDoneImgDoms.length==0){
+						toast('请上传商品简介图片');
+						return;
+					}
+					for(var i=0;i<coverDoneImgDoms.length;i++){
+						coverArr.push($api.attr(coverDoneImgDoms[i], 'key'));
+					}
+					for(var i=0;i<picDoneImgDoms.length;i++){
+						picArr.push($api.attr(picDoneImgDoms[i], 'key'));
+					}
+					tool.ajax.get({
+						ctrl:'Shop',
+						fn: 'shopGoodsAdd',
+						hideLoading:true,
+						data: {
+							values: {
+								id: $api.getStorage('memberId'),
+								token: $api.getStorage('token'),
+								title:title,
+								goodstypeid:goodstypeid,
+								shopid:shopid,
+								summary: summary,
+								price: price,
+								pic: picArr,
+								cover: coverArr
+							}
+						}
+					},function(){
+						toast('发布成功');
+						api.closeWin();
+					});
+		}
+			//拍照上传
+		function takePhoto(_this){
+			api.getPicture({
+		    sourceType: 'camera',
+		    encodingType: 'png',
+		    mediaValue: 'pic',
+		    destinationType: 'url'
+			}, function(ret, err){ 
+		    if(ret) {
+		    	var t = {};
+		    	t.path = ret.data;
+					$api.html(_this, doT.template($api.html($api.dom('[template=img]')))(t));		    	
+					Upload.init({
+						file: {
+							url: ret.data,
+							callbackEvent: $api.attr(_this, 'callback')
+						}
+					});
+		    }
+			});
+		}
+		//本地多图片上传
+		function mediaScanner(type){
+			var emptyDoms = type?$api.domAll('#pic [upload=empty]'):$api.domAll('#cover [upload=empty]')
+			if(emptyDoms.length==0){
+				return;
+			}			
+			var ms = api.require('UIMediaScanner');
+			ms.open({
+				column: 3,
+				texts: {
+					stateText: '已选择*项'
+				}
+			}, function(ret){
+				if(ret.list.length>0){
+					if(ret.list.length > emptyDoms.length){
+						/*图片选择过多*/
+						api.toast({
+							msg: '您选了'+ret.list.length + '张图片，' + '但现在只有'+ emptyDoms.length +'空位',
+							location: 'bottom',
+							duration: 2000
+						});						
+					}else{
+						var files = [];
+						for(var i=0;i<ret.list.length;i++){
+//							ret.list[i].index = i;
+							$api.html(emptyDoms[i], doT.template($api.html($api.dom('[template=img]')))(ret.list[i]));
+							$api.attr(emptyDoms[i], 'upload', 'ready');
+							files.push({
+								url: ret.list[i].path,
+								callbackEvent: $api.attr(emptyDoms[i], 'callback')
+							});
+						}
+						api.parseTapmode();
+						/*初始化上传模块*/
+						Upload.init({
+							uploadType: 1,
+							callbackEvent: 'uploadImgsDone',
+							files: files
+						});
+					}
+				}
+			});			
+		}
+		//触发上传按钮
+		function upload(_this, type){
+			if($api.attr(_this, 'upload') != 'empty'){
+				return;
+			}
+			var actionSheetStyle = {
+					layerColor: 'rgba(0, 0, 0, 0.3)',
+					itemNormalColor: '#F1F1F1',
+					itemPressColor: '#007AFF',
+					fontNormalColor: '#007AFF',
+					fontPressColor: '#F1F1F1'
+				},
+					buttons = ['拍照上传', '本地上传'];			
+			api.actionSheet({
+				cancelTitle: '取消',
+				buttons: buttons,
+				style: actionSheetStyle
+			}, function(ret, err){
+				if(ret.buttonIndex==1){
+					takePhoto(_this);
+				}else if(ret.buttonIndex==2){
+					mediaScanner(type);
+				}
+			});
+		}
+		//删除图片
+		function cancelImg(_this, e){
+			e.stopPropagation();
+			/*更改标签属性upload状态为empty*/
+			$api.attr($api.closest(_this, '[upload]'), 'upload', 'empty');
+			$api.remove($api.closest(_this, '.img-frm'));
+		}
+		//监听上传状态
+		function ad(index, type){
+			api.addEventListener({
+				name: 'post'+(type?'Pic':'Cover') + index
+			}, function(ret, err){
+//				alert(JSON.stringify(ret))
+				var img = $api.dom('[callback=post' + (type?'Pic':'Cover') + index+'] .img'),
+						closeDom = $api.dom($api.closest(img, '.img-frm'), '.ct-icon-circle-cross');
+				switch(ret.value.uploadStatus){
+					case 'uploading':
+						$api.text($api.dom(img, '.upload-status > div'), ret.value.progress + '%');
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'uploading');
+						$api.addCls(closeDom, 'hidden');
+						break;
+					case 'done':
+						$api.removeCls(closeDom, 'hidden');
+						$api.attr($api.closest(img, '[upload]'), 'key', ret.value.key);
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'done');
+						$api.remove($api.dom(img, '.upload-status'));
+						break;
+					case 'error':
+						$api.text($api.dom(img, '.upload-status > div'), '上传失败，点击重新上传');
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'error');
+						$api.removeCls(closeDom, 'hidden');
+						/*注册重新上传事件*/
+						$api.addEvt(img, 'click', function(e){
+							e.stopPropagation();
+							if(ret.value.uploadStatus=='error'){
+								$api.text($api.dom(img, '.upload-status > div'), '准备上传');
+								$api.attr($api.closest(img, '[upload]'), 'upload', 'ready');
+								Upload.init({
+									file: {
+										url: ret.value.url,
+										callbackEvent: ret.value.callbackEvent
+									}
+								});
+							}else{
+								api.toast({
+									duration: 2000,
+									msg: '正在上传...',
+									location: 'bottom'
+								});
+							}
+						});
+						break;
+				}
+			});			
+		}
+		function editShopp(id){
+				var title = $api.val($api.dom('[name=title]')),
+			    summary = $api.val($api.dom('[name=summary]')),
+			    price = $api.val($api.dom('[name=price]')),
+			    emptyImgDoms = $api.domAll('[upload=empty]'),
+			    uploadingImgDoms = $api.domAll('[upload=uploading]'),
+			    errorImgDoms = $api.domAll('[upload=error]'),
+			    coverDoneImgDoms = $api.domAll('#cover [upload=done]'),
+			    picDoneImgDoms = $api.domAll('#pic [upload=done]'),
+			    coverArr = [],
+			    picArr = [];
+			    if(!title){
+			    	toast('请输入标题');
+			    	return;
+			    }
+			    if(!summary){
+			    	toast('请输入简介');
+			    	return;
+			    }
+			    if(!price){
+			    	toast('请输入价格');
+			    	return;
+			    }
+					if(emptyImgDoms.length > 0){
+						if(uploadingImgDoms.length == 0){
+							if(errorImgDoms.length != 0){
+								toast('图片上传失败，请重新上传或删除图片');
+								return;
+							}
+						}else{
+							toast('图片正在上传中，请稍后...');
+							return;
+						}
+					}else{
+						toast('请上传图片');
+						return;
+					}
+					if(coverDoneImgDoms.length==0){
+						toast('请上传封面图片');
+						return;
+					}
+					if(picDoneImgDoms.length==0){
+						toast('请上传商品简介图片');
+						return;
+					}
+					for(var i=0;i<coverDoneImgDoms.length; i++){
+						coverArr.push($api.attr(coverDoneImgDoms[i], 'key'));
+					}
+					for(var i=0;i<picDoneImgDoms.length; i++){
+						picArr.push($api.attr(picDoneImgDoms[i], 'key'));
+					}
+						
+//				var	values = {
+//							id:$api.getStorage("memberId"),
+//							token:$api.getStorage("token"),
+//							goodsid:id,
+//							title:title,
+//							pic:picArr,
+//							cover:coverArr,
+//							summary:summary,
+//							price:price
+//						}
+//				alert(JSON.stringify(values));
+				tool.ajax.get({
+					ctrl:'Shop',
+					fn:'shopGoodsEdit',
+					hideLoading:true,
+					data:{
+						values:{
+							id:$api.getStorage("memberId"),
+							token:$api.getStorage("token"),
+							goodsid:id,
+							title:title,
+							pic:picArr,
+							cover:coverArr,
+							summary:summary,
+							price:price
+						}
+					},showError:true
+				},function(){
+					toast("修改成功");
+					api.closeWin();
+				});
+		}
+		apiready = function(){
+//			alert(api.pageParam.shopid);
+			goodstypeid = api.pageParam.id;
+			shopid = api.pageParam.shopid;
+			if(api.pageParam.isEdit){
+				tool.ajax.get({
+					ctrl: 'Shop',
+					fn: 'shopGoodsDetail',
+					hideLoading:true,
+					data: {
+						values: {
+							id: api.pageParam.id
+						}
+					}
+				}, function(ct){
+//					alert(JSON.stringify(ct));
+					$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=edit]')))(ct));
+					$api.attr($api.dom("#editShopp"),'onclick','editShopp('+api.pageParam.id+')');
+				});
+			}else{
+				//新添加
+//				$api.attr($api.dom('#addShop'), 'onclick', 'addShop('+api.pageParam.shopid+','+api.pageParam.pid+','+api.pageParam.id+')');
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=add]')))(''));
+			}
+			
+			
+			ad(0, 0);
+			ad(1, 0);
+			ad(2, 0);
+			ad(0, 1);
+			ad(1, 1);
+			ad(2, 1);
+		}
+	</script>
+</html> 

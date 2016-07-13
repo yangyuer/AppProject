@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		
+		<style type="text/css">
+			.ct-icon-angle-left {
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title {
+				color: #B3A69A;
+			}
+			footer {
+				line-height: 59px;
+				height: 60px;
+				width: 100%;
+				
+			}
+		 .box_left{
+		 	background-color: #333333;
+		 	color: #fff;
+		 
+		 }
+		 .box_right{
+		 	background-color: #F15352;
+		 	color: #fff;
+		 	text-align: center;
+		 }
+		 .ct-icon-radio_1{
+		 	color: #fff;
+		 	padding-left: 5px;
+		 	font-size: 1.2em;
+		 	position: relative;
+		 	top:3px;
+		 }
+		 .ct-icon-radio_2{
+		 	color: #F15352;
+		 	padding-left: 5px;
+		 	font-size: 1.2em;
+		 	position: relative;
+		 	top:3px;
+		 }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">购物车</span>
+				</div>
+			</div>
+			<div id="main"></div>
+			<footer id="footer" class="">
+				<div class="flex-box">
+					<div class="flex-2 box_left">
+						<span onclick="isSelectAll(this)" tapmode="">
+							<span class="ct-icon-radio_1" id="all" style=""></span>
+							<span style="color: #fff; font-size: 0.8em;">全选</span>
+						</span>
+						<span id="price"  style="color: #fff;padding-left: 5px;font-size: 0.8em;">
+							合计：￥<span id="all-price" style="color: #fff;">0</span>
+						</span>
+					</div>
+					<div class="flex-1 box_right" onclick="">
+						去结算(<span id="num" style="color: #fff;">0</span>)
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function resetView(isAll, price, type){
+			/*一旦涉及到商品数据的变化，即重新渲染视图层
+			 * number/string isAll
+			 * number/string price
+			 * number/string type
+			 */
+
+			if(parseInt(isAll)){
+				$api.dom('#all').className = 'ct-icon-radio_2';
+			}else{
+				$api.dom('#all').className = 'ct-icon-radio_1';
+			}
+			$api.text($api.dom('#all-price'), price||0);
+			$api.text($api.dom('#num'), type||0);			
+		}
+		
+		function isSelectAll(_this){
+			/*用于全选按钮*/
+			var flag = $api.dom(_this, '#all').className == 'ct-icon-radio_1'?1:0;
+			//执行子窗口全选逻辑
+			api.execScript({
+				name: api.winName,
+				frameName: 'shop_cart_list',
+				script: 'isSelectAll(' + flag + ')'
+			});
+		}
+		function openShopSheet(){
+			api.openWin({
+				name: 'MyTestSheet',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '提交测试订单',
+					frameName: 'my_test_sheet',
+					frameUrl: api.wgtRootDir + '/html/home/my_test_sheet_submit.html',
+				},
+				bounces: false
+			});	
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+					
+		   api.openFrame({
+				name: 'shop_cart_list',
+				url: api.wgtRootDir + '/html/home/shop_cart_list.html',
+				bounces: false,
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});		
+		}
+	</script>
+</html>

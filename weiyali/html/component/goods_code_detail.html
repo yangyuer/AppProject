@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.img-frm,
+			.img{
+				width: 100%;
+				height: 250px;
+				background-repeat: no-repeat;
+				background-position: center;
+				position: relative;
+			}
+			.img-frm{
+				/*background-image: url(../../res/loading2_1080x540.png);*/
+				background-size: auto 150px;
+			}
+			.img{
+				/*background-color: red;*/
+				background-size: contain;
+			}
+			#goods-info{
+				padding: 10px;
+			}
+			#goods-info li{
+				line-height: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="img-frm">
+					<div class="img"></div>
+					<!--<div class="null flex-box">
+						<div class="flex-1">
+							暂无相关图片信息
+						</div>
+					</div>						-->
+				</div>
+				<ul id="goods-info">
+					<li class="flex-box">
+						<div>条形码/二维码：</div>
+						<div class="flex-1">15155415</div>
+					</li>
+					<li class="flex-box">
+						<div>商品名称：</div>
+						<div class="flex-1">纸巾</div>
+					</li>
+					<li class="flex-box">
+						<div>厂商：</div>
+						<div class="flex-1">东莞</div>
+					</li>
+					<li class="flex-box">
+						<div>规格：</div>
+						<div class="flex-1">暂无信息</div>
+					</li>
+					<li class="flex-box">
+						<div>参考价格(单位:元)：</div>
+						<div class="flex-1">暂无信息</div>
+					</li>
+					<li class="flex-box">
+						<div>商标/品牌名称：</div>
+						<div class="flex-1"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+				<div class="img-frm">
+					{{? it.img }}
+					<div class="img" style="background-image: url({{= it.img }});"></div>
+					{{??}}
+					<div class="null flex-box">
+						<div class="flex-1">
+							暂无相关图片信息
+						</div>
+					</div>						
+					{{?}}
+				</div>
+				<ul id="goods-info">
+					<li class="flex-box">
+						<div>条形码/二维码：</div>
+						<div class="flex-1">{{= it.code }}</div>
+					</li>
+					<li class="flex-box">
+						<div>商品名称：</div>
+						<div class="flex-1">{{= it.goodsName||'暂无信息' }}</div>
+					</li>
+					<li class="flex-box">
+						<div>厂商：</div>
+						<div class="flex-1">{{= it.manuName||'暂无信息' }}</div>
+					</li>
+					<li class="flex-box">
+						<div>规格：</div>
+						<div class="flex-1">{{= it.spec||'暂无信息' }}</div>
+					</li>
+					<li class="flex-box">
+						<div>参考价格(单位:元)：</div>
+						<div class="flex-1">{{= it.price||'暂无信息' }}</div>
+					</li>
+					<li class="flex-box">
+						<div>商标/品牌名称：</div>
+						<div class="flex-1">{{= it.ret_code||'暂无信息' }}</div>
+					</li>
+				</ul>
+			</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function reload(code){
+//			alert('接收到：' + code);
+			tool.ajax.get({
+				ctrl: 'Index',
+				fn: 'Barcode',
+				data: {
+					values: {
+						code: code
+					}
+				},
+				showError: true
+			}, function(ct){
+//				alert(JSON.stringify(ct));
+				if(ct.showapi_res_code == 0){
+					//成功返回数据
+					mt('#main', 'main', ct.showapi_res_body);
+				}else{
+					api.alert({
+						title: '提示信息',
+						msg: ct.showapi_res_error
+					}, function(ret, err){
+						api.closeWin();
+					});
+				}
+			});
+		}
+		apiready = function(){
+			reload(api.pageParam.code);
+		}
+	</script>
+</html>

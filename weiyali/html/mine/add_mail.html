@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .add_title{
+       	line-height: 45px;
+         padding-left: 7%;
+       }
+       #main input{
+       	width:86%;
+       	margin-left: 7%;
+       	border:1px solid #e5e5e5;
+       	height: 35px;
+       	border-radius: 5px;
+       }
+       .add_bottom{
+       	border-bottom: 1px solid #e5e5e5;
+       	padding-bottom: 20px;
+       }
+       .submint_email{
+       	width: 94%;
+       	margin: auto;
+       	height: 35px;
+       	background-color: #40b5f0;
+       	line-height: 35px;
+       	text-align: center;
+       	color:#fff;
+       	margin-top: 25px;
+       	border-radius: 3px;
+       }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+            <div id="main">
+            	  <div class="add_bottom">
+                  <p class="add_title">请输入用于接收检测报告的邮箱地址</p>
+                  <input type="text" name="mail"/>
+                  <p class="add_title">备注邮箱地址</p>
+                  <input type="text" name="remark"/>
+                  </div>
+                  <div class="submint_email" onclick="setAddEmail()">确认添加</div>
+	        </div>
+		</div>
+	</body>
+	<script type="text/template" template='main'>
+		<div style="background-color:#F8F8F8">
+			<div class="add_bottom">
+				<p class="add_title">请输入用于接收检测报告的邮箱地址</p>
+				<input type="text"  name="mail" value="{{= it.mail||''}}" />
+				<p class="add_title">备注邮箱地址</p>
+				<input type="text" name="remark" value="{{= it.remark||''}}"/>
+			</div>
+			{{? it.type =='add' }}
+			<div class="submint_email" onclick='addEmail()'>确认添加</div>
+		  {{??}}
+		  <div class="submint_email" onclick='editEmail({{= it.id }})'>确认修改</div>
+	  {{?}}
+	 </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+	function editEmail(eid){
+		var mail = $api.val($api.dom('[name=mail]')),
+		    remark = $api.val($api.dom('[name=remark]'));
+		tool.ajax.get({
+			ctrl:'My',
+			fn:'editEmail',
+			data:{
+				values:{
+					id:$api.getStorage('memberId'),
+					token:$api.getStorage('token'),
+					mailid: eid,
+					mail: mail,
+    			remark: remark
+				}
+			},
+			showProgress:{
+				title:'提交中...'
+			}
+		},function(){
+			api.sendEvent({
+    		name: 'editEmail',
+    		extra:{
+    			mail: mail,
+    			remark: remark,
+    			id:eid
+    		}
+    	});
+      api.closeWin();
+		});
+	}
+	function addEmail(){
+		var mail = $api.val($api.dom('[name=mail]')),
+		    remark = $api.val($api.dom('[name=remark]'));
+    if(mail){
+    	if(!/^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/.test(mail)){
+    		toast('请正确输入邮箱名');
+    		return;
+    	}
+    }else{
+    	toast('请正确输入邮箱名');
+    	return;
+    }
+    if(!remark){
+    	toast('请输入备注邮箱地址');
+    	return;
+    }
+    tool.ajax.get({
+    	ctrl: 'My',
+    	fn: 'addEmail',
+    	data:{
+    		values:{
+    			id: $api.getStorage('memberId'),
+    			token: $api.getStorage('token'),
+    			mail: mail,
+    			remark: remark
+    		}
+    	},
+    	showProgress:{
+    		title:'提交中...'
+    	}
+    },function(){
+    	api.sendEvent({
+    		name: 'addEmail',
+    		extra:{
+    			mail: mail,
+    			remark: remark
+    		}
+    	});
+      api.closeWin();
+   	});
+	}
+	apiready = function(){
+		$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(api.pageParam));
+		
+	}
+		
+	</script>
+</html> 

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>消息列表</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			span.clip{
+				position: absolute;
+				top: 23%;
+				right: 10px;
+				font-size: 12px;
+			}
+			.ct-icon-back{
+				display: inline-block;
+				position: absolute;
+				width: 50px;
+				height: 100%;
+				/*background-color: red;*/
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar" style="border-bottom: 1px solid #ddd;">
+					<span class="ct-icon-back" onclick="api.closeWin()" tapmode="" style="font-size: 50px;"></span>
+	        <span class="title">温馨提示：双击截图框确定截图</span>
+	        <span class="clip btn btn-info-hollow btn-sm" tapmode="" onclick="imageClip()">开始截图</span>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/upload.js" ></script>
+	<script type="text/javascript">
+		function imageClip(){
+			api.execScript({
+				name: 'imageClip',
+				frameName: 'image_clip',
+				script: 'imageClip()'
+			});
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					winParam = api.pageParam,
+					mainPos = $api.offset(main);
+			
+			api.openFrame({
+				name: 'image_clip',
+				url: api.wgtRootDir + '/html/component/image_clip.html',
+				bounces: false,
+				pageParam: {
+					imgUrl: api.pageParam.imgUrl,
+					callbackEvent: api.pageParam.callbackEvent
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});
+		}
+	</script>
+</html>

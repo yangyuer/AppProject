@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 30px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+				text-align: center;
+				font-size: 40px;
+			}		
+			.o{
+				border-radius: 4px;
+				border:1px solid #ddd;
+			}	
+			.form-control{
+				
+			}
+			input{
+				width: 100%;
+			}
+			#header{
+				position: relative;
+				/*height: 55px;*/
+				/*line-height: 50px;*/
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div style="position: relative;height: 50px;line-height: 50px;padding:10px 5px 0 0;border-bottom: 1px solid #0094D8;">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode=""></span>
+					<div class="flex-box flex-h-ce o" style="margin-left:50px;line-height: 30px;">
+						<div class="form-control flex-1">
+							<input type="text" name="keyword" />
+						</div>
+						<div style="margin-left: 10px;">
+							<span class="ct-icon-search" style="color:#999"></span>
+							<span style="color:#999" id="shop-search" onclick="" tapmode="">搜索店铺商品</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function searchShopGoods(shopId){
+			var keyword = $api.val($api.dom('[name=keyword]'));
+			if(!keyword){
+				api.toast({
+					msg: '请输入搜索关键字',
+					location: 'bottom',
+					duration: 2000
+				});
+				return;
+			}
+			api.openWin({
+				name: 'shopGoodsSearchResult',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '搜索结果',
+					frameName: 'shop_goods_search_result',
+					frameUrl: api.wgtRootDir + '/html/home/shop_goods_search_result.html',
+					hasFrameParam: true,
+					frameParam: {
+						shopId: shopId,
+						keyword: keyword
+					}
+				},
+				bounces: false
+			});			
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+			$api.attr($api.dom('#shop-search'), 'onclick', 'searchShopGoods('+ api.pageParam.shopId +')');
+			
+			
+			api.openFrame({
+				name: 'enter_shop',
+				url: api.wgtRootDir + '/html/home/enter_shop.html',
+				bounces: false,
+				pageParam: {
+					shopId: api.pageParam.shopId
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});				
+		}
+	</script>
+</html>

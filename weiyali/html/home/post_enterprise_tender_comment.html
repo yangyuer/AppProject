@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			html{
+				background-color: transparent;
+			}
+			body{
+				background-color: rgba(0,0,0,0.2);
+			}
+			#footer{
+				background-color: #fff;
+				overflow: hidden;
+				/*height: 50px;*/
+				padding: 5px 10px;
+				line-height: 40px;
+				border-top: 1px solid #ddd;
+			}
+			#footer .flex-box{
+				/*line-height: 1;*/
+				/*border-bottom: 1px solid #ddd;*/
+			}
+			#footer input{
+				padding: 4px 0 ;
+				border-bottom: 1px solid #ddd;
+				width: 100%;
+				color: #ABABAB;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main" onclick="api.closeFrame()" tapmode=""></div>
+			<div id="footer" class="">
+				<div class="flex-box">
+					<div>
+						<span class="ct-icon-underwrite" style="color: #AAA;margin-right: 5px;"></span>						
+					</div>
+					<div class="flex-1">
+						<input type="text" name="criticise" placeholder="我也说一句" />
+					</div>
+					<div>
+						<button id="submit" class="btn btn-default btn-xs" onclick="" tapmode="" style="color: #aaa;padding: 3px 6px;margin-left: 5px;">
+							发送
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		//写评论
+		function criticise(id){
+			
+			var content = $api.val($api.dom('[name=criticise]'));
+			if(!content){
+//				toast('请正确填写内容~');
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'Index',
+				fn: 'tenderCommentPost',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						tenderid: id,
+						content: content
+					}
+				}
+			}, function(ct){
+				toast('评论成功');
+				api.sendEvent({
+					name: 'postEnterpriseTenderComment',
+					extra: {
+						content: content
+					}
+				});
+				api.closeFrame();
+			});	
+		}	
+		apiready = function(){
+//			alert(api.pageParam.id)
+			$api.attr($api.dom('#submit'), 'onclick', 'criticise(' + api.pageParam.id + ')');
+		}
+	</script>
+</html>

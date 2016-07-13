@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			header{
+				background: url(../../image/bg.jpg) no-repeat center;
+				position: relative;
+			}
+		 .img-frm,
+		 .img{
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 70px;
+				width: 70px;
+				border-radius: 50%;
+				position: relative;
+				left: 50%;
+				margin-left: -30px;
+				margin-top: 30px ;
+				background-image: url(../../res/avatar_default.png);
+			}
+			.img-frm{
+				background-image: url(../../res/avatar_default.png);
+				border: 1px solid #ddd;
+				 
+			}
+			.shop_thourng{
+				padding-left:50% ;
+				margin-left: -60px;
+			}
+			.min_other{
+       	background-color: #fff;
+       	height: 80px;
+       	line-height: 80px;
+       	margin-bottom: 10px;
+       }
+      .mis_other_one{
+      	background-color: #fe9f07;
+      	line-height: 80px;
+      	text-align: center;
+      }
+      .ct-icon-order-1{
+      	font-size: 2em;
+      	color:#fff;
+      position: relative;
+      top:10px;
+
+      }
+      .ct-icon-shop{
+      	font-size: 2em;
+      	color:#fff;
+      position: relative;
+      top:10px;
+      }
+      .min_other_title{
+      	margin-left: 20px;
+      }
+	   .mis-other_img{
+	   	text-align: right;
+	   	margin-right: 10px;
+	   	margin-top: 6px;
+	   }
+	   .ct-icon-set{
+	   	font-size: 2em;
+	      	color:#fff;
+	      position: relative;
+	      top:10px;
+	   }
+	   .ct-icon-angle-right{
+	   	font-size: 1.8em;
+	   	color: #a1a1a1;
+	   }
+		</style>
+	</head>
+	<body style="background-color: #F8F8F8;">
+		<div id="wrap">
+		  <header class="">
+					<div class="img-frm">
+						<div class="img" style="top:-31px;left: 29px;"  data-echo-background="{{= it.logo }}"></div>
+					</div>
+					<h4 class="shop_thourng">连接科技有限公司   <span style="padding-left: 8px;">东莞</span></h4>
+			    <h6 class="shop_thourng">店铺等级<span style="padding-left: 8px;">d</span><span>d</span><span>d</span></h6>	
+			    <h6 class="shop_thourng" style="padding-bottom: 20px;"> 店铺未认证 <span style="padding-left: 12px;color:#fff;">点击认证店铺</span></h6>
+		  </header>
+			<div id="main">
+				<div class="flex-box min_other hidden">
+         	<div class="flex-1 mis_other_one"><span class="ct-icon-order-1"></span></div>
+         	<div class="flex-2 min_other_title">店铺订单</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+        </div>
+        <div class="flex-box min_other hidden">
+         	<div class="flex-1 mis_other_one" style="background-color: #FF8A44;"><span class="ct-icon-shop"></span></div>
+         	<div class="flex-2 min_other_title">商品管理</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+        </div>
+        <div class="flex-box min_other hidden">
+         	<div class="flex-1 mis_other_one" style="background-color: #888888;"><span class="ct-icon-set"></span></div>
+         	<div class="flex-2 min_other_title">店铺设置</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+        </div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="wrap">
+		 <header>
+					<div class="img-frm">
+						<div class="img" style="top:-31px;left: 29px;"  data-echo-background="{{= it.logo }}"></div>
+					</div>
+					<h4 class="shop_thourng">{{= it.company}}    <span style="padding-left: 8px;">东莞</span></h4>
+			    <h6 class="shop_thourng">店铺等级<span style="padding-left: 8px;">d</span><span>d</span><span>d</span></h6>	
+			    <h6 class="shop_thourng" style="padding-bottom: 20px;"> 
+			    	{{? it.auth == '0'}}
+			    	<span>店铺未认证</span>
+			    	<span style="padding-left: 12px;color:#fff;" onclick="ShopCertification()">点击认证店铺</span>
+			    	{{?? it.auth == '1'}}
+			    	<span>已认证</span>
+			    	{{?? it.auth == '2'}}
+			    	<span>认证中</span>
+			    	{{?? it.auth == '3'}}
+			    	<span>认证失败</span>
+			    	{{?}}
+			    </h6>
+		  </header>
+			<div id="main">
+			 <div style="background-color:#F8F8F8">
+				<div class="flex-box min_other" onclick="openShopOrder()">
+         	<div class="flex-1 mis_other_one"><span class="ct-icon-order-1"></span></div>
+         	<div class="flex-2 min_other_title">店铺订单</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+        </div>
+        <div class="flex-box min_other" onclick="OpenShopManagement({{= it.shopid}})">
+         	<div class="flex-1 mis_other_one" style="background-color: #FF8A44;"><span class="ct-icon-shop"></span></div>
+         	<div class="flex-2 min_other_title">商品管理</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+        </div>
+        <div class="flex-box min_other" onclick="openShopSetting()">
+         	<div class="flex-1 mis_other_one" style="background-color: #888888;"><span class="ct-icon-set"></span></div>
+         	<div class="flex-2 min_other_title">店铺设置</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+        </div>
+			</div>
+		</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+	  function reload(){
+	  	tool.ajax.get({
+	  		hideLoading:true,
+	  		ctrl:"Shop",
+	  		fn: "shopInfo",
+	  		data:{
+	  			values:{
+	  				id:$api.getStorage('memberId'),
+	  				token:$api.getStorage('token')
+	  			}
+	  		}
+	  	},function(ct){
+	  		$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+	  	  echo.init();
+	  	  api.parseTapmode();
+	  	});
+	  }
+	  //商品管理
+	  function OpenShopManagement(shopid){
+	  	api.openWin({
+				name: 'shopManagement',
+				url: api.wgtRootDir + '/html/window/goods_win_shop.html',
+				pageParam:{
+					shopid:shopid
+				},
+				bounces: false
+			});
+	  }
+	  //店铺设置
+	  function openShopSetting(){
+	  	api.openWin({
+				name: 'ShopCertification',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '店铺设置',
+					frameName: 'Shop_Certification',
+					frameUrl: api.wgtRootDir + '/html/home/my_open_shop.html',
+				},
+				bounces: false
+			});
+	  }
+	  //打开店铺订单
+	  function openShopOrder(shopid){
+	  	api.openWin({
+				name: 'openShopOrder',
+				url: api.wgtRootDir + '/html/window/win_shop_order.html',
+				bounces: false
+			});
+	  }
+	  //认证商品
+	  function ShopCertification(){
+	  	api.openWin({
+				name: 'ShopCertification',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '店铺认证',
+					frameName: 'Shop_Certification',
+					frameUrl: api.wgtRootDir + '/html/home/shop_certification.html',
+				},
+				bounces: false
+			});
+	  }
+		apiready = function(){
+			reload();
+		}
+	</script>
+</html>

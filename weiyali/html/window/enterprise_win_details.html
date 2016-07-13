@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+				text-align: left;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.topbar{
+				text-align: left;
+				padding: 0 1.8em;
+			}
+			footer{
+			line-height: 55px;
+			height: 55px;
+			bottom: 0;
+			background-color: #fff;
+			width: 100%;
+			text-align: center;
+			border-top:1px solid #ddd;
+			
+		}
+		/*.cart_bottom{
+			position: relative;
+		}*/
+		.ce_cart{
+			width: 120px;
+			height: 35px;
+			margin-top: 10px;
+			border-radius: 4px;
+			background-color: #19b5fe;
+			position: absolute;
+			left: 8%;
+			color: #fff;
+			line-height: 35px;
+			text-align: center;
+		}
+		.tubiao_cart{
+			margin-top: 9px;
+			margin-left: 9px;
+			margin-right: 5px;
+			color: #fff;
+		}
+		.ce_buy{
+			width: 120px;
+			height: 35px;
+			margin-top: 10px;
+			border-radius: 4px;
+			background-color: #f15352;
+			position: absolute;
+			right:8%;
+			color: #fff;
+			line-height: 35px;
+			text-align: center;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left"  onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">测试详情</span>
+				</div>
+			</div>
+			<div id="main"></div>
+				<footer >
+				<div class="flex-box cart_bottom" onclick="etestCartAdd(id)" tapmode="">
+					<div class="flex-box ce_cart">
+						<span class="ct-icon-cart tubiao_cart"></span>
+						加入测试车
+					</div>
+					<div class="flex-box ce_buy"><span class="ct-icon-card tubiao_cart"></span>立即购买</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function etestCartAdd(){
+			api.execScript({
+				name: api.winName,
+				frameName: 'enterprise_single_details',
+				script: 'addCart()'
+			});
+		}
+     apiready = function(){
+     	var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+     	api.openFrame({
+     		name:'enterprise_single_details',
+     		url: api.wgtRootDir + '/html/home/enterprise_single_details.html',
+     		bounces:true,
+     		pageParam:{
+     			id: api.pageParam.id
+     		},
+     		rect:{
+     			x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+     		},
+     		reload:true
+     	});
+     }
+	</script>
+</html>

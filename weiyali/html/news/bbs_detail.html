@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			body,
+			#main{
+				background-color: #fff;
+			}
+			header{
+				position: relative;
+				padding-left: 15px;
+				line-height: 30px;
+				height: 30px;
+				margin-top: 10px;
+				/*background-color: red;*/
+			}
+			header::before{
+				content: 'c';
+				display: inline-block;
+				color: transparent;
+				width: 7px;
+				height: 30px;
+				top: 5px;
+				background-color: #36B1EF;
+			}
+			header span{
+				font-size: 14px;
+				padding-left: 6px;
+			}
+			#main{
+				padding: 10px 12px;
+			}
+			.datetime{
+				color: #B2B3B4;
+				margin-bottom: 20px;
+			}
+			p{
+				font-size: 14px;
+				line-height: 1.5;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<header class="hidden">
+				<span>
+					可实现远程测量的二极管功率探头
+				</span>
+			</header>
+			<div id="main">
+				<h6 class="datetime hidden">
+				<span style="padding-right:10px ; color: #B2B3B4;">用户：佳乐家</span>	<span style="color:#B2B3B4 ;">2015-04-21 15:12</span>
+				</h6>
+				<p class="hidden">
+					以前，功率计都是由功率计主机和经电缆连接的外部功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示。这样的优点是可以为当前的任务选择合适的功率探头，而不需要更换功率主机，不足之处是功率探头不能独立工作，没有主机就无法使用。
+				</p>
+				<div class="hidden">
+					<img src='../../image/banner_temporary.png' />
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="wrap">
+     <header>
+				<span>
+					{{= it.title }}
+				</span>
+			</header>
+			<div id="main">
+				<div style="background-color:#fff">
+				<h6 class="datetime">
+				<span style="padding-right:10px ; color: #B2B3B4;">用户：{{= it.nickname }}</span>	<span style="color:#B2B3B4 ;">{{= formatDateByRequire(it.datetime, '-') }}</span>
+				</h6>
+				<p>
+					{{= it.content }}
+				</p>
+				<div>
+					{{? it.img1}}
+					<div style="background: url(../../res/swipe_loading.png) cover; ">
+						<img src="{{= it.img1}}">
+					</div>
+					{{?}}
+					{{? it.img2}}
+					<div style="background: url(../../res/swipe_loading.png) cover; ">
+						<img src="{{= it.img2}}">
+					</div>
+					{{?}}
+					{{? it.img3}}
+						<div style="background: url(../../res/swipe_loading.png) cover; ">
+						<img src="{{= it.img3}}">
+					</div>
+					{{?}}
+				</div>
+			</div>
+   </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript">
+	function reload(id){
+		var ctrl = 'Info',
+					fn = 'bbsContent',
+					table = ctrl.toLowerCase() + '_' + fn.toLowerCase();
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values: {
+						bbsid: id
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+				api.parseTapmode();
+			});
+	}
+		apiready = function(){
+			reload(api.pageParam.bbsid)
+		}
+	</script>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.ct-icon-search{
+				position: absolute;
+				right: 8px;
+				top: 12px;
+				font-size: 23px;
+				color: #5E5F5F;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">测试机构</span>
+					<span class="ct-icon-search" id="search" onclick="openMechanism(typeId)" tapmode=""></span>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function init(){
+			xdy.ajax.get({
+				controller: 'My',
+				fn: 'msg',
+				data: {
+					values: {
+						id: $api.getStorage('usrId'),
+						token: $api.getStorage('token')
+					}
+				}
+			}, function(ct){
+				$api.text($api.dom('.mesg-num'), ct);
+				if(parseInt(ct) > 0){
+					api.sendEvent({
+						name: 'addRedPoint'
+					});
+				}else{
+					api.sendEvent({
+						name: 'rmRedPoint'
+					});
+				}
+			});			
+		}
+		function openMechanism(typeId){
+			api.openWin({
+				name: 'openMechanism',
+				url: api.wgtRootDir + '/html/window/win_mechanism_search.html',
+					pageParam:{
+							typeId:typeId
+						},
+				bounces: false
+			});
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+			$api.attr($api.dom('#search'), 'onclick', 'openMechanism(' + api.pageParam.typeId + ')');
+			api.openFrame({
+				name: 'mechanism_list',
+				url: api.wgtRootDir + '/html/home/mechanism_list.html',
+				bounces: false,
+				pageParam: {
+					typeId: api.pageParam.typeId
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});			
+		}
+	</script>
+</html>

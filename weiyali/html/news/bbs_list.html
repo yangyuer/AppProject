@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<title>Document</title>
+		<style type="text/css">
+			body{
+				background-color: #F8F8F8;
+			}
+			.list-view{
+				background-color: #fff;
+			}
+			.list-view{
+				min-height: 60px;
+				padding: 10px;
+				border-top: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				position: relative;
+			}
+			.list-view:not(:first-child){
+				margin-top: 7px;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				/*padding-left: 10px;*/
+			}
+			.list-view .title{
+				margin-bottom: 5px;
+			}
+			.datetime{
+				font-size: 13px;
+				color: #aaa;
+				line-height: 18px;
+			}
+			.title{
+				font-size: 14px;
+				line-height: 1.4;
+			}
+			p{
+				margin-bottom: 10px;
+				line-height: 1.6;
+				font-size: 13px;
+			}
+			.add{
+				width: 50px;
+				height: 50px;
+				background-color: #51A5CF;
+				padding: 5px;
+				border-radius: 50%;
+				position: fixed;
+				right: 10px;
+				bottom: 80px;
+				z-index: 99;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="add text-center" onclick="openPost()">
+				<span class="ct-icon-plus" style="font-size: 40px;color: #fff;"></span>
+			</div>
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="flex-1">
+						<h4 class="title text-overflow">
+							可实现远程测量的二极管功率探头
+						</h4>
+						<p>功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示....</p>
+						<div class="flex-box">
+							<h6 class="text-overflow" style="color: #aaa;margin: 0 10px 0 0;line-height: 18px;max-width: 120px;">
+								用户：非凡半导体
+							</h6>
+							<div class="datetime flex-1">
+								2015-04-09
+								10:12
+							</div>
+							<div class="text-right">
+								<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">(18)</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="list-view flex-box hidden">
+					<div class="flex-1">
+						<h4 class="title text-overflow">
+							仅一颗磁性传感器，即可实现高进度3D感触
+						</h4>
+						<p>
+							英飞凌科技股份公司今日宣布推出其3D磁性传感器TLV493D-A1B6，该传感器采用小巧的6脚TSOP封装...
+						</p>
+						<div class="flex-box">
+							<h6 class="text-overflow" style="color: #aaa;margin: 0 10px 0 0;line-height: 18px;max-width: 120px;">
+								用户：非凡半导体
+							</h6>
+							<div class="datetime flex-1">
+								2015-04-09
+								10:12
+							</div>
+							<div class="text-right">
+								<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">(18)</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~ it :value:index }}
+				<div class="list-view flex-box" onclick="openBbsDetail({{= value.id }}, {{= value.count }})">
+					<div class="flex-1">
+						<h4 class="title text-overflow">
+							{{= value.title }}
+						</h4>
+						<p>
+							{{= value.content }}
+						</p>
+						<div class="flex-box">
+							<h6 class="text-overflow" style="color: #aaa;margin: 0 10px 0 0;line-height: 18px;max-width: 120px;">
+								{{= value.nickname}}
+							</h6>
+							<div class="datetime flex-1">
+								{{= formatDateByRequire(value.datetime, '-') }}
+							</div>
+							<div class="text-right">
+								<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">({{= value.count }})</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>
+		{{ } }}
+	 </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+	function reload(){
+		var ctrl = 'Info',
+					fn = 'bbsList',
+					table = ctrl.toLowerCase() + '_' + fn.toLowerCase();
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+			}, function(ct){
+				$api.jsonToStr(ct);
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});
+	}
+	//发布
+	function openPost(){
+		api.openWin({
+				name: 'PostBbs',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '发布',
+					frameName: 'post_bbs',
+					frameUrl: api.wgtRootDir + '/html/news/post_bbs.html',
+				},
+				bounces: false
+			});
+	}
+	function openBbsDetail(id,count){
+      api.openWin({
+				name: 'newsDetail',
+				url: api.wgtRootDir + '/html/window/bbs_detail.html',
+				pageParam:{
+					bbsid: id,
+					count: count
+				},
+				bounces: false
+			});		
+	}
+		apiready = function() {
+			Refresh.init({
+				ctrl: 'Info',
+				fn: 'bbsList'
+			});
+			reload();
+		}
+	</script>
+
+</html>

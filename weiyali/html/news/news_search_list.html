@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<title>Document</title>
+		<style type="text/css">
+			body{
+				background-color: #F8F8F8;
+			}
+			#main > .list-view{
+				background-color: #fff;
+			}
+			.list-view{
+				min-height: 60px;
+				padding: 10px;
+				border-top: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				position: relative;
+			}
+			.list-view:not(:first-child){
+				margin-top: 7px;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				/*padding-left: 10px;*/
+			}
+			.list-view .title{
+				margin-bottom: 5px;
+			}
+			.flex-center-v{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}			
+			.datetime{
+				font-size: 13px;
+				color: #aaa;
+				line-height: 18px;
+			}
+			.title{
+				font-size: 14px;
+				line-height: 1.4;
+			}
+			.swipe-wrap .img{
+				height: 150px;
+			}
+			p{
+				margin-bottom: 10px;
+				line-height: 1.6;
+				font-size: 13px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="flex-1">
+						<h4 class="title text-overflow hidden">
+							可实现远程测量的二极管功率探头
+						</h4>
+						<p>功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示....</p>
+						<div class="flex-box">
+							<div class="datetime flex-1">
+								<span style="color:#3896C8;margin-right: 10px;font-size: 13px;">最新动态</span>
+								2015-04-09
+								&nbsp;
+								10:12
+							</div>
+							<div class="text-right">
+								<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">(18)</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+			{{ if(it instanceof Array && it.length!=0){ }}
+				{{~ it :value:index }}
+			    <div class="list-view flex-box ">
+						<div class="flex-1">
+							<h4 class="title text-overflow ">
+								{{= value.title }}
+							</h4>
+							<p>{{= value.content }}</p>
+							<div class="flex-box">
+								<div class="datetime flex-1">
+									<span style="color:#3896C8;margin-right: 10px;font-size: 13px;">最新动态</span>
+									{{= formatDateByRequire(value.datetime, '-') }}
+								</div>
+								<div class="text-right">
+									<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">({{= value.count}})</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				{{~}}
+			{{ }else{ }}
+				<div class="null flex-box">
+					<div class="flex-1">
+						暂无相关内容~
+					</div>
+				</div>
+			{{ } }}
+	 </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript">
+		apiready = function() {
+			var list = api.pageParam.result;
+			$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(list));
+		}
+	</script>
+
+</html>

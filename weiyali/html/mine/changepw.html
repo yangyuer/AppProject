@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.form-control{
+				display: inline-block;
+				width: 207px;
+				padding: 12px 4px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}		
+			
+			.input-group{
+				width: 260px;
+			}
+			#main{
+				padding-top: 2em;
+			}
+			button{
+				width: 250px;
+			}
+			/*begin 第二步*/
+			/*.confirm.input-group::before{
+				background-image: url(../../image/icon-confirm.png);
+				background-position: 17px center;
+				background-size: 25px;
+			}			*/
+			.step-2 .input-group{
+				margin-bottom: 10px;
+			}
+			/*end 第二步*/
+			
+			/*begin 第三步*/
+			.step-3 .logo{
+				padding: 70px 0;
+				text-align: center;
+				font-size: 100px;
+				background: url(../../image/logo.png) no-repeat center;
+				background-size: 70px;
+			}
+			.step-3 > div:nth-child(2){
+				height: 70px;
+			}
+			.step-3 > div:nth-child(2) > div{
+				color: #9D9D9D;
+			}
+			.step-3 > div:nth-child(2) > div:first-child{
+				line-height: 30px;
+			}
+			.step-3 > div:nth-child(2) > div:first-child::before{
+				display: inline-block;
+				width: 20px;
+				height: 30px;
+				content: 'c';
+				color: transparent;
+				background: url(../../image/ok_sign.png) no-repeat center;
+				background-size: 20px auto;
+			}
+			.step-3 > div:nth-child(3)::before{
+				display: block;
+				content: 'c';
+				color: transparent;
+				height: 200px;
+				background: url(../../image/balloon.png) no-repeat center;
+				background-position-y:bottom; 
+				background-size: 180px;
+			}			
+			/*end 第三步*/
+			.flex-center-center{
+				justify-content: center;
+				-webkit-justify-content: center;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+			}			
+			.ct-icon-key,
+			.ct-icon-lock{
+				position: relative;
+				top: 4px;
+				margin-right: 20px;
+				/*right: 15px;*/
+				color: #888;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="step-1">
+					<div class="flex-box-v flex-center-center">
+						<div class="flex-1">
+							<div class="input-group lock">
+								<span class="ct-icon-lock" style="font-size: 25px;"></span>
+								<div class="form-control">
+									<input type="password" name="old-password" style="font-size:13px;width: 207px;" placeholder="请输入旧密码">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="text-center" style="margin-top:50px;">
+						<button class="btn btn-info btn-lg" tapmode="" onclick="checkOldPwd()">
+							确定
+						</button>
+					</div>						
+				</div>	
+			</div>
+		</div>
+	</body>
+	<!--begin 第二步-->
+	<script type="text/template" id="step-2">
+		<div class="step-2">
+			<div class="flex-box-v flex-center-center">
+				<div class="flex-1">
+					<div class="input-group lock">
+						<span class="ct-icon-lock" style="font-size: 25px;"></span>
+						<div class="form-control">
+							<input type="text" name="passwd" style="font-size:13px;width: 207px;" placeholder="请输入新密码">
+						</div>
+					</div>
+				</div>
+				<div class="flex-1">
+					<div class="input-group confirm">
+						<span class="ct-icon-key" style="font-size: 25px;margin-right: 17px;"></span>
+						<div class="form-control">
+							<input type="text" name="passwd-again" style="font-size:13px;width: 207px;" placeholder="请再次输入新密码">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="text-center" style="margin-top:50px;">
+				<button class="btn btn-info btn-lg" tapmode="" onclick="sendNewPwd()">
+					确定
+				</button>
+			</div>						
+		</div>
+	</script>
+	<!--end 第二步-->
+	
+	<!--begin 第三步-->
+	<script type="text/template" id="step-3">
+		<div class="step-3">
+			<div class="logo"></div>
+			<div class="flex-box-v text-center">
+				<div class="flex-1">
+					修改成功！
+				</div>
+				<div class="flex-1">
+					感谢使用威雅利
+				</div>
+			</div>
+			<div class="text-center" style="margin:0 0 30px">
+				<button class="btn btn-info" tapmode="" style="width:250px;padding:12px" onclick="api.closeWin()">
+					返回
+				</button>
+			</div>
+		</div>		
+	</script>
+	<!--begin 第三步-->
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+	//修改密码-验证旧密码
+		function checkOldPwd(){
+			var oldPass = $api.val($api.dom('[name=old-password]'));
+			if(!oldPass){
+				toast('请将信息填写完整~');
+				return;
+			}			
+			tool.ajax.get({
+				ctrl: 'My',
+				fn: 'checkoldpass',
+				data: {
+					values: {
+						id: $api.getStorage("memberId"),
+						token: $api.getStorage('token'),
+						oldpass: oldPass
+					}
+				},
+				showProgress: {
+					title: '提交中...'
+				},
+				showError: true
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.byId('step-2')))(''));
+				//优化点击事件
+				api.parseTapmode();
+			});			
+		}
+		//修改密码-提交新密码
+		function sendNewPwd(){
+			var pwd = $api.val($api.dom('[name=passwd]')),
+					pwdAgain = $api.val($api.dom('[name=passwd-again]'));
+			
+			//验证密码
+			if(pwd && pwdAgain){
+				if(pwd !== pwdAgain){
+					toast('两次密码输入不一致~');
+					return;
+				}
+			}else{
+				toast('请将密码填写完整~');
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'My',
+				fn: 'editPassword',
+				data: {
+					values: {
+						id: $api.getStorage("memberId"),
+						token: $api.getStorage('token'),
+						newpass : pwd
+					}
+				},
+				showProgress: {
+					title: '提交中...'
+				}
+			}, function(ct) {
+				$api.html($api.dom('#main'), doT.template($api.html($api.byId('step-3')))(''));
+				api.parseTapmode();
+			});			
+		}
+		
+		apiready = function(){
+			
+		}
+	</script>
+</html>

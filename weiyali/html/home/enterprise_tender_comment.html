@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.list-view{
+				min-height: 100px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				padding-left: 10px;
+			}
+			.img-frm,
+			.img{
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 30px;
+				width: 30px;
+				border-radius: 50%;
+			}
+			.img-frm{
+				border: 1px solid #ddd;
+				background-image: url(../../res/avatar_default.png);
+			}
+			.name{
+				color: orange;
+				font-size: 13px;
+			}
+			.content{
+				padding-top: 10px;
+			}
+			.datetime{
+				position: absolute;
+				bottom: 3px;
+				right: 6px;
+				font-size: 12px;
+				color: #bbb;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="edit-btn text-center" onclick="" tapmode="">
+				<span class="ct-icon-edit2" style="font-size: 25px;color: #fff;top:5px"></span>
+			</div>				
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="img-frm">
+						<div class="img"></div>
+					</div>
+					<div class="flex-1">
+						<div class="name">
+							weis叶
+						</div>
+						<div class="content">
+							也只有中国办实事要熟人才好办。
+						</div>
+						<div class="datetime">
+							2015-04-10
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+				{{ if(it instanceof Array && it.length!=0){ }}
+					{{~ it :value:index }}
+						<div class="list-view flex-box" onclick="" tapmode="">
+							<div class="img-frm">
+								<div class="img" img-cache="{{= value.avatar }}" data-echo-background="{{= value.avatar }}"></div>
+							</div>
+							<div class="flex-1">
+								<div class="name">
+									{{= value.nickname }}
+								</div>
+								<div class="content">
+									{{= value.content }}
+								</div>
+								<div class="datetime">
+									{{= formatDateByRequire(value.datetime, '-') }}
+								</div>
+							</div>
+						</div>	
+					{{~}}
+				{{ }else{ }}
+					<div class="null flex-box">
+						<div class="flex-1">
+							暂无相关内容~
+						</div>
+					</div>		
+				{{ } }}
+	</script>
+	<script type="text/template" template="post">
+		<div class="list-view flex-box">
+			<div class="img-frm">
+				<div class="img" style="background-image: url({{= $api.getStorage('memberInfo').avatar }});"></div>
+			</div>
+			<div class="flex-1">
+				<div class="name">
+					{{= $api.getStorage('memberInfo').nickname }}
+				</div>
+				<div class="content">
+					{{= it.content }}
+				</div>
+				<div class="datetime">
+					{{= formatDateByRequire(new Date().getTime()/1000, '-') }}
+				</div>
+			</div>
+		</div>
+	</script>	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+		/*发布企业招标评论*/
+		function openPostEnterpriseTenderComment(id){
+			api.openFrame({
+				name: 'post_enterprise_tender_comment',
+				url: api.wgtRootDir + '/html/home/post_enterprise_tender_comment.html',
+				bounces: false,
+				pageParam: {
+					id: id
+				},
+				rect: {
+					x: 0,
+					y: 0,
+					w: 'auto',
+					h: 'auto'
+				}
+			});
+		}	
+		function reload(id){
+			tool.ajax.get({
+				ctrl:'Index',
+				fn: 'tenderCommentList',
+			  data:{
+			  	values: {
+			  		id: id
+			  	}
+			  }
+			}, function(ct){
+				$api.attr($api.dom('.edit-btn'), 'onclick', 'openPostEnterpriseTenderComment(' + id + ')');
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				echo.init();
+				api.parseTapmode();
+				/*缓存处理*/
+			});
+		}
+		function init(){
+			DB.getDataFromDB({
+				ctrl: 'My',
+				fn: 'commentList',
+				dbName: config.db.name
+			}, function(ret){
+				if(ret.status == 1){
+					$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ret.data));
+					api.parseTapmode();
+				}
+				/*尝试从服务器获取最新数据*/
+				reload();
+			});
+		}
+		apiready = function(){
+			reload(api.pageParam.id);
+			api.addEventListener({
+				name: 'postEnterpriseTenderComment'
+			}, function(ret, err){
+				try{
+					$api.remove($api.dom('.null'));
+				}catch(e){
+					
+				}
+				$api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=post]')))({content:ret.value.content}));
+			});
+		}
+	</script>
+</html>

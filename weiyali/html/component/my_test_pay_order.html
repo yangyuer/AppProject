@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+			.steps{
+				padding: 20px 20px 40px 20px;
+				border-bottom: 1px solid #ddd;
+			}
+			.sp-title{
+				font-size: 12px;
+				color: #999;
+				text-align: center;
+				margin-bottom: 20px;
+			}
+			.sp-num{
+				margin-top: 10px;
+				height: 5px;
+				background-color: #ECECEC;
+				position: relative;
+			}
+			.sp-num::before{
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				text-align: center;
+				color: #B5B5B5;
+				background-color: #ECECEC;
+				border-radius: 50%;
+				position: relative;
+				top: -8px;
+			}
+			.sp:nth-child(1) .sp-num::before{
+				content: '1';
+			}
+			.sp:nth-child(2) .sp-num::before{
+				content: '2';
+			}
+			.sp:nth-child(3) .sp-num::before{
+				content: '3';
+			}
+			.sp:nth-child(4) .sp-num::before{
+				content: '4';
+			}
+			.sp.active .sp-title{
+				color: #00ABFD;
+			}
+			.sp.active .sp-num{
+				background-color: #00ABFD;
+			}
+			.sp.active .sp-num::before{
+				background-color: #00ABFD;
+				color: #fff;
+			}
+			.ct-icon-radio_1{
+				color: #999;
+			}
+			.ct-icon-radio_2{
+				color: #00ABFD;
+			}
+			.ct-icon-radio_1,
+			.ct-icon-radio_2{
+				font-size: 20px;
+				margin-right: 15px;
+			}
+			.count li{
+				line-height: 30px;
+				font-size: 20px;
+			}
+			.pay-method li{
+				line-height: 50px;
+			}
+			.weixin-img::before,
+			.alipay-img::before{
+				content: 'c';
+				color: transparent;
+				display: inline-block;
+				background-repeat: no-repeat;
+				background-position: left center;
+				background-size: contain;
+				/*background-color: red;*/
+			}
+			.weixin-img::before{
+				width: 120px;
+				height: 40px;
+				background-image: url(../../image/pay_wechat.png);
+			}
+			.alipay-img::before{
+				width: 120px;
+				height: 40px;
+				background-image: url(../../image/pay_alipay.png);
+				background-size: auto 30px;
+			}
+			
+			.logo{
+				padding: 70px 0;
+				text-align: center;
+				font-size: 100px;
+				background: url(../../image/logo.png) no-repeat center;
+				background-size: 70px;
+			}
+			.sucecss > div:nth-child(2){
+				height: 70px;
+			}
+			.sucecss > div:nth-child(2) > div{
+				color: #9D9D9D;
+			}
+			.sucecss > div:nth-child(2) > div:first-child{
+				line-height: 30px;
+			}
+			.sucecss > div:nth-child(2) > div:first-child::before{
+				display: inline-block;
+				width: 20px;
+				height: 30px;
+				content: 'c';
+				color: transparent;
+				background: url(../../image/ok_sign.png) no-repeat center;
+				background-size: 20px auto;
+			}
+			.sucecss > div:nth-child(3)::before{
+				display: block;
+				content: 'c';
+				color: transparent;
+				height: 200px;
+				background: url(../../image/balloon.png) no-repeat center;
+				background-position-y:bottom; 
+				background-size: 180px;
+			}				
+    </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="flex-box steps">
+					<div class="flex-1 sp ">
+						<div class="sp-title">提交订单</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+					<div class="flex-1 sp active">
+						<div class="sp-title">支付方式</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+					<div class="flex-1 sp ">
+						<div class="sp-title">支付完成</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+					<div class="flex-1 sp hidden">
+						<div class="sp-title">选择物流</div>
+						<div class="sp-num flex-box flex-h-zhu"></div>
+					</div>
+				</div>
+				
+				<section class="">
+					<div style="padding: 10px 20px;">
+						<h4>选择支付方式</h4>
+						<div>
+							<ul class="pay-method">
+								<li class="flex-box">
+									<div onclick="selected(this, 1)" tapmode="">
+										<span class="ct-icon-radio_1"></span>
+									</div>
+									<div style="font-size: 18px;">
+										余额支付
+										<small>
+											当前余额：<span id="money">0</span>元
+										</small>
+									</div>
+								</li>
+								<li class="flex-box">
+									<div onclick="selected(this, 2)" tapmode="">
+										<span class="ct-icon-radio_1"></span>
+									</div>
+									<div class="weixin-img"></div>
+								</li>
+								<li class="flex-box">
+									<div onclick="selected(this, 3)" tapmode="">
+										<span class="ct-icon-radio_1"></span>
+									</div>
+									<div class="alipay-img"></div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div style="padding: 10px 20px;border-top: 1px solid #ddd;">
+						<ul class="count">
+							<li class="text-left">
+								确定订单价格
+							</li>
+							<li class="text-center" style="font-size: 18px;margin-top: 20px;">
+								需支付总价：
+								<span id="pay" style="color:red">
+									0
+								</span>
+								<small>
+									元
+								</small>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="text-center" style="padding: 10px 20px 30px;">
+						<button onclick="payment()" class="btn btn-danger btn-lg btn-block">
+							确定付款
+						</button>
+					</div>
+				</section>
+				
+			</div>		
+		</div>
+	</body>
+	<script type="text/template" template="success">
+		<div class="sucecss">
+			<div class="logo"></div>
+			<div class="flex-box-v text-center">
+				<div class="flex-1">
+					支付成功!
+				</div>
+				<div class="flex-1">
+					感谢使用威雅利测试平台
+				</div>
+			</div>
+			<div class="text-center" style="margin:0 0 30px">
+				<button class="btn btn-info" onclick="fillLogistics()" style="width:250px;padding:12px" tapmode="">
+					去选择物流
+				</button>
+				<button class="btn btn-info-hollow" onclick="closeToWin()" style="width:250px;padding:12px;margin-top: 15px;" tapmode="">
+					暂不选择
+				</button>
+			</div>
+		</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+	//预定义支付方式、订单号
+		var type, orderId, pay, testOrderNo;
+		function selected(_this, _type){
+			var temp;
+			if(type){
+				if(type == _type){
+					return;
+				}else{
+					temp = $api.dom('ul.pay-method > li:nth-child('+type+') span');
+					$api.addCls($api.removeCls(temp, 'ct-icon-radio_2'), 'ct-icon-radio_1');
+					temp = $api.dom('ul.pay-method > li:nth-child('+_type+') span');
+					$api.addCls($api.removeCls(temp, 'ct-icon-radio_1'), 'ct-icon-radio_2');
+				}
+			}else{
+				$api.addCls($api.removeCls($api.dom(_this, 'span'), 'ct-icon-radio_1'), 'ct-icon-radio_2');
+			}
+			type = _type;
+		}
+		function closeToWin(){
+			api.closeToWin({
+				name: 'init',
+				animation: {
+					type: 'fade'
+				}
+			});
+		}
+		function fillLogistics(){
+			api.openWin({
+				name: 'FillLogistics',
+				url: api.wgtRootDir + '/html/window/win2.html',
+				pageParam: {
+					headerTitle: '选择快递',
+					frameName: 'fill_logistics',
+					frameUrl: api.wgtRootDir + '/html/home/fill_logistics.html',
+					hasFrameParam: true,
+					frameParam: {
+						testOrderNo: testOrderNo
+					}
+				},
+				bounces: false
+			});			
+		}
+		function payment(){
+			if(!type){
+				toast('请选择支付方式');
+				return;
+			}
+			var memberInfo = $api.getStorage('memberInfo');
+			switch(type){
+				case 1:
+					if(memberInfo.money < pay){
+						toast('余额不足');
+						return;
+					}
+					moneyPay();
+					break;
+				case 2:
+					toast('暂无开通微信支付');
+					break;
+				case 3:
+					toast('暂无开通支付宝');
+					break;
+			}
+		}
+		function moneyPay(){
+			tool.ajax.get({
+				ctrl: 'Test',
+				fn: 'moneyPay',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						orderid: orderId
+					}
+				},
+				showProgress: {
+					title: '支付中...'
+				},
+				hideLoading: true
+			}, function(ct){
+				alert(JSON.stringify(ct))				
+				testOrderNo = ct.testorderno;
+				//更新本地余额
+				var memberInfo = $api.getStorage('memberInfo');
+				memberInfo.money = parseInt(memberInfo.money) - pay;
+				$api.setStorage('memberInfo', memberInfo);
+				
+				$api.removeCls($api.dom('.steps > div:nth-child(2)'), 'active');
+				$api.addCls($api.dom('.steps > div:nth-child(3)'), 'active');
+				mt('section', 'success');
+				api.parseTapmode();
+				api.execScript({
+					name: api.winName,
+					script: 'setTitle("支付成功")'
+				});
+			});
+		}
+		apiready = function(){
+			var param = api.pageParam;
+			orderId = param.oid;
+			pay = param.pay;
+			var memberInfo = $api.getStorage('memberInfo');
+			$api.text($api.dom('#money'), memberInfo.money);
+			$api.text($api.dom('#pay'), pay);
+			setTimeout(function(){
+				//关闭我要测-订单列表
+				api.closeWin({
+					name: 'MyTestSheet'
+				});
+			}, 500);			
+		}
+	</script>
+</html> 

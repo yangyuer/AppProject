@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<title>Document</title>
+		<style type="text/css">
+			body,
+			#main > .list-view{
+				background-color: #F8F8F8;
+			}
+			.list-view{
+				height: 60px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				/*padding-left: 10px;*/
+			}
+			.img-frm,
+			.img{
+				background: transparent url(../../res/loading.png) no-repeat center;
+				background-size: cover;
+			}
+			.img-frm{
+				height: 100%;
+				width: 90px;
+			}
+			.img{
+				height: 100%;
+				width: 100%;
+			}
+			.list-view .title{
+				margin-bottom: 5px;
+			}
+			.flex-center-v{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}			
+			.datetime,
+			.comment{
+				font-size: 13px;
+				color: #aaa;
+			}
+			.title{
+				font-size: 14px;
+			}
+			.flex-h-center{
+				justify-content: flex-end;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-pack: center;
+			}
+			.money > span{
+				max-width: 120px;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="title text-overflow">
+							您的账户已成功充值金额35.00元
+						</div>
+						<div class="flex-box">
+							<div class="datetime flex-1">
+								2015-04-09
+								&nbsp;
+								10:12:50
+							</div>
+						</div>
+					</div>
+					<div class="flex-box money flex-h-center">
+						<span class="text-overflow" style="color: #E4423A;">
+							+￥350.00
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+			{{ if(it instanceof Array && it.length!=0){ }}	
+				{{~ it :value:index }}
+					<div class="list-view flex-box">
+						<div class="flex-1 flex-box-v flex-center-v">
+							<div class="title text-overflow">
+								{{= value.content }}
+							</div>
+							<div class="flex-box">
+								<div class="datetime flex-1">
+									{{= formatDateByRequire(value.datetime, '-') }}
+								</div>
+							</div>
+						</div>
+						<div class="flex-box money flex-h-center">
+							<span class="text-overflow" style="color: #E4423A;">
+								{{= !!parseInt(value.income)?'-':'+' }}{{= '￥'+value.money }}
+							</span>
+						</div>
+					</div>
+				{{~}}
+			{{ }else{ }}
+				<div class="null flex-box">
+					<div class="flex-1">
+						暂无相关内容~
+					</div>
+				</div>
+			{{ } }}
+		</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+		function reload(){
+			var ctrl = 'My',
+					fn = 'moneyHistory';
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token')
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});
+		}
+		
+		function init(courseClassifyId){
+			var ctrl = 'Course',
+					fn = 'course',
+					sql = 'select count(*) isexist from sqlite_master where type="table" and name="' + ctrl.toLowerCase() + '_' + fn.toLowerCase() + '"';
+			DB.selectSql('xdy', sql, function(data){
+				if(parseInt(data[0].isexist)){
+					/*本地有缓存*/
+					var sql = 'select * from ' + ctrl.toLowerCase() + '_' + fn.toLowerCase() + (courseClassifyId>0?' where typeid=' + courseClassifyId:'') + ' order by datetime desc';
+					DB.selectSql('xdy', sql, function(data){
+//						alert($api.jsonToStr(data));
+						if(data.length != 0){
+							$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(data));
+							echo.init();
+							api.parseTapmode();
+						}
+						/*尝试从服务器获取最新数据*/
+						reload(courseClassifyId, false);
+					});
+				}else{
+					reload(courseClassifyId, true);
+				}
+			});
+		}
+		apiready = function() {
+			reload();
+		}
+	</script>
+
+</html>

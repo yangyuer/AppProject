@@ -1,0 +1,668 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="css/ct.css" />
+
+		<style>
+			html,
+			body {
+				height: 100%;
+				width: 100%;
+			}
+			#wrap {
+				height: 100%;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-orient: vertical;
+				-webkit-flex-flow: column;
+				flex-flow: column;
+			}
+			#order,
+			#mine{
+				border-bottom-color: #79B9DB;
+			}
+			#main {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+			}
+			#footer {
+				width: 100%;
+				text-align: center;
+				height: 56px;
+				line-height: 55px;
+				background-color: #fff;
+				border-top: 1px solid #ddd;
+			}
+			ul {
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+			}
+			ul li {
+				position: relative;
+			}
+			.nav li.active a,
+			.nav li.active a > span{
+				color: #459FCD;
+			}
+			
+			.nav li.mesg a::after{
+				content: '';
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				float: right;
+				background-color: #FF3C00;
+				top: 10px;
+				right: -10px;
+				border-radius: 50%;
+			}
+			#footer li {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				height: 55px;
+				padding-top: 7px;
+			}
+			.bottom_btn {
+				position: relative;
+				font-size: 13px;
+				color: #6E6E6E;
+				background-repeat: no-repeat;
+				background-position-x: center;
+				font-family: 'Connection Technology';
+				position: relative;
+				font-style: normal;
+				font-weight: normal;
+				line-height: 1;
+				-webkit-font-smoothing: antialiased;
+			}
+			.bottom_btn::before{
+				display: block;
+				font-size: 28px;
+			}
+			.bottom_btn.home::before{
+				content: '\e68a';
+				font-size: 30px;
+			}
+			.bottom_btn.order::before{
+				content: '\e61d';
+				font-size: 26px;
+			}
+			.bottom_btn.consult::before{
+				content: '\e63e';
+			}
+			.bottom_btn.mine::before{
+				content: '\e619';
+			}
+			.bottom_btn > span{
+				padding-top: 2px;
+			}
+			header,
+			#header{
+				position: relative;
+			}
+			#header{
+				height: 50px;
+				line-height: 50px;
+			}
+			.topbar {
+				position: absolute;
+				top: 0;
+				left: 0;
+				height: 50px;
+				border-bottom: 1px solid #DDDFE3;
+				line-height: 50px;
+				width: 100%;
+				text-align: center;
+				display: none;
+				color: #C5BDB5;
+				z-index: 2;
+				font-size: 20px;
+			}
+			.activebar {
+				display: block;
+				z-index: 2;
+			}
+			[class*='ct-icon'] {
+				color: #877D74;
+			}
+			#home {
+				background-color: #fff;
+				border-bottom: 1px solid #C0C0C0;
+			}
+			#home .flex-1 {
+				position: relative;
+			}
+			#home .flex-1 span {
+				color: #888888;
+			}
+			#home .ct-icon-scan,
+			#home .ct-icon-search {
+				position: relative;
+				top: 2px;
+			}
+			.news-classify{
+				position: absolute;
+				left: 0;
+				top: 50px;
+				width: 100%;
+				height: 40px;
+				overflow: hidden;	
+				background-color: #F9F9F9;
+			}
+			#scroller {
+				position: absolute;
+				z-index: 1;
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				/*width: auto;*/
+				height: 160px;
+				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-webkit-text-size-adjust: none;
+				text-size-adjust: none;
+			}			
+			#scroller ul {
+				list-style: none;
+				width: auto;
+				padding: 0;
+				margin: 0;
+				/*height: 50px;*/
+				line-height: 50px;
+			}
+			
+			#scroller li {
+				width: 50px;
+				height: 40px;
+				padding: 0 8px;
+				float: left;
+				line-height: 40px;
+				/*background-color: #fff;*/
+				font-size: 14px;
+				overflow: hidden;
+				text-align: center;
+				color: #B3A89D;
+				transition: background-color 0.2s ease-in 0s;
+				-webkit-transition: background-color 0.5s ease-in 0s;
+			}			
+			.active-classify::after{
+				content: '';
+				width: 100%;
+				height: 3px;
+				display: block;
+				position: absolute;
+				bottom: 0;
+				left: 0;				
+				background-color: #21ACF0;
+			}
+			#badge{
+				position: absolute;
+				top: -5px;
+				right: -10px;
+				min-width: 20px;
+				height: 20px;
+				/*padding: 4px;*/
+				border-radius: 50%;
+				background-color: red;
+				text-align: center;
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<header>
+				<div id="header">
+					<div id="home" class="topbar ">
+						<div class="flex-box">
+							<div class="flex-1 text-left" style="padding-left: 10px;">
+								<span onclick="scanner()" tapmode="">
+									<span class="ct-icon-scan" style=""></span>
+									<span style="font-size: 15px;">扫描</span>
+								</span>
+							</div>
+							<div class="flex-1 text-center" style="color: #4BB5FF;">登录</div>
+							<div class="flex-1 text-right" style="padding-right: 10px;">
+								<span tapmode="" onclick="openSearch()">
+									<span class="ct-icon-search"></span>
+									<span class="modal" style="font-size:15px;">搜索</span>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div id="order" class="topbar" active-classify="1">
+						订单
+					</div>
+					<div id="news" class="topbar activebar">
+						<div class="flex-box">
+							<div class="flex-1 text-left" style="padding-left: 10px;">
+								<span class="city-location" onclick="openNewsBbs()" tapmode="">
+									<!--<span class="ct-icon-scan" style=""></span>-->
+									<span style="color: #787979;font-size: 15px;">社区评论</span>
+								</span>
+							</div>
+							<div class="flex-1 text-center" style="color: #323237;">资讯</div>
+							<div class="flex-1 text-right" style="padding-right: 10px;">
+								<span tapmode="" onclick="openNewsSearch()">
+									<span class="ct-icon-search"></span>
+									<!--<span class="modal" style="font-size:15px;">搜索</span>-->
+								</span>
+							</div>
+						</div>
+						<div class="news-classify">
+							<div id="scroller">
+								<ul>
+									<li classify-id="0" onclick="" tapmode="" class="active-classify">全部</li>
+									<li classify-id="1" onclick="" tapmode="" style="width: 80px">最新动态</li>
+									<li classify-id="2" onclick="" tapmode="" style="width: 60px">鉴真术</li>
+									<li classify-id="3" onclick="" tapmode="" style="width: 80px">公益基金</li>
+									<li classify-id="1" onclick="" tapmode="" style="width: 90px">法规及曝光</li>
+									<li classify-id="2" onclick="" tapmode="">分类5</li>
+									<li classify-id="3" onclick="" tapmode="">分类6</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="mine" class="topbar">
+						我的
+					</div>
+				</div>
+			</header>
+			<div id="main">
+
+			</div>
+			<div id="footer">
+				<ul class="nav">
+					<li tapmode="" class="active"  onclick="randomSwitchBtn('home',0)">
+						<a class="bottom_btn home">
+							<span style="padding-top: 0;">首页</span>
+						</a>
+					</li>
+					<li tapmode="" class="" onclick="randomSwitchBtn('order',1)">
+						<a class="bottom_btn order" style="padding-top: 2px;">
+							<span>订单</span>
+						</a>
+					</li>
+					<li class="" tapmode="" onclick="randomSwitchBtn('news',2)">
+						<a class="bottom_btn consult">
+							<span>资讯</span>
+						</a>
+					</li>
+					<li class="" tapmode="" onclick="randomSwitchBtn('mine',3)">
+						<a class="bottom_btn mine" style="position: relative;">
+							<span id="badge" class="hidden">22</span>
+							<span>我的</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="scroller">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			<div id="scroller">
+				<ul>
+					{{~it :value:index}}
+						<li classify-id="{{= value.id }}" onclick="openNewsClassify({{= value.id }}, this, {{= index }})" class="{{= (index==0?'active-classify':'') }}" tapmode="">{{= value.name }}</li>												
+					{{~}}
+				</ul>
+			</div>	
+		{{ }else{ }}
+			分类信息
+		{{ } }}
+	</script>
+	<script type="text/javascript" src="script/api.js"></script>
+	<script type="text/javascript" src="script/common.js"></script>
+	<script type="text/javascript" src="script/iscroll.js" ></script>
+	<script type="text/javascript" src="script/doT.min.js" ></script>
+	<script type="text/javascript" src="script/rongCloud.js" ></script>
+	<script type="text/javascript">
+		/*扫描条形码/二维码*/
+		function scanner(){
+			var scanner = api.require('scanner');
+			scanner.open(function(ret, err){
+//				alert(ret.msg);
+				switch(ret.eventType){
+					case 'success':
+						api.openWin({
+							name: 'GoodsCodeDetail',
+							url: api.wgtRootDir + '/html/window/win.html',
+							pageParam: {
+								headerTitle: '扫描结果',
+								frameName: 'goods_code_detail',
+								frameUrl: api.wgtRootDir + '/html/component/goods_code_detail.html',
+								hasFrameParam: true,
+								frameParam: {
+									code: ret.msg
+								}
+							},
+							bounces: false
+						});							
+						break;
+					case 'fail':
+						api.alert({
+							title: '提示信息',
+							msg: ret.msg
+						});
+						break;
+				}
+			});
+		}
+	//打开搜索
+	  function openSearch(){
+	  	api.openWin({
+				name: 'HomeSearch',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '搜索',
+					frameName: 'home_search',
+					frameUrl: api.wgtRootDir + '/html/home/home_search.html'
+				},
+				bounces: false
+			});	
+	  }
+	  //打开资讯搜索
+	  function openNewsSearch(){
+	  	api.openWin({
+				name: 'OpenNewsSearch',
+				url: api.wgtRootDir + '/html/window/win_news_search.html',
+				bounces: false
+			});
+	  }
+		function setFrameGroupIndex(name, index) {
+			api.setFrameGroupIndex({
+				name: name,
+				index: index
+			});
+		}
+		function iscrollInit() {
+		 	var myScroll = new IScroll('.news-classify', {
+				 eventPassthrough: true,
+				 scrollX: true, 
+				 scrollY: false, 
+				 preventDefault: false 
+			});
+		}	
+		iscrollInit();
+		
+		
+		function openNewsClassify(nid, _this, index){
+			setFrameGroupIndex('newsGroup', index);
+			var liDoms = $api.domAll('li[classify-id]');
+			for(var i=0;i<liDoms.length;i++){
+				if($api.hasCls(liDoms[i], 'active-classify')){
+					$api.removeCls(liDoms[i], 'active-classify');
+				}
+			}
+			/*标识当前分类*/
+			$api.addCls(_this, 'active-classify');
+		}
+		function init(){
+			DB.getDataFromDB({
+				ctrl: 'Info',
+				fn: 'infoType',
+				dbName: config.db.name
+			}, function(ret){
+				if(ret.status == 1){
+					$api.html($api.dom('.news-classify'), doT.template($api.html($api.dom('[template=scroller]')))(ret.data));
+					iscrollInit();
+					api.parseTapmode();
+				}
+				/*尝试从服务器获取最新数据*/
+				reload();
+			});
+		}
+		function updateMessageCount(){
+			RongCloud.getUnreadCountByConversationTypes(function(result){
+				if(result){
+					$api.text($api.removeCls($api.dom('#badge'), 'hidden'), result);
+//					api.setAppIconBadge({
+//						badge: result
+//					});
+				}
+			});			
+		}
+		function reload(){
+			var ctrl = 'Info',
+					fn = 'infoType';
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn
+			}, function(ct){
+				
+				$api.html($api.dom('.news-classify'), doT.template($api.html($api.dom('[template=scroller]')))(ct));
+				iscrollInit();
+				api.parseTapmode();
+				
+				/*缓存处理*/
+				DB.saveData({
+					dbName: config.db.name,
+					ctrl: ctrl,
+					fn: fn,
+					type: 1,
+					where: ['id'],
+					data: ct
+				});
+			});
+		}
+		function openNewsBbs(){
+			api.openWin({
+				name: 'Complain',
+				url: api.wgtRootDir + '/html/window/bbs_list.html',
+				bounces: false
+			});
+		}
+		
+		//标识当前模块
+		var curPage = 'home';		
+		
+		apiready = function() {
+			var header = $api.dom('header');
+			$api.fixIos7Bar(header);
+			
+			var main = $api.dom('#main'),
+					mainPos = $api.offset(main),
+					headerPos = $api.offset(header),
+					memberInfo = $api.getStorage('memberInfo');
+
+			
+			//设置退出机制
+			exitApp();
+//			$api.rmStorage('usr');
+			$api.setStorage('rootWinName', 'init');
+			
+			/*打开本地数据库*/
+			DB.init(config.db.name, function(){
+				init();
+//				DB.executeSql(config.db, 'drop table info_infotype');
+			});
+			//初始化融云
+			RongCloud.init();
+			
+			//设置连接状态变化的监听器
+			RongCloud.setConnectionStatusListener();
+			
+			//设置接收消息的监听器
+			RongCloud.setOnReceiveMessageListener(function(result){
+				api.sendEvent({
+					name: 'newMessage',
+					extra: result
+				});
+//				alert('接收到消息：'+JSON.stringify(result));
+				updateMessageCount();
+//				api.notification({
+//					vibrate: [500, 500],
+//					sound: 'default',
+//					light: true,
+//					notify: {
+//						content: result.message.content.text
+//					}
+//				}, function(ret, err){
+//					api.cancelNotification({
+//						id: ret.id
+//					});
+//				});
+				
+			});		
+			//获取未读条数
+			
+			
+			//监听阅读信息事件
+			api.addEventListener({
+				name: 'readMessage'
+			}, function(ret, err){
+				updateMessageCount();
+			});
+							
+			if(memberInfo){
+				//连接融云服务器
+				RongCloud.connect();
+//				updateMessageCount();
+			}
+			
+			
+			api.openFrame({
+				name: 'home',
+				url: api.wgtRootDir + '/html/home/index.html',
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				},
+				bounces: false
+			});
+			/*重新登录*/
+			api.addEventListener({
+				name: 'relogin'
+			}, function(ret, err){
+				randomSwitchBtn('mine', 3);
+			});
+		}
+		
+		
+			// 随意切换按钮
+		function randomSwitchBtn(name, index) {
+			var header = $api.dom('header'),
+					headerPos = $api.offset(header),
+					main = $api.dom('#main'),
+					mainPos = $api.offset(main);
+					
+			var	$footer = $api.byId('footer'),
+					navDom = $api.dom('.nav'),
+					$titleBar = $api.domAll(header, '.topbar');
+					
+			for (var i = 0; i < $titleBar.length; i++) {
+				$api.removeCls($titleBar[i], 'activebar');
+			}
+			$api.addCls($api.byId(name), 'activebar');
+			var $footer = $api.byId('footer'),
+				$footerBar = $api.domAll($footer, 'li');
+			for (var j = 0; j < $footerBar.length; j++) {
+				$api.removeCls($footerBar[j], 'active');
+			}
+			$api.addCls($api.dom(navDom, 'li:nth-of-type(' + (index + 1) + ')'), 'active');
+			$api.addCls($api.eq(navDom, index + 1), 'active');
+			
+			//隐藏当前模块
+			switch(curPage){
+				case 'home':
+				case 'order':
+				case 'mine':
+					api.setFrameAttr({
+						name: curPage,
+						hidden: true
+					});
+					break;
+				case 'news':
+					api.setFrameGroupAttr({
+						name: 'newsGroup',
+						hidden: true
+					});
+					break;
+			}
+			
+			//显示当前模块
+			switch(name){
+				case 'home':
+					api.setFrameAttr({
+						name: 'home',
+						hidden: false
+					});
+					curPage = 'home';
+					break;
+				case 'order':
+					api.openFrame({
+						name: 'order',
+						url: api.wgtRootDir + '/html/order/index.html',
+						bounces: false,
+						rect: {
+							x: 0,
+							y: headerPos.h,
+							w: 'auto',
+							h: mainPos.h
+						}
+					});
+//					api.setFrameAttr({
+//						name: 'order',
+//						hidden: false
+//					});
+					curPage = 'order';
+					break;
+				case 'news':
+					var frames = [],
+							newsClassify = $api.domAll('.news-classify ul li');
+					for(var i=0;i<newsClassify.length;i++){
+						frames.push({
+							name: 'news_' + (i+1),
+							url: api.wgtRootDir + '/html/news/news_list.html',
+							bounces: false,
+							pageParam: {
+								newsClassifyId: $api.attr(newsClassify[i], 'classify-id')
+							}
+						});
+					}
+					api.openFrameGroup({
+						name: 'newsGroup',
+						scrollEnabled: false,
+						rect: {
+							x: 0,
+							y: headerPos.h+40,
+							w: 'auto',
+							h: mainPos.h-40
+						},
+						index: 0,
+						preload: 0,
+						frames: frames
+					}, function(ret, err){});
+					curPage = 'news';
+					break;
+				case 'mine':
+					api.openFrame({
+						name: 'mine',
+						url: api.wgtRootDir + '/html/mine/index.html',
+						bounces: false,
+						rect: {
+							x: 0,
+							y: headerPos.h,
+							w: 'auto',
+							h: mainPos.h
+						}
+					});
+					curPage = 'mine';
+					break;
+			}
+		}
+	</script>
+
+</html>

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .order-eva{
+       	line-height: 80px;
+       	padding-left: 10px;
+       }
+    
+       .ct-icon-star_select{
+       	margin-top: 30px;
+       	font-size: 1.2em;
+       	color:#f8c425;
+       	margin-left: 5px;
+       }
+       .ct-icon-star{
+       	margin-top: 30px;
+       	font-size: 1.2em;
+       		margin-left: 5px;
+       		color:#e3e3e3;
+       }
+       .order-title{
+       	color: #5a5a5a;
+       }
+       .luation_center{
+       	padding-left: 10px;font-size: 1em;
+       	line-height: 35px;
+       }
+        textarea{
+       	border:1px solid #e3e3e3;
+       	width:90%;
+       	margin-left:5%;
+       	height: 150px;
+       	border-radius: 4px;
+       	margin-bottom: 30px;
+       }
+       .eva_submint{
+       	background-color: #40b5f0;
+       	color:#fff;
+      
+       }
+       .eva_bottn{
+       	width: 70%;
+       	margin: auto;
+       	height: 40px;
+       	line-height: 40px;
+       	text-align: center;
+       	border-radius: 5px;
+       	margin-top: 15px;
+       }
+       .eva_border{
+       	border:1px solid #40b5f0;
+       	color: #40b5f0;
+       }
+       .ct-icon-star:nth-child(-n+5){
+       	/*color: blue;*/
+       }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<div style="background-color:#F8F8F8">
+          <div class="flex-box order-eva">
+          	<span class="order-title">评价星级：</span>
+          	<span star="" onclick="test(this, 1)" tapmode="" class="ct-icon-star"></span>
+          	<span star="" onclick="test(this, 2)" tapmode="" class="ct-icon-star"></span>
+          	<span star="" onclick="test(this, 3)" tapmode="" class="ct-icon-star"></span>
+          	<span star="" onclick="test(this, 4)" tapmode="" class="ct-icon-star"></span>
+          	<span star="" onclick="test(this, 5)" tapmode="" class="ct-icon-star"></span>
+          </div>
+          <p class="luation_center">评价留言：</p>
+          <textarea></textarea>
+          <div class="eva_bottn eva_submint" onclick="orderComment(api.pageParam.orderid)">发表评论</div>
+          <div class="eva_bottn eva_border" onclick="api.closeWin()">取消返回</div>
+		  	</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+  <script type="text/javascript">
+  	function test(_this, index){
+  		var starDoms = $api.domAll('[star]:nth-child(-n+' + (index+1) + ')'),
+  				starSelectDoms = $api.domAll('.ct-icon-star_select');
+			for(var i=0;i<starSelectDoms.length;i++){
+				if($api.hasCls(starSelectDoms[i], 'ct-icon-star_select')){
+					$api.addCls($api.removeCls(starSelectDoms[i], 'ct-icon-star_select'), 'ct-icon-star');
+				}
+			}
+  		for(var i=0;i<starDoms.length;i++){
+  			$api.addCls($api.removeCls(starDoms[i], 'ct-icon-star'), 'ct-icon-star_select');
+  		}
+  	}
+  
+    function orderComment(orderid){
+    	var content = $api.val($api.dom('textarea')),
+    	    star = $api.domAll('span.ct-icon-star_select').length;
+//  	    alert(star);
+    	if(!content){
+				toast('请将信息填写完整~');
+				api.hideProgress();
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'Order',
+				fn: 'evaluationTestorder',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						content: content,
+						orderid: orderid,
+						star: star
+					}
+				},
+				showProgress: {
+					title: '提交中...'
+				}
+			}, function() {
+				api.alert({
+					title: '提示信息',
+					msg: '建议提交成功',
+					buttons: ['确定']
+				}, function(ret){
+					api.closeWin();
+				});
+			});	
+    }
+  </script>
+</html> 

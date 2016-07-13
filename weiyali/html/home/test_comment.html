@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.list-view{
+				min-height: 100px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				padding-left: 10px;
+			}
+			.img-frm,
+			.img{
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 80px;
+				width: 80px;
+				border-radius: 50%;
+			}
+			.img-frm{
+				border: 1px solid #ddd;
+				background-image: url(../../res/avatar_default.png);
+			}
+			.name{
+				/*color: orange;*/
+				font-size: 16px;
+			}
+			.content{
+				padding-top: 10px;
+				font-size: 14px;
+				color: #999;
+			}
+			.datetime{
+				position: absolute;
+				bottom: 3px;
+				right: 6px;
+				font-size: 12px;
+				color: #bbb;
+			}
+			.ct-icon-star_select{
+				color: #F9C52A;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="img-frm">
+						<div class="img"></div>
+					</div>
+					<div class="flex-1">
+						<div class="flex-box">
+							<div class="name flex-1 text-overflow">
+								weis叶
+							</div>
+							<div>
+								<span class="ct-icon-star_select"></span>
+								<span class="ct-icon-star_select"></span>
+								<span class="ct-icon-star_select"></span>
+							</div>
+						</div>
+						<div class="content">
+							也只有中国办实事要熟人才好办。
+						</div>
+						<div class="datetime">
+							2015-04-10
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~ it :value:index }}
+				<div class="list-view flex-box" onclick="" tapmode="">
+					<div class="img-frm">
+						<div class="img" img-cache="{{= value.avatar }}" data-echo-background="{{= value.avatar }}"></div>
+					</div>
+					<div class="flex-1">
+						<div class="flex-box">
+							<div class="name flex-1 text-overflow">
+								{{= value.nickname }}
+							</div>
+							<div>
+								{{ for(var i=0;i<parseInt(value.star);i++){ }}
+									<span class="ct-icon-star_select"></span>
+								{{ } }}
+							</div>
+						</div>						
+						<div class="content">
+							{{= value.content }}
+						</div>
+						<div class="datetime">
+							{{= formatDateByRequire(value.datetime, '-') }}
+						</div>
+					</div>
+				</div>	
+			{{~}} 
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>		
+		{{ } }}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+		apiready = function(){
+			
+				tool.ajax.get({
+					ctrl: 'Test',
+					fn: 'testComment',
+					data: {
+						type: data.type
+					}
+				}, function(ct){
+					mt('#main', 'main', ct);
+				});
+		};
+		function reload(){
+ 			tool.ajax.get({
+				ctrl:'ETest',
+				fn: 'etestComment',
+				data:{
+					values:{
+						type:2
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				/*缓存处理*/
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 30px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+				text-align: center;
+				font-size: 40px;
+			}
+			.title{
+				color: #B3A69A;
+				/*color: #f2f2f2;*/
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.name{
+				color: #B3A69A;
+				padding-left: 2px;
+			}
+			#footer{
+				overflow: hidden;
+				height: 40px;
+				padding: 5px 10px;
+				border-top: 1px solid #ddd;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar text-center" style="background-color: #fff;">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 30px;"></span>
+					<span class="title">
+						对方
+					</span>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer" class="">
+				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/chatBox.js" ></script>
+	<script type="text/javascript">
+		function setTitle(title){
+			$api.text($api.dom('span.title'), title);
+		}
+		function openTalkerDetail(pid){
+			api.openWin({
+				name: 'talkerDetail',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '用户详情',
+					frameName: 'talker_detail',
+					frameUrl: api.wgtRootDir + '/html/mine/talker_detail.html',
+					hasFrameParam: true,
+					frameParam: {
+						pid: pid
+					}
+				},
+				bounces: false
+			});			
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					winParam = api.pageParam,
+					mainPos = $api.offset(main);
+			$api.attr($api.dom('.ct-icon-user2'), 'onclick', 'openTalkerDetail('+winParam.pid+')');
+			$api.text($api.dom('.name'), winParam.nickname||'');
+			api.openFrame({
+				name: 'talk_with',
+				url: api.wgtRootDir + '/html/mine/talk_with.html',
+				bounces: true,
+				bgColor: '#F2F2F2',
+				pageParam: {
+					targetId: winParam.targetId,
+					msgNum: winParam.msgNum
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				},
+				reload:true
+			});
+			//打开chatBox
+			ChatBox.init({
+				talkFrame: 'talk_with'
+			});
+		}
+	</script>
+</html>

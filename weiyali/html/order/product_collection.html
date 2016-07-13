@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+  <style>
+       .package_list {
+       	width: 94%;
+       	margin: auto;
+       	margin-top: 8px;
+       	background-color: #fff;
+       	position: relative;
+       }
+       .img-frm{
+       		background: url(../../res/loading_400x400.png) no-repeat center;
+       	background-size: cover;
+       	height: 80px;
+       	min-width: 80px;
+       	margin: 15px 8px;
+       }
+       /*.img{
+       	height: 80px;
+       	width: 80px;
+       	background: no-repeat;
+       	background-size: cover;
+       }*/
+       .package_img {
+       	background: no-repeat;
+       	background-size: cover;
+       	height: 80px;
+       	min-width: 80px;
+       }
+       .package_title {
+       	font-size: 0.8em;
+       	font-weight: 700;
+       	color: #000;
+       	padding-left: 5;
+       	padding-top: 20px;
+       	height: 50px;
+       }
+			.add{
+				width: 50px;
+				height: 50px;
+				background-color: #51A5CF;
+				padding: 5px;
+				border-radius: 50%;
+				position: fixed;
+				right: 10px;
+				bottom: 80px;
+				z-index: 2;
+			}   
+			.goods_list span{
+				color: #999;
+				padding-right: 5px;
+			} 
+			.goods_list{
+				color: #999;
+				text-align: right;
+				font-size: 0.8em;
+				padding-top: 15px;
+			}   
+    </style>
+	</head>
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<div class="measure-list hidden">
+					<div class="flex-box measure_view">
+						<div class="flex-1 measure_view_left">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<div class="measur_font">
+								采用V93000系列集成电路测试系统，单次测试价仅为520元！
+							</div>
+							<p class="yuan">￥520.00</p>
+						</div>
+						<div class="flex-1 measure_view_right">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<div class="measur_font">
+								采用V93000系列集成电路测试系统，单次测试价仅为520元！
+							</div>
+							<p class="yuan">￥520.00</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		 <div style="background-color:#F8F8F8">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~it :value:index }}
+			<div class="flex-box package_list">
+				<div class="img-frm">
+					<div class="package_img" style="background-image: url({{= value.cover }});"></div>
+				</div>
+				<div class="flex-2">
+					<p class="package_title">{{= value.title }}</p>
+					<div class="flex-box">
+							<div class="flex-1" style="color: red;padding-top: 6px;">￥
+								<span style="color: red;font-size: 1.2em;margin-left: -5px;">{{= value.price }}</span>
+							</div>
+							<div class="flex-1" style="padding-top: 6px;padding-right: 5px;">
+								<span style="font-size: 0.8em;color: #797979">运费：</span>
+								<span style="font-size: 0.8em;margin-left: -5px;color: #797979">￥{{= value.freight }}</span>
+							</div>
+						</div>
+						<div class="goods_list" style="">
+							<span>已售 {{= value.salenum }} 件</span>
+							<span style="">{{= value.areaname }}</span>
+						</div>
+				</div>
+			</div>	
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>		
+		{{ } }}
+	 </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+	function reload(type){
+		tool.ajax.get({
+			ctrl:"Order",
+			fn:"productCollection",
+			hideLoading:true,
+			data:{
+				values:{
+					id:$api.getStorage('memberId'),
+	  		  token:$api.getStorage('token'),
+	  		  type:type
+				}
+			}
+		},function (ct){
+//			alert($api.jsonToStr(ct));
+			 $api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+			 echo.init();
+			 api.parseTapmode();
+		});
+	}
+		apiready = function(){
+			reload(api.pageParam.type);
+			Refresh.init({
+				ctrl: 'Order',
+				fn: 'productCollection',
+				values:{
+					id:$api.getStorage("memberId"),
+					token:$api.getStorage("token")
+				}
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		
+		<style type="text/css">
+			.ct-icon-angle-left {
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title {
+				color: #B3A69A;
+			}
+			footer {
+				line-height: 59px;
+				height: 60px;
+				width: 100%;
+				
+			}
+		 .box_left{
+		 	background-color: #333333;
+		 	color: #fff;
+		 
+		 }
+		 .box_right{
+		 	background-color: #F15352;
+		 	color: #fff;
+		 	text-align: center;
+		 }
+		 .ct-icon-radio_1{
+		 	color: #fff;
+		 	padding-left: 5px;
+		 	font-size: 1.2em;
+		 	position: relative;
+		 	top:3px;
+		 }
+		 .ct-icon-radio_2{
+		 	color: #F15352;
+		 	padding-left: 5px;
+		 	font-size: 1.2em;
+		 	position: relative;
+		 	top:3px;
+		 }
+		 #clear-cart{
+		 	position: absolute;
+		 	right: 10px;
+		 	top: 15px;
+		 	color: #fff;
+		 }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">测试车</span>
+					<div class="btn btn-info btn-xs" onclick="Cart.clearCart('myTestCart', 'my_test_cart_list')" tapmode="" id="clear-cart">
+						<span class="ct-icon-delete" style="color: #fff;top:1px"></span>
+						清空测试车
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<footer id="footer" class="">
+				<div class="flex-box">
+					<div class="flex-2 box_left">
+						<span onclick="Cart.isSelectAll(this, 'myTestCart', 'my_test_cart_list')" tapmode="">
+							<span class="ct-icon-radio_1" id="all" style=""></span>
+							<span style="color: #fff; font-size: 0.8em;">全选</span>
+						</span>
+						<span id="price"  style="color: #fff;padding-left: 5px;font-size: 0.8em;">
+							合计：￥<span id="all-price" style="color: #fff;">0</span>
+						</span>
+					</div>
+					<div class="flex-1 box_right" onclick="openMyTestSheet()">
+						去结算(<span id="num" style="color: #fff;">0</span>)
+					</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/cart.js" ></script>
+	<script type="text/javascript">
+		
+		function resetInfo(isAll, price, type){
+			/*
+			 * number/string isAll
+			 * number/string price
+			 * number/string type
+			 */
+
+			if(parseInt(isAll)){
+				$api.dom('#all').className = 'ct-icon-radio_2';
+			}else{
+				$api.dom('#all').className = 'ct-icon-radio_1';
+			}
+			$api.text($api.dom('#all-price'), price||0);
+			$api.text($api.dom('#num'), type||0);			
+		}
+		
+//		function set(allPrice, num){
+//			$api.text($api.dom('#all-price'), allPrice);
+//			$api.text($api.dom('#num'), num);			
+//		}
+//		function setNo(allPrice){
+//			$api.text($api.dom('#all-price'), allPrice);
+//			$api.text($api.dom('#num'), 0);			
+//		}
+		function openMyTestSheet(){
+			var memberInfo = $api.getStorage('memberInfo');
+			if(memberInfo){
+				var cart = $api.getStorage('myTestCart');
+				for(var i=0;i<cart.length;i++){
+					if(cart[i].isSelect){
+						api.openWin({
+							name: 'MyTestSheet',
+							url: api.wgtRootDir + '/html/window/win.html',
+							pageParam: {
+								headerTitle: '提交测试订单',
+								frameName: 'my_test_sheet',
+								frameUrl: api.wgtRootDir + '/html/home/my_test_sheet_submit.html',
+							},
+							bounces: false
+						});	
+						break;
+					}
+				}
+			}else{
+				api.toast({
+					msg: '请先登录',
+					duration: 2000,
+					location: 'middle'
+				});
+			}
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+			api.addEventListener({
+				name:"test_list",
+			},function(ret,err){
+//					alert($api.jsonToStr(ret.value));
+				if(!ret.value.hideFooter){
+					$api.removeCls($api.dom("#footer"),'hidden')
+				}
+			});
+		   api.openFrame({
+				name: 'my_test_cart_list',
+				url: api.wgtRootDir + '/html/home/my_test_cart_list.html',
+				bounces: false,
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});		
+//			api.addEventListener({
+//				name: 'myTestCartSelected'
+//			}, function(ret, err){
+//				resetInfo(ret.value.all, ret.value.allPrice, ret.value.num);
+//			});
+		}
+	</script>
+</html>

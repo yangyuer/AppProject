@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.list-view{
+				height: 80px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				padding-left: 10px;
+			}
+			.img-frm,
+			.img{
+				background: transparent url(../../res/avatar_default.png) no-repeat center;
+				background-size: cover;
+			}
+			.img-frm{
+				position: relative;
+				height: 60px;
+				width: 60px;
+				border: 1px solid #ddd;
+			}
+			.img{
+				height: 100%;
+				width: 100%;
+			}
+			.list-view .title{
+				margin-bottom: 10px;
+			}
+			.flex-center-v{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}			
+			.name{
+				margin-bottom: 5px;
+			}		
+			.sign{
+				position: relative;
+				color: #B4B4B4;
+				font-size: 12px;
+			}		
+			.datetime{
+				font-size: 12px;
+				line-height: 1.8;
+				color: #aaa;
+				/*background-color: red;*/
+			}
+			.msg-num{
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				top: -5px;
+				right: -5px;
+				background-color: red;
+				border-radius: 50%;
+				text-align: center;
+				color: #fff;
+				font-size: 14px;
+				padding: 2px 2px;
+			}
+			img.expression{
+				position: relative;
+				width: 20px;
+				height: 20px;
+				top: 5px;
+			}			
+			.talk {
+				width: 50px;
+				height: 50px;
+				background-color: #54D165;
+				padding: 5px;
+				border-radius: 50%;
+				position: fixed;
+				right: 10px;
+				bottom: 80px;
+				z-index: 2;
+			}		
+		</style>
+	</head>
+	<body>
+		<div class="talk text-center" onclick="testIM()" tapmode="">
+			<span class="ct-icon-talk" style="font-size: 30px;color: #fff;top:5px"></span>
+		</div>
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view flex-box " onclick="" tapmode="">
+					<div class="img-frm">
+						<div class="img" style="background-image: url();"></div>
+						<span class="msg-num">91</span>
+					</div>
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="flex-box">
+							<div class="flex-1 flex-box" style="padding-right: 10px;">
+								<div class="name text-overflow">
+									weiweiweiweiweiweiweiwei
+								</div>
+								<div>
+									<span class="ct-icon-type" style="font-size: 18px;"></span>								
+								</div>
+							</div>
+							<div class="datetime text-right">
+								5月23日
+							</div>
+						</div>
+						<div class="sign text-overflow">
+							你好
+							<img class="expression" src="../../res/chatBox/emotion/Expression_1.png" />
+							<img class="expression" src="../../res/chatBox/emotion/Expression_1.png" />
+						</div>
+					</div>
+				</div>				
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~it :value:index }}
+				{{? typeof value.latestMessage == 'object' }}
+				<div class="list-view flex-box" targetid="{{= value.targetId }}" onclick="openTalkWith(this, {{= value.targetId }})" ontouchstart="gtouchStart(this, {{= value.targetId }})" ontouchend="gtouchEnd()" ontouchmove="gtouchMove()" tapmode="">
+					<div class="img-frm">
+						<div class="img"></div>
+						{{? value.unreadMessageCount }}
+							<span class="msg-num">{{= (value.unreadMessageCount<100?value.unreadMessageCount:99) }}</span>
+						{{??}}
+							<span class="msg-num hidden"></span>
+						{{?}}
+					</div>
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="flex-box">
+							<div class="flex-1 flex-box" style="padding-right: 10px;">
+								<div class="name text-overflow">
+									{{= value.targetId }}
+								</div>
+							</div>
+							<div class="datetime text-right">
+								{{= tool.date.t1(value.receivedTime, 1) }}
+							</div>
+						</div>						
+						<div class="sign text-overflow">
+							{{= h(value.latestMessage.text)||'' }}
+						</div>
+					</div>
+				</div>	
+				{{?}}
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>		
+		{{ } }}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/rongCloud.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		var timeoutEvent = null,
+				prevent = false;
+		function gtouchStart(_this, targetId){
+			timeoutEvent = setTimeout(function(){
+				prevent = true;
+				var actionSheetStyle = {
+						layerColor: 'rgba(0, 0, 0, 0.3)',
+						itemNormalColor: '#F1F1F1',
+						itemPressColor: '#007AFF',
+						fontNormalColor: '#007AFF',
+						fontPressColor: '#F1F1F1'
+					},
+						buttons = ['删除该聊天内容'];
+				api.actionSheet({
+					cancelTitle: '取消',
+					buttons: buttons,
+					style: actionSheetStyle
+				}, function(ret, err){
+					prevent = false;
+					if(ret.buttonIndex == 1){
+						api.showProgress({
+							title: '处理中',
+							modal: true
+						});
+						RongCloud.removeConversation(targetId, function(){
+							RongCloud.clearMessages(targetId, function(){
+								$api.remove(_this);
+								api.hideProgress();
+							});
+						});
+					}
+				});
+			}, 600);
+			return false;
+		}
+		function gtouchEnd(){
+			clearTimeout(timeoutEvent);
+			return false;
+		}
+		function gtouchMove(){
+			clearTimeout(timeoutEvent);
+		}
+		function testIM(){
+			api.prompt({
+				title: '提示信息',
+				msg: '聊天对象id',
+				buttons: ['取消', '确定']
+			}, function(ret, err){
+				if(ret.buttonIndex == 2 && ret.text){
+					api.openWin({
+						name: 'TalkWith',
+						url: api.wgtRootDir + '/html/window/talk_with.html',
+						pageParam: {
+							targetId: ret.text
+						},
+						bounces: false
+					});					
+				}
+			});
+		}
+		function openTalkWith(_this, targetId){
+			if(prevent){
+				return;
+			}
+			var msgNumDom = $api.dom(_this, '.msg-num'),
+					msgNum = $api.hasCls(msgNumDom, 'hidden') ? 0 : $api.text(msgNumDom);
+			api.openWin({
+				name: 'TalkWith',
+				url: api.wgtRootDir + '/html/window/talk_with.html',
+				pageParam: {
+					targetId: targetId,
+					msgNum: msgNum
+				},
+				bounces: false
+			});
+			if(msgNum){
+				$api.addCls(msgNumDom, 'hidden');
+			}
+		}
+		function h(str){
+			if(str){
+				var regx = /(\&[l,g]t;)|(api.wgtRootDir)/gm,
+						_html = str.replace(regx, function(match){
+							switch(match){
+								case '&lt;':
+									return '<';
+								case '&gt;':
+									return '>';
+								case 'api.wgtRootDir':
+									return '../..';
+							}
+						});
+				return _html;
+			}else{
+				return '';
+			}			
+		}
+		function reload(){
+			RongCloud.getConversationList(function(result){
+//				alert(JSON.stringify(result));
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(result));
+				api.parseTapmode();
+				api.refreshHeaderLoadDone();
+			});
+		}
+
+		apiready = function(){
+//			reload();
+			api.setRefreshHeaderInfo({
+			    visible: true,
+//			    loadingImg: 'widget://res/icon-refresh.png',
+			    bgColor: 'rgba(0,0,0,0)',
+			    textColor: '#666',
+			    textDown: '下拉刷新...',
+			    textUp: '松开刷新...',
+			    showTime: true
+			}, function(ret, err){
+				if('none' === api.connectionType){
+					api.toast({
+						msg: '网络无法连接，请检查网络设备是否正常',
+						location: 'bottom',
+						duration: 2000
+					});
+					api.refreshHeaderLoadDone();
+					return;
+				}
+				reload();
+				/*刷新未读条数*/
+				api.sendEvent({
+					name: 'reloadNotRead'
+				});
+			});			
+			
+			api.addEventListener({
+				name: 'viewappear'
+			}, function(ret, err){
+				reload();
+			});
+			
+			/*标记会话为已读，消除会话未读标识*/
+			api.addEventListener({
+				name: 'newMessage'
+			}, function(ret, err){
+				var value = ret.value.message,
+						conversationDom = $api.dom('[targetid="'+ value.targetId +'"]');
+				if(conversationDom){
+					var msgNumDom = $api.dom(conversationDom, '.msg-num');
+					$api.html($api.dom(conversationDom, '.sign'), h(value.content.text));
+					$api.text($api.dom(conversationDom, '.datetime'), tool.date.t1(value.receivedTime, 1));
+					RongCloud.getUnreadCount(value.targetId, function(result){
+						if(result){
+							$api.removeCls($api.text(msgNumDom, result), 'hidden')
+						}
+					});
+				}else{
+					reload();
+				}
+			});
+		}
+	</script>
+</html>

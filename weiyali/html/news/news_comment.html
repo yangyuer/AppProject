@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.list-view{
+				min-height: 100px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				padding-left: 10px;
+			}
+			.img-frm,
+			.img{
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 30px;
+				width: 30px;
+				border-radius: 50%;
+			}
+			.img-frm{
+				border: 1px solid #ddd;
+				background-image: url(../../res/avatar_default.png);
+			}
+			.name{
+				color: orange;
+				font-size: 13px;
+			}
+			.content{
+				padding-top: 10px;
+			}
+			.datetime{
+				position: absolute;
+				bottom: 3px;
+				right: 6px;
+				font-size: 12px;
+				color: #bbb;
+			}
+			.add{
+				width: 50px;
+				height: 50px;
+				background-color: #51A5CF;
+				padding: 5px;
+				border-radius: 50%;
+				position: fixed;
+				right: 10px;
+				bottom: 80px;
+				z-index: 99;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="add text-center" onclick="openSendNews()">
+				<span class="ct-icon-edit2" style="font-size: 22px;color: #fff;margin-top: 5px;"></span>
+			</div>
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="img-frm">
+						<div class="img"></div>
+					</div>
+					<div class="flex-1">
+						<div class="name">
+							weis叶
+						</div>
+						<div class="content">
+							也只有中国办实事要熟人才好办。
+						</div>
+						<div class="datetime">
+							2015-04-10
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~ it :value:index }}
+				<div class="list-view flex-box" onclick="" tapmode="">
+					<div class="img-frm">
+						<div class="img" img-cache="{{= value.avatar }}" data-echo-background="{{= value.avatar }}"></div>
+					</div>
+					<div class="flex-1">
+						<div class="name">
+							{{= value.nickname }}
+						</div>
+						<div class="content">
+							{{= value.content }}
+						</div>
+						<div class="datetime">
+							{{= formatDateByRequire(value.datetime, '-') }}
+						</div>
+					</div>
+				</div>	
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>		
+		{{ } }}
+	</script>
+	<script type="text/template" template="comment">
+    <div class="list-view flex-box" onclick="" tapmode="">
+					<div class="img-frm">
+						<div class="img" img-cache="{{= it.avatar }}" data-echo-background="{{= it.avatar }}"></div>
+					</div>
+					<div class="flex-1">
+						<div class="name">
+							{{= it.nickname }}
+						</div>
+						<div class="content">
+							{{= it.content }}
+						</div>
+						<div class="datetime">
+							{{= formatDateByRequire(it.datetime, '-') }}
+						</div>
+					</div>
+				</div>
+	</script>	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+		function reload(id){
+		 tool.ajax.get({
+					ctrl:'Info',
+					fn: 'infoCommentList',
+				  data:{
+				  	values: {
+				  		id: id
+				  	}
+				  },
+				}, function(ct){
+					$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+					echo.init();
+					api.parseTapmode();
+					/*缓存处理*/
+				});
+		 }
+		function openSendNews(){
+			api.openFrame({
+				name: 'sent_out',
+				url: api.wgtRootDir + '/html/news/news_send_comment.html',
+				bounces: true,
+				pageParam: {
+					id: api.pageParam.id
+				},
+				rect: {
+					x: 0,
+					y:0,
+					w: 'auto',
+					h: 'auto'
+				}
+			});
+		}
+		apiready = function(){
+			reload(api.pageParam.id);
+			Refresh.init({
+				ctrl: 'Info',
+				fn: 'infoCommentList',
+				values: {
+					id: api.pageParam.id
+				}
+			});
+			api.addEventListener({
+				name: 'criticise'
+			}, function(ret, err){
+				 $api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=comment]')))(ret.value));
+			});
+		}
+	</script>
+</html>

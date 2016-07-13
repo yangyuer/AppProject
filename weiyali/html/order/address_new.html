@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .address_one{
+       	line-height: 45px;
+       	border-bottom: 1px solid #e5e5e5;
+       	padding: 0 0.5em;
+       	position: relative;
+       }
+       .address_one >span >input[type=text]
+       {
+       	margin-left: 10px;
+       }
+       .address_one >span >select{
+         margin-left: 10px;
+         display: none;
+       }
+       .ct-icon-angle-right{
+       	position: absolute;
+       	right: 10px;
+       	top:10px;
+       	font-size: 1.5em;
+       	color:#999;
+       }
+       .add_address{
+        	width: 76%;
+        	margin: auto;
+        	height: 35px;
+        	background-color: #40b5f0;
+        	text-align: center;
+        	color: #fff;
+        	line-height: 37px;
+        	border-radius: 5px;
+        	margin-top: 50px;
+        }
+       </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+            <div id="main">
+               <div class="address_one flex-box">
+               	 <span >收货人 :</span>
+               	 <span ><input type="text"/></span>
+               </div>
+               <div class="address_one flex-box">
+               	 <span>手机号码 :</span>
+               	 <span ><input type="text"/></span>
+               </div>
+               <div class="address_one flex-box">
+               	 <span>所在地区 :</span>
+               	 <span><select><option></option></select></span>
+               	 <span class="ct-icon-angle-right"></span>
+               </div>
+               <div class="address_one flex-box">
+               	 <span >详细地址 :</span>
+               	 <span ><input type="text"/></span>
+               </div>
+               <div class="add_address">保存</div>
+            </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	
+</html> 

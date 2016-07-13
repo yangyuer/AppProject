@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .min_other{
+       	background-color: #fff;
+       	height: 80px;
+       	line-height: 80px;
+       	margin-bottom: 10px;
+       }
+      .mis_other_one{
+      	background-color: #fe9f07;
+      	line-height: 80px;
+      	text-align: center;
+      }
+      .ct-icon-mail_2{
+      	font-size: 2em;
+      	color:#fff;
+      position: relative;
+      top:10px;
+
+      }
+      .ct-icon-libra{
+      	font-size: 2em;
+      	color:#fff;
+      position: relative;
+      top:10px;
+      }
+      .min_other_title{
+      	margin-left: 20px;
+      }
+   .mis-other_img{
+   	text-align: right;
+   	margin-right: 10px;
+   	margin-top: 6px;
+   }
+   .ct-icon-address{
+   	font-size: 2em;
+      	color:#fff;
+      position: relative;
+      top:10px;
+   }
+   .ct-icon-angle-right{
+   	font-size: 1.8em;
+   	color: #a1a1a1;
+   }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+      <div id="main">
+         <div class="flex-box min_other" id="sendReport" onclick="">
+         	<div class="flex-1 mis_other_one"><span class="ct-icon-mail_2"></span></div>
+         	<div class="flex-2 min_other_title">邮箱发送</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+         </div>
+         <div class="flex-box min_other" id="sendAddress" onclick="()">
+         	<div class="flex-1 mis_other_one" style="background-color: #6acff7;"><span class="ct-icon-address"></span></div>
+         	<div class="flex-2 min_other_title">邮寄发送(货到付款)</div>
+         	<div class="flex-1 mis-other_img"><span class="ct-icon-angle-right"></span></div>
+         </div>
+      </div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript">
+		//邮箱发送
+		function openSendReport(tid){
+			api.openWin({
+				name: 'sendReport',
+				url: api.wgtRootDir + '/html/window/send_manage.html',
+				pageParam:{
+					tid:tid
+				},
+				bounces: false
+			});	
+		
+		}
+		function openSendAddress(tid){
+			api.openWin({
+				name:'sendAddress',
+				url: api.wgtRootDir + '/html/window/win.html',
+					pageParam: {
+						headerTitle: '地址管理',
+						frameName: 'send_address',
+						frameUrl: api.wgtRootDir + '/html/order/address_management.html',
+						hasFrameParam: true,
+						frameParam: {
+							tid: tid
+						}
+					},
+					bounces:false
+			});
+		}
+		apiready = function(){
+			$api.attr($api.dom('#sendReport'), 'onclick', 'openSendReport('+api.pageParam.tid+')');
+			$api.attr($api.dom('#sendAddress'), 'onclick', 'openSendAddress('+api.pageParam.tid+')');
+		}
+	</script>
+</html> 

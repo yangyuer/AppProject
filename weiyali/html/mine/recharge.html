@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.form-control{
+				display: inline-block;
+				width: 207px;
+				padding: 12px 4px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}		
+			
+			.input-group{
+				width: 260px;
+			}
+			#main{
+				padding-top: 2em;
+			}
+			button{
+				width: 250px;
+			}
+			/*begin 第一步*/
+			.step-1 .input-group{
+				margin-bottom: 20px;
+			}
+			/*end 第一步*/
+			
+			/*begin 第二步*/
+			.step-2 .logo{
+				padding: 70px 0;
+				text-align: center;
+				font-size: 100px;
+				background: url(../../image/logo.png) no-repeat center;
+				background-size: 70px;
+			}
+			.step-2 > div:nth-child(2){
+				height: 70px;
+			}
+			.step-2 > div:nth-child(2) > div{
+				color: #9D9D9D;
+			}
+			.step-2 > div:nth-child(2) > div:first-child{
+				line-height: 30px;
+			}
+			.step-2 > div:nth-child(2) > div:first-child::before{
+				display: inline-block;
+				width: 20px;
+				height: 30px;
+				content: 'c';
+				color: transparent;
+				background: url(../../image/ok_sign.png) no-repeat center;
+				background-size: 20px auto;
+			}
+			.step-2 > div:nth-child(3)::before{
+				display: block;
+				content: 'c';
+				color: transparent;
+				height: 200px;
+				background: url(../../image/balloon.png) no-repeat center;
+				background-position-y:bottom; 
+				background-size: 180px;
+			}			
+			/*end 第二步*/
+			.flex-center-center{
+				justify-content: center;
+				-webkit-justify-content: center;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+			}			
+			.ct-icon-pig,
+			.ct-icon-alipay{
+				position: relative;
+				top: 4px;
+				margin-right: 20px;
+				/*right: 15px;*/
+				color: #888;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="step-1">
+					<div class="flex-box-v flex-center-center">
+						<div class="flex-1 hidden">
+							<div class="input-group lock">
+								<span class="ct-icon-alipay" style="font-size: 25px;margin-right: 16px;"></span>
+								<div class="form-control">
+									<input type="number" name="account" style="font-size:16px;width: 207px;" placeholder="请输入支付宝账户">
+								</div>
+							</div>
+						</div>
+						<div class="flex-1">
+							<div class="input-group confirm">
+								<span class="ct-icon-pig" style="font-size: 30px;margin-right: 10px;"></span>
+								<div class="form-control">
+									<input type="text" name="money" style="font-size:16px;width: 207px;" placeholder="请输入充值金额">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="btn-group-under v" style="margin-top:20px;">
+						<button class="btn btn-orange-red btn-lg" tapmode="" onclick="">
+							确定
+						</button>
+						<button class="btn btn-orange-red-hollow btn-lg" tapmode="" onclick="api.closeWin()">
+							取消
+						</button>
+					</div>						
+				</div>	
+			</div>
+		</div>
+	</body>
+	<!--begin 第二步-->
+	<script type="text/template" id="step-2">
+		<div class="step-2">
+			<div class="logo"></div>
+			<div class="flex-box-v text-center">
+				<div class="flex-1">
+					恭喜您，提现成功！
+				</div>
+				<div class="flex-1">
+					工作人员正在审核，请耐心等待。
+				</div>
+			</div>
+			<div class="text-center" style="margin:0 0 30px">
+				<button class="btn btn-info" tapmode="" style="width:250px;padding:12px" onclick="api.closeWin()">
+					返回
+				</button>
+			</div>
+		</div>		
+	</script>
+	<!--end 第二步-->
+	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		apiready = function(){
+			
+		}
+	</script>
+</html>

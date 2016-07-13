@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+      .order_test{
+      	margin-top: 8px;
+      
+      	background-color: #fff;
+      }
+      .order_one{
+      	height: 40px;
+      	width: 92%;
+      	position: relative;
+      	border-bottom: 1px solid #eae9e9;
+      	margin: auto;
+      	line-height: 40px;
+      }
+    
+      .ct-icon-box2{
+	     position: relative;
+	     top:2px;
+      }
+      .ct-icon-angle-right{
+      	position: relative;
+      	top:1px;
+      	left: 5px;
+      	color: #999;
+      }
+      .yangping{
+      	font-size: 0.8em;
+      	color: #00ABFD;
+      	position: absolute;
+      	right:2px;
+      }
+      .order_two{
+      	width: 92%;
+      	height: 80px;
+      	margin: auto;
+      	border-bottom: 1px solid #eae9e9;
+      }
+      .order_img{
+      	 background: url(../../image/measure_list.png) no-repeat scroll center center / cover;
+      	 width: 60px;
+      	 height: 60px;
+      	 background-size: 100%;
+      	 margin-top: 10px;
+      	 margin-left: 5px;
+      }
+      .order_title{
+      	margin-top: 20px;
+      	font-size: 0.9em;
+      }
+      .order_num{
+      	text-align: right;
+      	margin-right: 2px;
+      	margin-top: 20px;
+      }
+      .order_moble{
+      	height: 40px;
+      	width: 92%;
+      	margin: auto;
+      	text-align: right;
+      	line-height: 40px;
+      	color: #999;
+      	border-bottom: 1px solid #eae9e9;
+      	font-size: 0.8em;
+      }
+      .order_moble span{
+      	color: #999;
+      	
+      }
+      .submint_order{
+      	padding: 5px 0 5px;
+      	/*height: 55px;*/
+      	position: relative;
+      	justify-content: flex-end;
+      	-webkit-justify-content: flex-end;
+      	-webkit-box-pack: end;
+      }
+      .submint_order > .btn{
+      	margin-right: 5px;
+      }
+      .chakan_wuliu{
+      	padding-right: 5px;
+      	padding-left: 5px;
+      	height: 28px;
+      	line-height: 28px;
+      	font-size: 0.8em;
+      	color: #5b5959;
+      	position: absolute;
+      	right: 10px;
+      	border-radius: 4px;
+      	margin-top: 10px;
+      	border:1px solid #cacaca;
+      }
+      .chakan_baogao{
+      	padding-right: 5px;
+      	padding-left: 5px;
+      	height: 28px;
+      	line-height: 28px;
+      	font-size: 0.8em;
+      	color: #fff;
+      	position: absolute;
+      	right: 10px;
+      	border-radius: 4px;
+      	margin-top: 10px;
+      	background-color: #00ABFD;
+      	
+      }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<!--<div class="null flex-box">
+					<div class="flex-1">
+						加载中...
+					</div>
+				</div>				-->
+			   <div class="order_test hidden">
+			   	<div class="flex-box order_one">
+			   		<div class="">
+			   			<span class="ct-icon-box2"></span>
+			   			<span style="font-size: 0.8em;">检查订单号：4312584312584312</span>
+			   			<span class="ct-icon-angle-right"></span>
+			   		</div>
+			   		<div class="yangping">样品检测中</div>
+			   	</div>
+			   	<div class="flex-box order_two">
+			   		<div class="flex-1 img-frm">
+			   		  <div class=" order_img"></div>
+			   		</div>
+			   		<div class="flex-2 order_title">半导体分立器件测试</div>
+			   		<div class="flex-1 order_num">
+			   			<p style="color:#000;line-height: 20px;">280</p>
+			   			<p>x1</p>
+			   		</div>
+			   	</div>
+			   	<div class="order_moble">共<span>1</span>个测试 &nbsp;实付：<span style="font-size: 1.2em; color:#000;">￥280.00</span></div>
+			   	<div class="flex-box submint_order">
+			   		<div class="btn btn-default btn-sm">查看物流</div>
+			   		<div class="btn btn-info btn-sm">发布报告</div>
+			   	</div>
+			   </div>
+
+			</div>
+		</div>
+	</body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+			{{ if(it instanceof Array && it.length!=0){ }}
+				{{~it :value:index}}
+				   <div class="order_test" >
+				   	<div tapmode="" onclick="orderTestDetail({{= value.testorder_id}})">
+				   	<div class="flex-box order_one">
+				   		<div class="">
+				   			<span class="ct-icon-box2" ></span>
+				   			<span style="font-size: 0.8em;">检查订单号：{{= value.orderno }}</span>
+				   			<span class="ct-icon-angle-right"></span>
+				   		</div>
+				   		<div class="yangping">
+					   		{{? value.state == '0' }}
+					   			待支付
+					   		{{?? value.state == '1' }}
+						   		已付款
+					   		{{?? value.state == '2' }}
+					   			已发货
+					   		{{?? value.state == '3' }}
+					   			测试中
+					   		{{?? value.state == '4' }}
+					   			已完成
+					   		{{?? value.state == '5' }}
+					   			退款中
+					   		{{?}}			   			
+				   		</div>
+				   	</div>
+				   	{{ for(var i=0;i<value.Testorderdetail.length;i++){ }}
+				   	<div class="flex-box order_two">
+				   		<div class="flex-1 img-frm">
+				   		  <div class=" order_img" style="background-image: url({{= value.Testorderdetail[i].cover }});"></div>
+				   		</div>
+				   		<div class="flex-2 order_title">{{= value.Testorderdetail[i].title }}</div>
+				   		<div class="flex-1 order_num">
+				   			<p style="color:#000;line-height: 20px;">{{= value.Testorderdetail[i].price }}</p>
+				   			<p>x{{= value.Testorderdetail[i].num }}</p>
+				   		</div>
+				   	</div>
+				   	{{ } }}
+				   	<div class="order_moble">共<span>{{= value.Testorderdetail.length }}</span>个测试 &nbsp;实付：<span style="font-size: 1.2em; color:#000;">￥{{= value.money }}</span></div>
+				   	</div>
+				   	<div class="flex-box submint_order">
+				   		{{? value.state == '0' }}
+				   			<div class="btn btn-default btn-sm" tapmode="" onclick="orderDel({{= value.testorder_id }})">删除订单</div>
+					   		<div class="btn btn-info btn-sm" onclick="openMyTestPay({{= value.testorder_id}}, {{= value.money }})" tapmode="">支付订单</div>
+				   		{{?? value.state == '1' }}
+					   		<button class="btn btn-default btn-sm" tapmode="" onclick="orderRefund({{= value.testorder_id }}, this)">申请退款</button>
+					   		<div class="btn btn-info btn-sm" tapmode="" onclick="fillLogistics('{{= value.orderno }}')">填写物流</div>
+				   		{{?? value.state == '2' }}
+				   			<div class="btn btn-info btn-sm" tapmode="" onclick="TestContadctDetail('{{= it.kuaidi }}','{{=it.kdno }}')">查看物流</div>
+				   		{{?? value.state == '3' }}
+				   			<div class="btn btn-default btn-sm" onclick="OpenReminder({{= value.testorder_id }})" tapmode="">我要催单</div>
+					   		<div class="btn btn-default btn-sm" tapmode="" onclick="TestContadctDetail('{{= it.kuaidi }}','{{=it.kdno }}')">查看物流</div>
+				   		{{?? value.state == '4' }}
+				   			<div class="btn btn-default btn-sm" tapmode="" onclick="orderDel({{= value.testorder_id }})">删除订单</div>
+					   		<div class="btn btn-default btn-sm" tapmode="" onclick="TestContadctDetail('{{= it.kuaidi }}','{{=it.kdno }}')">查看物流</div>
+					   		{{? value.comment == '0'}}
+					   		<div class="btn btn-default btn-sm" tapmode="" onclick="openOrderEvaluation({{= value.testorder_id}})">评价订单</div>
+					   		{{?? value.comment == '1'}}
+					   		 <div class="btn btn-default btn-sm" >已评价</div>
+					   		{{?}}
+					   		<div class="btn btn-info btn-sm" tapmode="" onclick="openSendReport({{= value.testorder_id}})">发送报告</div>
+				   		{{?? value.state == '5' }}
+				   			<div class="btn btn-info btn-sm" tapmode="" onclick="CancelRefund()">取消退款</div>
+				   		{{?}}
+				   	</div>
+				   </div>
+				{{~}}
+			 {{ }else{ }}
+				<div class="null flex-box">
+					<div class="flex-1">
+						暂无相关内容~
+					</div>
+				</div>		 	
+			 {{ } }}
+		 </div>
+	</script>	
+	<script type="text/javascript">
+	//支付订单
+//		function PaymentOrder(){
+//			openMyTestPay(oid, pay)
+//		}
+		function reload(state){
+			tool.ajax.get({
+				ctrl: 'Order',
+				fn: 'testOrderlist',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						state: state
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});			
+		}
+		//取消退款
+		function CancelRefund(){
+			
+		}
+		//评价订单
+		function openOrderEvaluation(orderid){
+			api.openWin({
+				name:'orderEvaluation',
+				url: api.wgtRootDir + '/html/window/win.html',
+					pageParam: {
+						headerTitle: '评价订单',
+						frameName: 'order_evaluation',
+						frameUrl: api.wgtRootDir + '/html/order/evaluation_order.html',
+						hasFrameParam: true,
+						frameParam: {
+							orderid: orderid
+						}
+					},
+					bounces: false
+			});
+		}
+		//查看物流
+		function TestContadctDetail(kuaidi,kdno){
+		tool.ajax.get({
+			ctrl:"Index",
+			fn:"logistics",
+			hideLoading:true,
+			data:{
+				values:{
+					kuaidi:kuaidi,
+					kdno:kdno
+				}
+			}
+		},function(ct){
+			api.openWin({
+				name: 'testContadctDetail',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '物流详情',
+					frameName: 'Contadct_Detail',
+					frameUrl: ct.url
+				},
+				bounces: false
+			});
+		});
+	}
+		//申请退款
+		function orderRefund(orderid, _this){
+//			alert(orderid);
+			 tool.ajax.get({
+			 	ctrl:'Order',
+			 	fn:'refund',
+			 	hideLoading:true,
+			 	data:{
+			 		values:{
+			 			id:$api.getStorage('memberId'),
+			 			token:$api.getStorage('token'),
+			 			orderid:orderid
+			 		}
+			 	}
+			 },function(){
+			 	 $api.text(_this, '退款中');
+			 		_this.disabled = true;
+			 });
+		}
+		//订单详情
+		function orderTestDetail(orderid,kuaidi,kdno){
+			api.openWin({
+				name:'orderTestDetails',
+				url: api.wgtRootDir + '/html/window/win.html',
+					pageParam: {
+						headerTitle: '订单详情',
+						frameName: 'order_test_detail',
+						frameUrl: api.wgtRootDir + '/html/order/test_order_detail.html',
+						hasFrameParam: true,
+						frameParam: {
+							orderid: orderid
+						}
+					},
+					bounces: false
+			});
+		}
+		//删除订单
+		function orderDel(orderid){
+			api.alert({
+			    title: '提示信息',
+			    msg: '是否确定删除订单',
+			    buttons:['确定','取消']
+			},function(ret,err){
+			    if(ret.buttonIndex == 1){
+			        tool.ajax.get({
+							ctrl:'Order',
+							fn:'orderDel',
+							hideLoading:true,
+							data:{
+								values:{
+									id:$api.getStorage('memberId'),
+									token:$api.getStorage('token'),
+									orderid:orderid
+								}
+							}
+						},function(){
+							
+						});
+			    }
+			});			
+		}
+		//我要催单
+		function OpenReminder(orderid){
+			tool.ajax.get({
+				ctrl:'Order',
+				fn:'reminder',
+				hideLoading:true,
+				data:{
+					values:{
+						id:$api.getStorage('memberId'),
+						token:$api.getStorage('token'),
+						orderid:orderid
+					}
+				}
+			},function(){
+				api.alert({
+					title:'催单成功！',
+					msg:'我们会尽快进行对该订单的测试！'
+				});
+			});
+		}
+		//填写物流
+		function fillLogistics(orderno){
+//			alert(orderno);
+			api.openWin({
+				name: 'FillLogistics',
+				url: api.wgtRootDir + '/html/window/win2.html',
+				pageParam: {
+					headerTitle: '选择快递',
+					frameName: 'fill_logistics',
+					frameUrl: api.wgtRootDir + '/html/home/fill_logistics.html',
+					hasFrameParam: true,
+						frameParam: {
+							testOrderNo: orderno
+						}
+				},
+				bounces: false
+			});			
+		}
+		//发送报告
+		function openSendReport(tid){
+			api.openWin({
+				name:'sendReport',
+				url: api.wgtRootDir + '/html/window/win.html',
+					pageParam: {
+						headerTitle: '发送报告',
+						frameName: 'send_report',
+						frameUrl: api.wgtRootDir + '/html/order/send_report_list.html',
+					  hasFrameParam: true,
+						frameParam: {
+							tid: tid
+						}
+					},
+					bounces: false 
+			});
+		}
+		apiready = function(){
+			reload(api.pageParam.state);
+			Refresh.init({
+				ctrl: 'Order',
+				fn: 'testOrderlist',
+				values: {
+					id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						state: api.pageParam.state
+				}
+			});
+		}
+	</script>
+</html> 
+

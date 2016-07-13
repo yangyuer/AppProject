@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			#main > .flex-box{
+				padding: 4px;
+			}
+			.itme{
+				/*margin: 4px;*/
+			}
+			.img-frm{
+				width: 90px;
+				height: 90px;
+				background: url(../../res/loading_400x400.png) no-repeat center;
+				background-size: cover;
+				margin-bottom: 10px;
+			}
+			.name{
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="flex-box hidden">
+					<div class="item">
+						<div class="img-frm">
+							<div class="img"></div>
+						</div>
+						<div class="text-center text-overflow">
+							时钟缓冲器
+						</div>
+					</div>
+					<div class="item">
+						<div class="img-frm">
+							<div class="img"></div>
+						</div>
+						<div class="text-center">
+							时钟缓冲器
+						</div>
+					</div>
+					<div class="item">
+						<div class="img-frm">
+							<div class="img"></div>
+						</div>
+						<div class="text-center">
+							时钟缓冲器
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/template" template="main">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~it :value:index}}
+				{{? index%3==0 }}
+				<div class="flex-box">
+					<div class="item" onclick="openShopAdd({{= value.pid }}, {{= value.id }})" style="width:{{= api.frameWidth/3 }}px;background-color: ;" tapmode="">
+						<div class="img-frm center-block" style="width:{{= (api.frameWidth-32)/3 }}px;height:{{= (api.frameWidth-32)/3 }}px;">
+							<div class="img" style="background-image: url({{= value.cover }});"></div>
+						</div>
+						<div class="text-center text-overflow name">
+							{{= value.name }}
+						</div>
+					</div>
+					
+					{{ if(index+1 < it.length){ }}
+					<div class="item" onclick="openShopAdd({{= value.pid }}, {{= value.id }})" style="width:{{= api.frameWidth/3 }}px;background-color: ;" tapmode="">
+						<div class="img-frm center-block" style="width:{{= (api.frameWidth-32)/3 }}px;height:{{= (api.frameWidth-32)/3 }}px;">
+							<div class="img" style="background-image: url({{= it[index+1].cover }});margin-right: 6px;"></div>
+						</div>
+						<div class="text-center name">
+							{{= it[index+1].name }}
+						</div>
+					</div>
+					{{ } }}
+					
+					{{ if(index+2 < it.length){ }}
+					<div class="item" onclick="openShopAdd({{= value.pid }}, {{= value.id }})" style="width:{{= api.frameWidth/3 }}px;">
+						<div class="img-frm center-block" style="width:{{= (api.frameWidth-32)/3 }}px;height:{{= (api.frameWidth-32)/3 }}px;" tapmode="">
+							<div class="img" style="background-image: url({{= it[index+2].cover }});"></div>
+						</div>
+						<div class="text-center name">
+							{{= it[index+2].name }}
+						</div>
+					</div>
+					{{ } }}
+				</div>	
+				{{?}}
+			{{~}}	
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>			
+		{{ } }}
+	</script>
+	<script type="text/javascript">
+		/*预定义店铺id*/
+		var shopId;
+		//添加商品
+		function openShopAdd(pid, id){
+			api.openWin({
+				name: 'shopAdd',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '添加商品',
+					frameName: 'change_password',
+					frameUrl: api.wgtRootDir + '/html/home/shop_edit_commodity.html',
+					hasFrameParam: true,
+					frameParam: {
+						shopid: shopId,
+						pid: pid,
+						id: id
+					}
+				},
+				bounces: false
+			});
+		}		
+		apiready = function(){
+//			return;
+			shopId = api.pageParam.shopId;
+			$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(api.pageParam.list));
+			api.parseTapmode();
+		}
+	</script>
+</html>

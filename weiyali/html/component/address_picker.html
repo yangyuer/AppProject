@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			#main li{
+				/*padding: 15px 10px;
+				border-bottom: 1px solid #ddd;*/
+			}
+			#wrapper {
+				position: absolute;
+				z-index: 1;
+				top: 0px;
+				bottom: 0;
+				left: 0px;
+				width: 100%;
+				background: #eee;
+				overflow: auto;
+				-webkit-overflow-scrolling: auto;
+			}
+			
+			#scroller {
+				/*position: absolute;
+				z-index: 1;
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				width: 100%;
+				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				user-select: none;
+				-webkit-text-size-adjust: none;
+				text-size-adjust: none;*/
+			}
+			#header li,
+			.scroller ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				text-align: left;
+			}
+
+			.scroller li,
+			#header li{
+				padding: 0 10px;
+				height: 40px;
+				line-height: 40px;
+				border-bottom: 1px solid #ccc;
+				border-top: 1px solid #fff;
+				background-color: #fafafa;
+				font-size: 14px;
+				transition: all 1s ease 0s;
+				-webkit-transition: all 1s ease 0s;
+			}		
+			#header li{
+				background-color: rgba(0,0,0,0.1);
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<ul>
+					<li id="province" class="hidden"></li>
+					<li id="city" class="hidden"></li>
+					<li id="district" class="hidden"></li>
+				</ul>
+			</div>
+			<div id="main">
+				<div id="wrapper">
+					<div class="scroller">
+						<ul class="hidden">
+							<li>北京</li>
+							<li>天津</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/fs.js" ></script>
+	<script type="text/javascript" src="../../script/iscroll.js" ></script>
+	<script type="text/javascript" src="../../res/addressPicker.js" ></script>
+	<script type="text/template" template="scroller">
+		<ul level="{{= it.level }}">
+			{{~it.list :value:index }}
+				{{? it.level==1 }}
+					<li onclick="getProvince({{= value.id }})" tapmode="">{{= value.name }}</li>
+				{{?? it.level==2 }}
+					<li onclick="getCity({{= value.id }})" tapmode="">{{= value.name }}</li>
+				{{??}}
+					<li onclick="getDistrict({{= value.id }})" tapmode="">{{= value.name }}</li>
+				{{?}}
+			{{~}}
+		</ul>
+	</script>
+	<script type="text/javascript">
+//		document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+		function iscrollInit(){
+			var myScroll = new IScroll('#wrapper', { 
+				bounceEasing: 'elastic', 
+				bounceTime: 1200
+			});
+		}
+//		iscrollInit();
+		var curProvince,
+				curCity,
+				curDistrict;
+		function getProvince(pid){
+			//number pid 省id
+			for(var i=0;i<cityPicker.length;i++){
+				if(pid == cityPicker[i].id){
+					curProvince = cityPicker[i];
+					$api.removeCls($api.text($api.dom('#province'), curProvince.name), 'hidden');
+					var data = {
+						list: curProvince.child,
+						level: 2
+					}
+					setTimeout(function(){
+						$api.html($api.dom('.scroller'), doT.template($api.html($api.dom('[template=scroller]')))(data));
+//						iscrollInit();
+						api.parseTapmode();
+					}, 230);
+					break;
+				}
+			}			
+		}
+		function isSelect(p, c, d){
+			
+		}
+		function getCity(cid){
+			//number cid 市id
+//			alert($api.jsonToStr(curProvince));
+			for(var i=0;i<curProvince.child.length;i++){
+				if(cid == curProvince.child[i].id){
+					curCity = curProvince.child[i];
+					api.sendEvent({
+						name: 'pickCity',
+						extra: {
+							cityId: curCity.id,
+							city: curCity.name
+						}
+					});
+					api.closeWin();
+					break;
+				}
+			}	
+		}
+		function getDistrict(did){
+			//number did 县id
+			for(var i=0;i<curCity.child.length;i++){
+				if(did == curCity.child[i].id){
+					curDistrict = curCity.child[i];
+					
+					alert(curProvince.name + ', ' + curCity.name + ', ' + curDistrict.name);
+					api.parseTapmode();
+					break;
+				}
+			}			
+		}
+		function closeWin(){
+			var level = $api.attr($api.dom('.scroller > ul'), 'level');
+			switch(parseInt(level)){
+				case 1:
+					api.closeWin();
+					break;
+				case 2:
+					$api.addCls($api.dom('#province'), 'hidden');
+					var data = {
+						list: cityPicker,
+						level: 1
+					};			
+					setTimeout(function(){
+						$api.html($api.dom('.scroller'), doT.template($api.html($api.dom('[template=scroller]')))(data));
+//						iscrollInit();
+						api.parseTapmode();
+					}, 230);					
+					break;
+				case 3: 
+					$api.addCls($api.dom('#city'), 'hidden');
+					var data = {
+						list: curProvince.child,
+						level: 2
+					}
+					setTimeout(function(){
+						$api.html($api.dom('.scroller'), doT.template($api.html($api.dom('[template=scroller]')))(data));
+//						iscrollInit();
+						api.parseTapmode();
+					}, 230);					
+					break;
+			}
+		}
+			function reload(){
+				tool.ajax.get({
+					ctrl: 'shop',
+					fn: 'cityList',
+					hideLoading: false
+				}, function(ct){
+					alert($api.jsonToStr(ct))
+					var data = {
+						list: ct,
+						level: 1
+					};
+					$api.html($api.dom('.scroller'), doT.template($api.html($api.dom('[template=scroller]')))(data));
+		//			iscrollInit();
+					api.parseTapmode();					
+				});
+			}
+		apiready = function(){
+//			reload();
+//			return;
+			
+			
+			var data = {
+				list: cityPicker,
+				level: 1
+			};
+			$api.html($api.dom('.scroller'), doT.template($api.html($api.dom('[template=scroller]')))(data));
+//			iscrollInit();
+			api.parseTapmode();
+		}
+	</script>
+</html>

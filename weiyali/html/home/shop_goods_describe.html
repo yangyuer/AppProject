@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			#main{
+				padding: 10px;
+			}
+			summary{
+				text-indent: 2em;
+				margin-bottom: 10px;
+			}
+			img{
+				margin-bottom: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<!--<summary>
+					凭质保证书及京东商城发票，可享受全国联保服务（奢侈品、钟表除外；奢侈品、钟表由京东联系保修，享受法定三包售后服务），与您亲临商场选购的商品享受相同的质量保证。京东商城还为您提供具有竞争力的商品价格和运费政策，请您放心购买！ 
+				</summary>
+				<img src="../../image/banner_temporary.png"/>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/template" template="main">
+		<summary>
+			{{= it.summary }}
+		</summary>
+		{{ if(it.pic instanceof Array && it.pic.length!=0){ }}
+			{{~it.pic :value:index}}
+			<img src="{{= value }}"/>
+			{{~}}
+		{{ } }}
+	</script>
+	<script type="text/javascript">
+		function reload(gid){
+			tool.ajax.get({
+				ctrl: 'Shop',
+				fn: 'goodsSummary',
+				data: {
+					values: {
+						gid: gid
+					}
+				},
+				template: 'main'
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+			});			
+		}
+		apiready = function(){
+			reload(api.pageParam.gid);
+		}
+	</script>
+</html>

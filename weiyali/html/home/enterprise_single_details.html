@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+		body{
+			min-width: 320px;
+		}
+		#main, .main{
+			padding-bottom:56px ;
+		}
+		.swipe{
+			border-bottom: 1px solid #75b6d7;
+		}
+		.taoti{
+			background-color: #fff;
+			
+			line-height: 50px;
+		}
+		.taoti span{
+			padding-left: 1.4em;
+			font-size: 1.2em;
+			font-weight: 700;
+			width: 96%;
+			border-bottom: 1px solid #ededed;
+		}
+		.jiage{
+			background-color: #fff;
+			line-height: 50px;
+		}
+		.jiage .font_jiage{
+			padding-left: 2.2em;
+			color: #999;
+			font-size: 0.8em;
+		}
+		.jiage .font_num{
+			color:red;
+			padding-left: 0.5em;
+			font-size: 1.2em;
+			line-height: 46px;
+		}
+		.tuwen_details{
+			margin-top: 10px;
+			line-height: 50px;
+			background-color: #fff;
+			border: 1px solid #ededed;
+		}
+		.tuwen{
+			font-size: 25px;
+			margin-right: 0.5em;
+			margin-left: 0.5em;
+			margin-top: 0.5em;
+			color: #999;
+		}
+		.ce_datails
+		{
+			color: #000;
+			
+		}
+		.tuwen_details .datails_wifi{
+			color: #999;
+			font-size: 0.8em;
+			line-height: 52px;;
+		}
+		.text-pingjia{
+			line-height: 50px;
+			border-bottom:1px solid #ededed;
+			background-color: #fff;
+			
+		}
+	
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<header class="hidden">
+				<div id="detail" class="swipe">
+					<div class="swipe-wrap">
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+					</div>
+					<div id="pointer">
+						<a class="active"></a>
+						<a class=""></a>
+						<a class=""></a>
+						<a class=""></a>
+						<a class=""></a>
+					</div>
+				</div>				
+			</header>
+			<div id="main">
+				<section class="hidden">
+					<div class="flex-box taoti">
+						<span>半导体封装测试</span>
+					</div>
+					<div class="flex-box jiage">
+						<span class="font_jiage">价格:</span>
+						<span class="font_num">￥280.00</span>
+					</div>
+					<div class="flex-box tuwen_details">
+						<span class="ct-icon-nickname tuwen" style=""></span>
+						<span class="ce_datails">测试图文详情</span>
+						<span class="datails_wifi">（建议在wifi下查看）</span>
+					</div>
+					<div class="flex-box text-pingjia">
+						<span class="ct-icon-join tuwen" ></span>
+						<span class="ce_datails">测试评价</span>
+						<span class="ce_datails">（18）</span>
+					</div>
+					<div class="flex-box text-pingjia">
+						<span class="ct-icon-star tuwen" ></span>
+						<span class="ce_datails">收藏测试</span>
+					</div>					
+				</section>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/cart.js" ></script>
+	<script type="text/template" template="wrap">
+		{{ if(it.cover instanceof Array &&　it.cover.length!=0){ }}
+			<header>
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap">
+					{{~ it.cover :value:index}}	
+						<div>
+							<div class="img-frm">
+								<div class="img" data-echo-background="{{= value }}"  onclick="" tapmode=""></div>
+							</div>
+						</div>
+					{{~}}	
+					</div>
+					<div id="pointer">
+						{{~ it.cover :value:index}}	
+						  {{? index==0 }}
+						    <a class="active"></a>
+						  {{??}}
+						    <a class=""></a>
+						  {{?}}
+						{{~}}
+					</div>
+				</div>				
+			</header>		
+		{{ } }}	
+		<div id="main">
+				<div style="background-color:#F8F8F8">
+		    <div class="flex-box taoti">
+					<span>{{= it.title }}</span>
+				</div>
+				<div class="flex-box jiage">
+					<span class="font_jiage">价格:</span>
+					<span class="font_num">￥{{= it.price }}</span>
+					<span class="font_jiage" style="margin-left: 12%;">次数:</span>
+					<span class="font_num">{{= it.times}}</span>
+				</div>
+				<div class="flex-box tuwen_details" onclick="openDescription({{= it.id}})" tapmode="">
+					<span class="ct-icon-nickname tuwen" style=""></span>
+					<span class="ce_datails">测试图文详情</span>
+					<span class="datails_wifi">（建议在wifi下查看）</span>
+				</div>
+				<div class="flex-box text-pingjia" onclick="openStarCommentList('ETest', 'etestComment', {{=it.id}}, 1)">
+					<span class="ct-icon-join tuwen" ></span>
+					<span class="ce_datails">测试评价</span>
+					<span class="ce_datails">（{{= it.comment }}）</span>
+				</div>
+				{{? $api.getStorage('memberInfo') }}
+					<div class="flex-box text-pingjia " onclick="etestcollection('{{= it.id }}')" tapmode=""> 
+						{{ if($api.getStorage('memberInfo')){ }}
+							{{ if($api.getStorage('memberInfo').etestcollection.indexOf(it.id.toString())>=0){ }}						
+								<span class="ct-icon-star_select tuwen collect" ></span>
+						{{ }else{ }}		
+								<span class="ct-icon-star tuwen collect" tapmode=""></span>
+							{{ } }}
+						{{ } }}
+						<span class="ce_datails">收藏测试</span>
+					</div>
+				{{?}}
+			</div>
+		</div>
+	</script>
+	<script type="text/javascript">
+		//预定义变量，用于加入测试车
+		var tid, price, title, cover;
+		function addCart(){
+			Cart.push({
+				cartName: 'enterpriseTestCart',
+				goods: {
+					type: 0,
+					tid: tid,
+					title: title,
+					price: price,
+					cover: cover,
+					num: 1
+				}
+			});
+			toast('添加测试车成功');			
+		}
+		function etestcollection(id){
+//			alert(1);
+			var flag = 0;
+			if(!$api.hasCls($api.dom('.collect'), 'ct-icon-star_select')){
+				flag = 1;
+			}
+			tool.ajax.get({
+				hideLoading:true,
+				ctrl: 'ETest',
+				fn: 'etestCollect',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						type:0,
+						tid: id
+					}
+				}
+			}, function(ct){
+				var memberInof = $api.getStorage('memberInfo');
+				if(flag){
+					toast('收藏成功');
+					$api.addCls($api.removeCls($api.dom('.collect'), 'ct-icon-star'), 'ct-icon-star_select');
+					memberInof.etestcollection.push(id);
+				}else{
+					toast('已取消收藏');
+					$api.addCls($api.removeCls($api.dom('.collect'), 'ct-icon-star_select'), 'ct-icon-star');
+					var _index = memberInof.etestcollection.indexOf(id);
+					memberInof.etestcollection.splice(_index, 1);
+				}
+				$api.setStorage('memberInfo', memberInof);
+			});
+		}	
+		function openEnterpriseSinglseComment(){
+			api.openWin({
+				name: 'oenEnterpriseSinglseComment',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '评论列表',
+					frameName: 'oenEnterprise_Singlse_Comment',
+					frameUrl: api.wgtRootDir + '/html/home/enterprise_test_singles_comment.html'
+				},
+				bounces: false
+			});	
+		}
+			//图文详情
+	function openDescription(id){
+			api.openWin({
+				name: 'Description',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '图文详情',
+					frameName: '_description',
+					frameUrl: api.wgtRootDir + '/html/home/description.html',
+					hasFrameParam: true,
+					frameParam: {
+						id: id,
+						type: 4
+					}
+				},
+				bounces: false
+			});			
+		}
+		function swipeInit() {
+			var slideIndexs = $api.domAll('#pointer > a'),
+				slidLength = slideIndexs.length;
+			new Swipe(document.getElementById('slider'), {
+				speed: 400,
+				auto: 3000,
+				continuous: true,
+				disableScroll: true,
+				stopPropagation: true,
+				callback: function(index, elem) {
+					for (var i = 0; i < slidLength; i++) {
+						if ($api.hasCls(slideIndexs[i], 'active')) {
+							$api.removeCls(slideIndexs[i], 'active');
+						}
+					}
+					
+					try{
+						$api.addCls(slideIndexs[index], 'active');
+					}catch(e){
+						if(index>=slidLength){
+							index = 0;
+							$api.addCls(slideIndexs[index], 'active')
+						}else{
+							alert('swipe error');
+						}
+					}
+				},
+				transitionEnd: function(index, elem) {}
+			});
+		}	
+		swipeInit();
+		function reload(id){
+			tool.ajax.get({
+				ctrl: "ETest",
+				fn: "etestDetails",
+				hideLoading:true,
+				data:{
+					values:{
+						tid: id
+					}
+				}
+			},function(ct){
+				tid = ct.id;
+				title = ct.title;
+				price = ct.price;
+				cover = ct.pic[0];
+				mt('#wrap', 'wrap', ct);
+//				 $api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+			});
+		}
+		apiready = function(){
+			reload(api.pageParam.id);
+		}
+	</script>
+</html> 

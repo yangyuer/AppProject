@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+       body {
+       	min-width: 320px;
+       }
+      .measure_view {
+       background-color: #F8F8F8;
+       	position: relative;
+       	padding: 5px 5px 0 5px;
+       }
+       .measure_view_left,
+       .measure_view_right
+       {
+       	background-color: #fff;
+       	margin: 5px 5px 0 5px;
+       }
+       .img {
+       	background: no-repeat;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       }
+       .img-frm{
+       	background: url(../../image/measure_list.png) no-repeat center;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       	position: relative;
+       	margin-left: -60px;
+       	left: 50%;
+       }
+       #main,
+       .main {
+       	padding-bottom: 90px;
+       }
+       h6 {
+       	text-align: left;
+       	padding: 0 0.6em;
+       	font-weight: 700;
+       	font-size: 0.8em;
+       }
+       .measur_font {
+       	font-size: 0.7em;
+       	color: #999;
+       	padding: 0 .6em;
+       	word-break: break-word;
+       	line-height: 15px;
+       	overflow : hidden;
+      	text-overflow: ellipsis;
+      	display: -webkit-box;
+      	-webkit-line-clamp: 2;
+      	-webkit-box-orient: vertical;
+       }
+       .yuan {
+       	color: red;
+       	text-align: center;
+       	line-height: 25px;
+       	font-weight: 800;
+       	font-size: 1em;
+       }
+       .yuanjia {
+       	text-align: center;
+       	font-size: 0.6em;
+       	padding-bottom: 10px;
+       }
+       .yuanjia span {
+       	text-decoration: line-through;
+       	font-size: 1.5em;
+       }
+    </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<div class="measure-list hidden">
+					<div class="flex-box measure_view">
+						<div class="measure_view_left">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<h6>耐焊接热(DIP方式)</h6>
+							<div class="measur_font">
+								采用V93000系列集成电路测试系统，单次测试价仅为520元！
+							</div>
+							<p class="yuan">￥520.00</p>
+							<p class="yuanjia">价值￥<span>1000</span></p>
+						</div>
+						<div class="measure_view_right">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+							<h6>耐焊接热(DIP方式)</h6>
+							<div class="measur_font">
+								采用V93000系列集成电路测试系统，单次测试价仅为520元！
+							</div>
+							<p class="yuan">￥520.00</p>
+							<p class="yuanjia">价值￥<span>1000</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/template" template="main">
+	 <div style="background-color:#F8F8F8">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~it :value:index}}
+				{{? index%2==0 }}
+					<div style="background-color:#F8F8F8">
+				     <div class="measure-list">
+								<div class="flex-box measure_view">
+									<div style="width:{{= (api.frameWidth-30)/2 }}px;background-color: ;" tapmode="" onclick="SingleListDetail({{= value.id}})" class=" measure_view_left">
+										<div class="img-frm" >
+											<div class="img" data-echo-background="{{= value.cover }}"></div>
+										</div>
+											<h6>{{= value.title }}</h6>
+											<div class="measur_font">
+												{{= value.summary }}
+											</div>
+											<p class="yuan">￥{{= value.price }}/{{=  value.times }}次</p>
+											<p class="yuanjia">价值￥<span>{{= value.originalprice }}</span></p>
+									</div>
+									{{? index+1<it.length }}
+									<div class="measure_view_right" onclick="SingleListDetail({{= it[index+1].id}})" style="width:{{= (api.frameWidth-30)/2 }}px;background-color: ;">
+										<div class="img-frm">
+											<div class="img" data-echo-background="{{= it[index+1].cover }}"></div>
+										</div>
+										<h6>{{= it[index+1].title }}</h6>
+										<div class="measur_font">
+											{{= it[index+1].summary }}
+										</div>
+										<p class="yuan">￥{{= it[index+1].price }}/{{= it[index+1].times}}次</p>
+										<p class="yuanjia">价值￥<span>{{= it[index+1].originalprice }}</span></p>
+									</div>
+									{{?}}
+								</div>
+							</div>	
+			  	 </div>
+				{{?}}
+			{{~}}	
+		{{ }else{ }}
+		  <div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>
+		{{ } }}
+		</div>
+	</script>
+	<script type="text/javascript">
+		function reload(){
+			var ctrl = 'ETest',
+					fn = 'etestList';
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				 echo.init();
+				api.parseTapmode();
+			});			
+		}
+		//打开商品详情
+		function SingleListDetail(id)
+		{
+			api.openWin({
+				name:'EeasuListDetails',
+				url: api.wgtRootDir + '/html/window/enterprise_win_details.html',
+				pageParam:{
+					id:id
+				},
+				bounces: false
+			});	
+		}
+		apiready = function(){
+			reload();
+			Refresh.init({
+				ctrl: 'ETest',
+				fn: 'etestList'
+			});
+		}
+	</script>
+</html> 

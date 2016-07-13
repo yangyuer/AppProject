@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			#main{
+				padding: 7px;
+			}
+			#main .flex-box > .flex-1{
+				text-align: center;
+				border-radius: 5px;
+				padding: 15px 0 10px;
+				color: #fff;
+			}
+			.itest,
+			.enterprise-test,
+			.invite-bids,
+			.buy-sell,
+			.test-organization,
+			.optimize-plan,
+			.other{
+				margin: 3px;
+			}
+			.itest::after,
+			.enterprise-test::after,
+			.invite-bids::after,
+			.buy-sell::before,
+			.test-organization::before,
+			.optimize-plan::before,
+			.other::before{
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+			.itest::after,
+			.enterprise-test::after,
+			.invite-bids::after{
+				content: '';
+				height: 100px;
+				display: block;
+				margin: 8px 0 0;
+			}
+			.buy-sell,
+			.test-organization,
+			.optimize-plan,
+			.other{
+				line-height: 80px;
+			}
+			.buy-sell::before,
+			.test-organization::before,
+			.optimize-plan::before,
+			.other::before{
+				content: 'c';
+				width: 75px;
+				color: transparent;
+				display: inline-block;
+			}
+			.itest::after{
+				background-image: url(../../image/index_pic1.png);
+				background-size: 50px auto;
+			}
+			.enterprise-test::after{
+				background-image: url(../../image/index_pic2.png);
+				background-size: 50px auto;
+			}
+			.invite-bids::after{
+				background-image: url(../../image/index_pic3.png);
+				background-size: 60px auto;
+			}
+			.buy-sell::before{
+				background-image: url(../../image/index_pic4.png);
+				background-size: 60px auto;
+			}
+			.test-organization::before{
+				background-image: url(../../image/index_pic5.png);
+				background-size: 45px auto;
+			}
+			.optimize-plan::before{
+				background-image: url(../../image/index_pic6.png);
+				background-size: 55px auto;
+			}
+			.other::before{
+				background-image: url(../../image/index_pic7.png);
+				background-size: 70px auto;
+				background-position: 0 center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<header class="hidden">
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap">
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+					</div>
+					<div id="pointer">
+						<a class="active"></a>
+						<a class=""></a>
+						<a class=""></a>
+					</div>
+				</div>				
+			</header>
+			<div id="main" class="hidden">
+				<div class="flex-box">
+					<div onclick="" tapmode="" class="flex-1 itest" style="background-color: #62ACFD;">我要测</div>
+					<div class="flex-1 enterprise-test" style="background-color: #3C98FD;">企业侧</div>
+					<div class="flex-1 invite-bids" style="background-color: #5062F1;">企业招标</div>
+				</div>
+				<div class="flex-box">
+					<div class="flex-1 buy-sell" style="background-color: #FE9F07;">买卖通</div>
+					<div class="flex-1 test-organization" style="background-color: #F98B3C;">测试机构</div>
+				</div>
+				<div class="flex-box">
+					<div class="flex-1 optimize-plan" style="background-color: #46D6B9;">方案优化</div>
+					<div onclick="openOther()" tapmode="" class="flex-1 other" style="background-color: #6ACFF7;">其他</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/template" template="wrap">
+		{{ if(it.advert instanceof Array && it.advert.length!=0){ }}
+			<header>
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap" >
+					{{~ it.advert :value:index}}	
+						<div onclick="openAdvertHome({{= value.id}})" tapmode="">
+							<div class="img-frm">
+								<div class="img" data-echo-background="{{= value.banner }}"  onclick="" tapmode=""></div>
+							</div>
+						</div>
+					{{~}}	
+					</div>
+					<div id="pointer">
+						{{~ it.advert :value:index }}	
+						  {{? index==0 }}
+						    <a class="active"></a>
+						  {{??}}
+						    <a class=""></a>
+						  {{?}}
+						{{~}}
+					</div>
+				</div>				
+			</header>		
+		{{ } }}
+		<div id="main">
+			<div class="flex-box">
+				<div class="flex-1 itest" onclick="openMyMeasure()" tapmode="" style="background-color: #62ACFD;">我要测</div>
+				<div class="flex-1 enterprise-test" onclick="openEnterprise()" style="background-color: #3C98FD;">企业侧</div>
+				<div onclick="openEnterpriseTenderList()" tapmode="" class="flex-1 invite-bids" style="background-color: #5062F1;">企业招标</div>
+			</div>
+			<div class="flex-box">
+				<div class="flex-1 buy-sell" onclick="openBusiness()" tapmode="" style="background-color: #FE9F07;">买卖通</div>
+				<div onclick="openMechanismList({{= it.testagency }})" tapmode="" class="flex-1 test-organization" style="background-color: #F98B3C;">测试机构</div>
+			</div>
+			<div class="flex-box">
+				<div class="flex-1 optimize-plan" onclick="openPlanList()" style="background-color: #46D6B9;">方案优化</div>
+				<div onclick="openOther()" tapmode="" class="flex-1 other" style="background-color: #6ACFF7;">其他</div>
+			</div>
+		</div>		
+	</script>
+	<script type="text/javascript">
+	//广告详情
+	function openAdvertHome(id){
+			api.openWin({
+				name: 'tallwith',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '威雅利',
+					frameName: '_complain',
+					frameUrl: api.wgtRootDir + '/html/home/home_adver_detail.html',
+					hasFrameParam: true,
+					frameParam: {
+						id: id
+					}
+				},
+				bounces: false
+			});	
+		}
+		/*买卖通*/
+		function openBusiness(){
+			api.openWin({
+				name:'Business',
+				url: api.wgtRootDir + '/html/window/goods_classify_list.html',
+				bounces: false
+			});	
+		}	
+		/*我要测*/
+		function openMyMeasure(){
+			api.openWin({
+				name:'MyMeasure',
+				url: api.wgtRootDir + '/html/window/win_my_measure.html',
+				bounces: false
+			});		
+		}
+		//企业测
+		function openEnterprise(){
+			api.openWin({
+				name:'enterpriseMeasurement',
+				url: api.wgtRootDir + '/html/window/win_enterprise_measure.html',
+				bounces: false
+			});
+		}
+		//企业招标
+		function openEnterpriseTenderList(){
+			api.openWin({
+				name:'EnterpriseTenderList',
+				url: api.wgtRootDir + '/html/window/enterprise_tender_list.html',
+				bounces:false
+			});			
+		}
+		//方案优化
+			function openPlanList(){
+			api.openWin({
+				name:'planList',
+				url: api.wgtRootDir + '/html/window/plan_list.html',
+				bounces:false
+			});			
+		}
+		function openOther(){
+			api.openWin({
+				name:'Other',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam:{
+					frameName:'_other',
+					headerTitle:'其他',
+					frameUrl: api.wgtRootDir + '/html/home/other_mechanism.html'
+				}
+			});			
+		}
+		function reload(){
+			tool.ajax.get({
+				ctrl:'Index',
+				fn: 'index',
+				template: 'wrap'
+			}, function(ct){
+//				alert(JSON.stringify(ct))
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+				swipeInit();
+				echo.init();
+				api.parseTapmode();
+			});			
+		}
+		function swipeInit() {
+			var slideIndexs = $api.domAll('#pointer > a'),
+				slidLength = slideIndexs.length;
+			new Swipe(document.getElementById('slider'), {
+				speed: 400,
+				auto: 3000,
+				continuous: true,
+				disableScroll: true,
+				stopPropagation: true,
+				callback: function(index, elem) {
+					for (var i = 0; i < slidLength; i++) {
+						if ($api.hasCls(slideIndexs[i], 'active')) {
+							$api.removeCls(slideIndexs[i], 'active');
+						}
+					}
+					try{
+						$api.addCls(slideIndexs[index], 'active');
+					}catch(e){
+						if(index>=slidLength){
+							index = 0;
+							$api.addCls(slideIndexs[index], 'active')
+						}else{
+							alert('swipe error');
+						}
+					}
+				},
+				transitionEnd: function(index, elem) {}
+			});
+		}	
+//		swipeInit();
+		apiready = function(){
+			reload();
+		}
+	</script>
+</html>

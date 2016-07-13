@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.guanjian{
+				padding-left: 10px;
+				padding-top: 8px;
+				color: #ABABAB;
+			}
+			#main > input{
+				margin-left: 14px;
+				width: 90%;
+				height: 35px;
+				border-radius: 5px;
+				background-color: #fff;
+				border:1px solid #E3E3E3;
+			}
+			.search_type{
+				text-align:center;
+				
+			}
+			.flex-center-v{
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+		    padding-bottom: 20px;
+			}
+			.search_content{
+			   padding: 9px 35px;
+			   border-radius: 5px;
+			}
+			.search_content1{
+				border:1px solid #E79C19;
+				color: #E79C19;
+			}
+			.search_content2{
+				
+			}
+			.search_test1{
+				border:1px solid #169CDC;
+				color: #169CDC;
+			}
+			.search_test2{
+				
+			}
+			.search_plan1{
+				border:1px solid #E40567;
+				color: #E40567;
+			}
+			.search_plan2{
+				
+			}
+			.search_tender1{
+				border:1px solid #12BC7F;
+				color: #12BC7F;
+			}
+			.search_tender2{
+			
+			}
+			.search_news1{
+				border:1px solid #4962F1;
+				color: #4962F1;
+			}
+			.search_news2{
+				
+			}
+			.search_mechanism1{
+				border:1px solid #E42A21;
+				color: #E42A21;
+			}
+			.search_mechanism2{
+				
+			}
+			.search_submint{
+				width: 60%;
+				height: 45px;
+				margin: auto;
+			  margin-top: 30px;
+			  color: #fff;
+			  border-radius: 5px;
+			  line-height: 47px;
+				background-color: #62C3F1;
+				text-align: center;
+				font-size: 1.2em;
+			}
+			.ct-icon-search{
+				padding-right: 5px;
+				font-size: 1.2em;
+				color: #fff;
+				position: relative;
+				top:3px
+			}
+			.active.search_content1{
+				color: #fff;
+				background-color: #E79C19;
+			}
+			.active.search_test1{
+				color: #fff;
+				background-color: #169CDC;
+			}
+			.active.search_plan1{
+				color: #fff;
+				background-color: #E40567;
+			}
+			.active.search_tender1{
+					color: #fff;
+				background-color: #12BC7F;
+			}
+			.active.search_news1{
+				color: #fff;
+				background-color: #4962F1;
+			}
+			.active.search_mechanism1{
+				color: #fff;
+				background-color: #E42A21;
+			}
+			[name=keyword]{
+				padding: 0 6px;
+			}
+		</style>
+	</head>
+	<body style="background-color: #F3F3F3;">
+		<div id="wrap">
+			<div id="main">
+				<h5 class="guanjian">请输入关键字</h5>
+					<input type="text" name="keyword">
+				<h5 class="guanjian">选择分类</h5>
+				<div class="flex-box flex-center-v">
+					<div class="flex-1  search_type ">
+						<span onclick="selectType('goods', this)" class="search_content  search_content1" type='goods' tapmode="">商品</span>
+					</div>
+					<div class="flex-1 search_type">
+						<span onclick="selectType('test', this)" class="search_content  search_test1" type='test' tapmode="">测试</span>
+					</div>
+				</div>
+				<div class="flex-box flex-center-v">
+					<div class="flex-1  search_type">
+						<span onclick="selectType('plan', this)" class="search_content search_plan1" type='plan' tapmode="">方案</span>
+					</div>
+					<div class="flex-1 search_type">
+						<span onclick="selectType('tender', this)" class="search_content search_tender1" type='tender' tapmode="">招标</span>
+					</div>
+				</div>
+				<div class="flex-box flex-center-v">
+					<div class="flex-1  search_type">
+						<span onclick="selectType('info', this)" class="search_content search_news1" type='info' tapmode="">资讯</span>
+					</div>
+					<div class="flex-1 search_type">
+						<span onclick="selectType('agency', this)" class="search_content search_mechanism1" type='agency' tapmode="">机构</span>
+					</div>
+				</div>
+				<div class="search_submint" onclick="SearchSubmint()" tapmode="">
+					<span class="ct-icon-search"></span>
+					搜索
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		var selected;
+	  function selectType(type, _this){
+	  	if(type == selected){
+	  		$api.toggleCls(_this, 'active');
+	  		selected = $api.hasCls(_this, 'active') ? type : '';
+	  		return;
+	  	}
+	  	$api.addCls(_this, 'active');
+	  	if(selected){
+	  		$api.removeCls($api.dom('[type='+selected+']'), 'active');
+	  	}
+	  	selected = type;
+	  }
+
+		function SearchSubmint(){
+			var keyword = $api.val($api.dom('[name=keyword]'));
+			
+			if(!keyword){
+				toast('请输入关键字');
+				return;
+			}
+			if(!selected){
+				toast('请选择搜索分类');
+				return;
+			}
+			tool.ajax.get({
+			  ctrl: "Index",
+			  fn: "search",
+			  data:{
+			  	values:{
+			  		keyword:keyword,
+			  		type:selected
+			  	}
+			  },
+			  hideLoading: true,
+        showProgress:{
+					title:'提交中...'
+				}
+			},function(ct){
+				var frameUrl;
+				switch(selected){
+					case 'goods':
+						frameUrl = '/html/home/goods_search_list.html';
+						break;
+					case 'test':
+						return;
+						break;
+					case 'plan':
+						frameUrl = '/html/home/plan_search_list.html';
+						break;
+					case 'tender':
+						frameUrl = '/html/home/tender_search_list.html';
+						break;
+					case 'info':
+						frameUrl = '/html/news/news_search_list.html';
+						break;
+					case 'agency':
+						frameUrl = '/html/home/mechanism_search_list.html';
+						break;
+				}
+				openResult(frameUrl, ct);
+			});
+		}
+	  function openResult(frameUrl, result){
+			api.openWin({
+				name: 'IndexSearchResult',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '搜索结果',
+					frameName: 'index_search_result',
+					frameUrl: api.wgtRootDir + frameUrl,
+					hasFrameParam: true,
+					frameParam: {
+						result: result
+					}
+				},
+				bounces: false
+			});	  	
+	  }		
+		apiready = function(){
+			
+		}
+	</script>
+</html>

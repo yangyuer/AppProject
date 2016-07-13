@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			body,
+			#main, footer{
+				background-color: #F6F6F6;
+			}
+			.l::before{
+				content: 'c';
+				display: inline-block;
+				color: transparent;
+				width: 5px;
+				top: 5px;
+				margin-right: 5px;
+				background-color: #36B1EF;
+			}
+			header{
+				position: relative;
+				padding-left: 15px;
+				line-height: 30px;
+				/*height: 30px;*/
+				margin-top: 10px;
+				padding-top: 10px;
+			}
+			.swipe-wrap .img{
+				height: 150px;
+			}
+			header span{
+				font-size: 14px;
+				padding-left: 6px;
+			}
+			#main{
+				padding: 10px 12px;
+			}
+			.datetime{
+				color: #B2B3B4;
+				margin-bottom: 20px;
+			}
+			p{
+				font-size: 14px;
+				line-height: 1.5;
+			}
+			.flex-center{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}
+			.z dd::before{
+				content: 'c';
+				display: inline-block;
+				color: transparent;
+				width: 5px;
+				height: 30px;
+				top: 5px;
+				margin-right: 10px;
+				background-color: #36B1EF;
+			}
+			footer{
+				padding-bottom: 20px;
+			}
+			.type-name::before,
+			.youhui-code::before{
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<header class="hidden">
+				<h4 class="title l text-overflow">可实现远程测量的二极管功率探头</h4>
+				<div class="flex-box" style="font-size:14px;line-height: 20px;">
+					<div class="flex-1 l">
+						类别：二极管
+					</div>
+					<div class="flex-1 youhui-code l">
+						技术优化测试优惠码：334722
+					</div>
+				</div>
+			</header>
+			<div id="main" class="">
+				<div class="hidden">
+				<h6 class="datetime hidden">
+					2015-04-21 15:12
+				</h6>
+				<p>
+					
+					以前，功率计都是由功率计主机和经电缆连接的外部功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示。这样的优点是可以为当前的任务选择合适的功率探头，而不需要更换功率主机，不足之处是功率探头不能独立工作，没有主机就无法使用。
+				</p>
+				</div>
+				<footer class="hidden" style="margin-top:50px">
+					<div class="flex-box flex-center z">
+						<dl>
+							<dd>发起单位：连接科技有限公司</dd>
+							<dd>联系人：陆先生</dd>
+							<dd>联系电话：12345678910</dd>
+						</dl>
+					</div>
+					<div class="flex-box flex-center">
+						<div class="btn btn-default" style="margin-right: 20px;">
+							<span class="ct-icon-talk" style="color:#2A91C6;font-size: 16px;top:2px"></span>
+							在线联系
+						</div>
+						<div class="btn btn-default">
+							<span class="ct-icon-call" style="color:#30E239;font-size: 16px;top:2px"></span>
+							一键拨号
+						</div>
+					</div>
+				</footer>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/template" template="wrap">
+	 <div style="background-color: #F8F8F8;">
+		<header>
+			<h4 class="title l text-overflow">{{= it.title }}</h4>
+			<div class="flex-box" style="font-size:14px;line-height: 20px;">
+				<div class="flex-1 l">
+					类别：{{= it.typename }}
+				</div>
+				<div class="flex-1 youhui-code l">
+					技术优化测试优惠码：{{= it.youhui }}
+				</div>
+			</div>
+		</header>
+		<div id="main">
+			<h6 class="datetime">
+				{{= formatDateByRequire(it.datetime, '-') }}
+			</h6>
+			{{ if(it.imgs instanceof Array && it.imgs.length!=0){ }}
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap">
+					{{~ it.imgs :value:index}}	
+						{{? value }}
+						<div>
+							<div class="img-frm">
+								<div class="img" data-echo-background="{{= value }}"  onclick="" tapmode=""></div>
+							</div>
+						</div>
+						{{?}}
+					{{~}}	
+					</div>
+				</div>	
+			{{ } }}	
+			<p>
+				{{= it.content }}
+			</p>
+			<footer style="margin-top:50px">
+				<div class="flex-box flex-center z">
+					<dl>
+						{{? it.com}}
+						<dd>发起单位：{{= it.com }}</dd>
+						{{?}}
+						{{? it.name }}
+						<dd>联系人：{{= it.name }}</dd>
+						{{?}}
+						{{? it.tel }}
+						<dd>联系电话：{{= it.tel }}</dd>
+						{{?}}
+					</dl>
+				</div>
+				<div class="flex-box flex-center">
+					<div class="btn btn-default" style="margin-right: 20px;">
+						<span class="ct-icon-talk" style="color:#2A91C6;font-size: 16px;top:2px"></span>
+						在线联系
+					</div>
+					{{? it.tel }}
+					<div class="btn btn-default">
+						<span class="ct-icon-call" onclick="makeCall({{= it.tel }})" tapmode="" style="color:#30E239;font-size: 16px;top:2px"></span>
+						一键拨号
+					</div>
+					{{?}}
+				</div>
+			</footer>
+		</div>	
+	 </div>
+	</script>
+	<script type="text/javascript">
+		function swipeInit() {
+			var slideIndexs = $api.domAll('#pointer > a'),
+				slidLength = slideIndexs.length;
+			new Swipe(document.getElementById('slider'), {
+				speed: 400,
+				auto: 3000,
+				continuous: false,
+				disableScroll: true,
+				stopPropagation: true,
+				callback: function(index, elem) {
+					for (var i = 0; i < slidLength; i++) {
+						if ($api.hasCls(slideIndexs[i], 'active')) {
+							$api.removeCls(slideIndexs[i], 'active');
+						}
+					}
+					
+					try{
+						$api.addCls(slideIndexs[index], 'active');
+					}catch(e){
+						if(index>=slidLength){
+							index = 0;
+							$api.addCls(slideIndexs[index], 'active')
+						}else{
+							alert('swipe error');
+						}
+					}
+				},
+				transitionEnd: function(index, elem) {}
+			});
+		}		
+		
+		function reload(id){
+			var ctrl = 'Index',
+					fn = 'tenderContent',
+					table = ctrl.toLowerCase() + '_' + fn.toLowerCase();
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				hiedeLoading:true,
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						tid: id
+					}
+				},showError: true,
+				template: 'wrap'
+			}, function(ct){
+				ct.id = id;
+				api.execScript({
+					name: api.winName,
+					script: "set('" + $api.jsonToStr(ct) + "')"
+				});
+				var imgs = [ct.img1, ct.img2, ct.img3];
+				ct.imgs = imgs;
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+				swipeInit();
+				echo.init();
+				api.parseTapmode();
+			});			
+		}
+		apiready = function(){
+			reload(api.pageParam.id)
+		}
+	</script>
+</html>

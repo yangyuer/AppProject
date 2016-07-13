@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<style>
+			body {
+				min-width: 320px;
+			}
+			.enter_one {
+				padding: 10px 15px;
+			}
+			p {
+				color: #4e4e4e;
+			}
+			.certificates {
+				margin: auto;
+				width: 48%;
+				height: 120px;
+				border: 1px dotted #d0d0d0;
+				border-radius: 5px;
+				text-align: center;
+				line-height: 120px;
+				color: #8d8c8c;
+				font-size: 0.8em;
+			}
+			.right {
+				margin-left: 2%;
+			}
+			.enter_title {
+				line-height: 35px;
+				text-align: center;
+				font-size: 0.9em;
+				color: #454545;
+			}
+			.code_submint {
+				width: 76%;
+				height: 40px;
+				background-color: #40b5f0;
+				line-height: 40px;
+				text-align: center;
+				color: #fff;
+				border-radius: 4px;
+        margin-top:40px ;
+        margin-left: 12%;
+			}
+			.shop_name input[type=text] {
+				width: 88%;
+				margin-left: 6%;
+				border: 1px solid #d4d4d4;
+				border-radius: 4px;
+				background-color: #fff;
+				height: 35px;
+			}
+			.text_shop textarea {
+				width: 60%;
+				margin-left: 20%;
+				border: 1px solid #d4d4d4;
+				border-radius: 4px;
+				background-color: #fff;
+				height: 120px;
+				padding: 6px 6px;
+			}
+			.yuan_shop {
+				position: relative;
+				top: 8px;
+				font-size: 0.8em;
+			}
+			.upload-status > div {
+				color: #fff;
+			}
+			.imgs > div,
+			.imgs .img-frm,
+			.imgs .img,
+			.upload-status {
+				border-radius: 8px;
+			}
+			.imgs > div {
+				position: relative;
+				border: 1px dashed #ddd;
+				height: 80px;
+				background: url(../../image/click_upload.png) no-repeat center;
+				background-size: auto 10px;
+			}
+			.imgs > div:not(:last-child) {
+				margin-right: 12px;
+			}
+			.ct-icon-circle-cross {
+				position: absolute;
+				top: 2px;
+				right: 2px;
+				font-size: 20px;
+				color: #40B5F0;
+				background-color: #fff;
+				border-radius: 50%;
+				z-index: 2;
+			}
+			.imgs .img-frm {
+				height: 100%;
+			}
+			.imgs .img {
+				height: 100%;
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+			}
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<!--<p class="enter_one">修改店铺头像</p>
+				<div class="flex-box imgs">
+					<div class="flex-1" upload="empty" key="" callback="postEnterpriseTenderImg0" style="height:{{= (api.frameWidth-48)/3 }}px;margin: 0 33%;" onclick="upload(this)">
+					</div>
+				</div>
+				<p class="enter_one">店铺简介：</p>
+				<div class="text_shop">
+					<textarea></textarea>
+				</div>
+				<p class="enter_one">店铺地区：</p>
+				<div class="shop_name" style="padding: 0 45px 0 60px;">
+					<input type="text" style="width:84%;" />&nbsp;<span class="yuan_shop">市</span>
+				</div>
+				<p class="enter_one">店铺运费：</p>
+				<div class="shop_name" style="padding: 0 45px 0 60px;" >
+					<input type="text" style="width:84%;" />&nbsp;<span class="yuan_shop">元</span>
+				</div>
+				<div class="code_submint">保存</div>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		 <div style="background-color:#F8F8F8">	
+		    <p class="enter_one">修改店铺头像</p>
+				<div class="flex-box imgs">
+					<div class="flex-1" upload="empty" key="" callback="shopAvatar" style="height:{{= (api.frameWidth-48)/3 }}px;margin: 0 33%;" onclick="upload(this) ">
+					</div>
+				</div>
+				<p class="enter_one">店铺简介：</p>
+				<div class="text_shop">
+					<textarea rows="8" cols=" " name="content"></textarea>
+				</div>
+				<p class="enter_one">店铺地区：</p>
+				<div class="shop_name" style="padding: 0 45px 0 60px;">
+					<input type="text" name="areaid" style="width:84%;" />&nbsp;<span class="yuan_shop">市</span>
+				</div>
+				<p class="enter_one">店铺运费：</p>
+				<div class="shop_name" style="padding: 0 45px 0 60px;">
+					<input type="text" name="freight" style="width:84%;" />&nbsp;<span class="yuan_shop">元</span>
+				</div>
+				<div class="code_submint" onclick="post()">保存</div>
+		 </div>
+	</script>
+	<script type="text/template" template="img">
+			<div class="img-frm">
+				<span class="ct-icon-circle-cross hidden" onclick="cancelImg(this, event)"></span>
+				<div class="img" style="background-image: url({{= it.path }});">
+					<div class="upload-status flex-box">
+						<div class="flex-1" onclick="" tapmode="">
+							等待上传
+						</div>
+					</div>
+				</div>
+			</div>							
+	</script>
+	<script type="text/javascript " src="../../script/api.js "></script>
+	<script type="text/javascript " src="../../script/common.js "></script>
+	<script type="text/javascript " src="../../script/doT.min.js "></script>
+	<script type="text/javascript " src="../../script/upload.js "></script>
+	<script type="text/javascript ">
+		function post(){
+			var content = $api.val($api.dom('[name=content]')),
+			    areaid = $api.val($api.dom('[name=areaid]')),
+			    freight = $api.val($api.dom('[name=freight]')),
+			    imgUploadStatus = $api.attr($api.dom('[upload]'), 'upload');
+					switch(imgUploadStatus){
+						case 'empty':
+							toast('请上传店铺头像');
+							return;
+						case 'uploading':
+							toast('图片上传中，请稍后...');
+							return;
+						case 'error':
+							toast('图片上传失败，请重新上传或删除图片');
+							return;
+					}			    
+			    if(!areaid){
+			    	toast('请输入地区');
+			    	return;
+			    }
+			    if(!content){
+			    	toast('请输入简介');
+			    	return;
+			    }
+			    if(!freight){
+			    	toast('请输入运费');
+			    	return;
+			    }
+
+//					alert($api.attr(doneImgDoms[0], 'key'));
+					tool.ajax.get({
+						ctrl:'Shop',
+						fn: 'shopSetting',
+						data: {
+							values: {
+								id: $api.getStorage('memberId'),
+								token: $api.getStorage('token'),
+								areaid: areaid,
+								freight: freight,
+								content: content,
+								logo: $api.attr($api.dom('[upload]'), 'key'),
+							}
+						},
+						hideLoading: true
+					},function(){
+						toast('发布成功');
+						api.closeWin();
+					});
+   		}
+		//拍照上传
+		function getPic(_this, type){
+			api.getPicture({
+		    sourceType: type,
+		    encodingType: 'png',
+		    mediaValue: 'pic',
+		    destinationType: 'url'
+			}, function(ret, err){ 
+		    if(ret) {
+		    	var t = {};
+		    	t.path = ret.data;
+					$api.html(_this, doT.template($api.html($api.dom('[template=img]')))(t));		    	
+					Upload.init({
+						file: {
+							url: ret.data,
+							callbackEvent: $api.attr(_this, 'callback')
+						}
+					});
+		    }
+			});
+		}
+		//触发上传按钮
+		function upload(_this){
+			var actionSheetStyle = {
+					layerColor: 'rgba(0, 0, 0, 0.3)',
+					itemNormalColor: '#F1F1F1',
+					itemPressColor: '#007AFF',
+					fontNormalColor: '#007AFF',
+					fontPressColor: '#F1F1F1'
+				},
+					buttons = ['拍照上传', '本地上传'];			
+			api.actionSheet({
+				cancelTitle: '取消',
+				buttons: buttons,
+				style: actionSheetStyle
+			}, function(ret, err){
+				if(ret.buttonIndex==1){
+					getPic(_this, 'camera');
+				}else if(ret.buttonIndex==2){
+					getPic(_this, 'library');
+				}
+			});
+		}
+		//删除图片
+		function cancelImg(_this, e){
+			e.stopPropagation();
+			/*更改标签属性upload状态为empty*/
+			$api.attr($api.closest(_this, '[upload]'), 'upload', 'empty');
+			$api.remove($api.closest(_this, '.img-frm'));
+		}
+			
+		apiready = function(){
+			var data = {};
+			data.typeId = api.pageParam.typeId;
+			$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(data));
+		//监听上传状态
+			api.addEventListener({
+				name: 'shopAvatar'
+			}, function(ret, err){
+				var img = $api.dom('.img'),
+						closeDom = $api.dom($api.closest(img, '.img-frm'), '.ct-icon-circle-cross');
+				switch(ret.value.uploadStatus){
+					case 'uploading':
+						$api.text($api.dom(img, '.upload-status > div'), ret.value.progress + '%');
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'uploading');
+						$api.addCls(closeDom, 'hidden');
+						break;
+					case 'done':
+						$api.removeCls(closeDom, 'hidden');
+						$api.attr($api.closest(img, '[upload]'), 'key', ret.value.key);
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'done');
+						$api.remove($api.dom(img, '.upload-status'));
+						break;
+					case 'error':
+						$api.text($api.dom(img, '.upload-status > div'), '上传失败，点击重新上传');
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'error');
+						$api.removeCls(closeDom, 'hidden');
+						/*注册重新上传事件*/
+						$api.addEvt(img, 'click', function(e){
+							e.stopPropagation();
+							if(ret.value.uploadStatus=='error'){
+								$api.text($api.dom(img, '.upload-status > div'), '准备上传');
+								$api.attr($api.closest(img, '[upload]'), 'upload', 'ready');
+								Upload.init({
+									file: {
+										url: ret.value.url,
+										callbackEvent: ret.value.callbackEvent
+									}
+								});
+							}else{
+								api.toast({
+									duration: 2000,
+									msg: '正在上传...',
+									location: 'bottom'
+								});
+							}
+						});
+						break;
+				}
+			});
+		}
+	</script>
+
+</html>

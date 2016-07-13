@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<style type="text/css">
+			.setting-list{
+				background-color: #F8F8F8;
+				position: relative;
+			}
+			.setting-list > div.list-view{
+				line-height: 60px;
+				background-color: #fff;
+				position: relative;
+			}
+			.setting-list > div .img-frm{
+				width: 70px;
+				text-align: center;
+			}
+			.setting-list > div .img-frm + div{
+				position: relative;
+			}
+			.setting-list > div .img-frm + div::after{
+				content: 'c';
+				color: transparent;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 35px;
+				height: 100%;
+				background: url(../../image/icon-thin-forward.png) no-repeat center;
+				background-size: 15px
+			}
+			.setting-list > div:nth-child(6){
+				margin-top: 7px
+			}
+			.setting-list > div{
+				border-bottom: 1px solid #F2F2F2;
+			}
+			.setting-list > div:nth-child(5),
+			.setting-list > div:last-child{
+				border-bottom: 0;
+			}
+			.color-block{
+				color: #fff;
+				border-radius: 5px;
+				font-size: 20px;
+				top: 3px;
+			}
+			
+			[class*='edit-']{
+				background-color: #fff;
+				position: absolute;
+				top: 0;
+				left: -100%;
+				width: 100%;
+				height: 100%;
+				z-index: 2;
+				justify-content: center;
+				-webkit-justify-content: center;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				transition: all 0.4s ease 0s;
+				-webkit-transition: all 0.4s ease 0s;
+			}		
+			[class*='edit-'] input{
+				display: block;
+				border: 1px solid orange;
+				border-radius: 4px;
+				padding: 7px 6px 7px;
+				max-width: 60%;
+			}
+			[class*='edit-'] .btn{
+				margin-left: 20px;
+				display: block;
+			}
+			/*.edit-nickname.show*/
+			[class*='edit-'].show{
+				left: 0%;
+			}	
+			/*.icon-back{
+				width: 20px;
+				height: 100%;
+				margin-right: 5px;
+				background: transparent url(../../image/icon-back-light.png) no-repeat left center;
+				background-size: 15px auto;
+			}*/
+			.ct-icon-angle-left{
+				font-size: 40px;
+				top:9px;
+				margin-right: 10px;
+				color: orange;
+			}
+			.shade{
+				position: absolute;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+				/*background-color: red;*/
+			}
+			select[name=sex]{
+				border: 1px solid orange;
+				border-radius: 4px;
+				 padding: 7px 30px 7px;
+				font-size: 16px;
+				text-align: left;
+				color: orange;
+				-webkit-appearance: none;
+			}
+			.edit-comname{
+				/*left: 0;*/
+			}
+			.select-company{
+				position: relative;
+			}
+			select[name=company]{
+				top: 7px;
+				left: -2px;
+				padding: 9px 28px 10px;
+				position: absolute;
+				font-size: 16px;
+				text-align: left;
+				color: orange;
+				-webkit-appearance: none;
+				opacity: 0;
+			}			
+			span.company{
+				position: relative;
+				border: 1px solid orange;
+				border-radius: 4px;
+				font-size: 16px;
+				padding: 0 15px;
+				line-height: 40px;
+				text-align: left;
+				color: orange;
+				width: 130px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<!--<div class="shade" editing="nickname" tapmode="" onclick="hideEditFrame()"></div>-->
+		<div id="wrap">
+			<div id="main">
+				<div style="background-color:#F8F8F8">
+					<div class="setting-list">
+						<!--<div class="shade hidden" editing="nickname" tapmode="" onclick="hideEditFrame()"></div>-->
+						<div class="flex-box list-view" tapmode="" onclick="getPic('changeAvatar')">
+							<div class="img-frm">
+								<span class="ct-icon-picture color-block" style="padding:6px;background-color: #1EE073;"></span>
+							</div>
+							<div class="flex-1">
+								修改头像
+							</div>
+						</div>
+						
+						<div class="flex-box list-view" tapmode="" onclick="editNickname()">
+							<div class="edit-nickname flex-box hidden">
+								<div>
+									<span class="ct-icon-angle-left" onclick="hideEditFrame()"></span>
+								</div>
+								<input type="text" name="nickname" />
+								<div class="btn btn-orange" tapmode="" onclick="submitNickname()">
+									提交
+								</div>
+							</div>
+							<div class="img-frm">
+								<span class="ct-icon-nickname color-block" style="padding:6px;background-color: #40B5F0;"></span>
+							</div>
+							<div class="flex-1">
+								修改昵称
+							</div>
+						</div>
+						
+						<div class="flex-box list-view" onclick="openAddressManage()" tapmode="">
+							<div class="img-frm">
+								<span class="ct-icon-address color-block" style="padding:6px;background-color: #F09B74;"></span>
+							</div>
+							<div class="flex-1">
+								地址管理
+							</div>
+						</div>
+						<div class="flex-box list-view" onclick="openMailManage()" tapmode="">
+							<div class="img-frm">
+								<span class="ct-icon-mail_2 color-block" style="padding:6px;background-color: #1BA39C;"></span>
+							</div>
+							<div class="flex-1">
+								邮箱管理
+							</div>
+						</div>
+						
+						<div class="flex-box list-view" onclick="openChangepw()" tapmode="">
+							<div class="img-frm">
+								<span class="ct-icon-reset color-block" style="padding:6px;background-color: #EB5B50;"></span>
+							</div>
+							<div class="flex-1">
+								修改密码
+							</div>
+						</div>
+						
+						<div class="flex-box list-view" onclick="openMoneyManage()" tapmode="">
+							<div class="img-frm">
+								<span class="ct-icon-present color-block" style="padding:6px;background-color: #FF9A3F;"></span>
+							</div>
+							<div class="flex-1">
+								利币管理
+							</div>
+						</div>
+						
+						<div class="flex-box list-view" tapmode="" onclick="">
+							<div class="img-frm">
+								<span class="ct-icon-share_friends color-block" style="padding:6px;background-color: #EF5483;"></span>
+							</div>
+							<div class="flex-1">
+								推荐好友
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/template" template="main">
+
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/upload.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+	//修改密码
+		function openChangepw(){
+			api.openWin({
+				name: 'changePassword',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '修改密码',
+					frameName: 'change_password',
+					frameUrl: api.wgtRootDir + '/html/mine/changepw.html'
+				},
+				bounces: false
+			});
+		}	
+		//修改昵称
+		function editNickname() {
+			api.prompt({
+				title: '修改昵称',
+				text: $api.getStorage('memberInfo').nickname||'',
+				buttons: ['取消', '确定']
+			}, function(ret, err) {
+				if (ret.buttonIndex == 2) {
+					if(ret.text && ret.text!=$api.getStorage('memberInfo').nickname){
+						tool.ajax.get({
+							ctrl: 'My',
+							fn: 'editNickname',
+							data: {
+								values: {
+									id: $api.getStorage('memberId'),
+									token: $api.getStorage('token'),
+									nickname: ret.text
+								}
+							},
+							showProgress: {
+								title: '提交中...'
+							}
+						}, function(ct) {
+							api.sendEvent({
+								name: 'changeNickname',
+								extra: {
+									nickname: ret.text
+								}
+							});
+							var memberInfo = $api.getStorage('memberInfo');
+							memberInfo.nickname = ret.text;
+							$api.setStorage('memberInfo', memberInfo);
+							api.alert({
+								title: '提示信息',
+								msg: '昵称修改成功'
+							});
+						});					
+					}
+				} 
+			});
+		}	
+		//打开利币管理界面
+	  function openMoneyManage(){
+			api.openWin({
+				name: 'AddressManage',
+				url: api.wgtRootDir + '/html/window/libi_manage.html',
+				bounces: false
+			});			
+		}
+
+		function openAddressManage(){
+			api.openWin({
+				name: 'AddressManage',
+				url: api.wgtRootDir + '/html/window/address_manage.html',
+				bounces: false
+			});			
+		}
+		function openMailManage(){
+			api.openWin({
+				name: 'MailManage',
+				url: api.wgtRootDir + '/html/window/mail_manage.html',
+				bounces: false
+			});	
+		}
+		function updateUserInfo(callback){
+			xdy.ajax.get({
+				controller: 'My',
+				fn: 'memberInfo',
+				data: {
+					values: {
+						id: $api.getStorage('usrId'),
+						token: $api.getStorage('token')
+					}
+				}
+			}, function(ct){
+				$api.setStorage('usr', ct);
+				if(typeof callback == 'function'){
+					callback();
+				}
+			});			
+		}
+		//上传头像
+		function getPic(disposeEvent){
+			var actionSheetStyle = {
+					layerColor: 'rgba(0, 0, 0, 0.3)',
+					itemNormalColor: '#F1F1F1',
+					itemPressColor: '#007AFF',
+					fontNormalColor: '#007AFF',
+					fontPressColor: '#F1F1F1'
+				},
+					buttons = ['拍照上传', '上传手机中的照片'];
+					
+			api.actionSheet({
+				cancelTitle: '取消',
+				buttons: buttons,
+				style: actionSheetStyle
+			}, function(ret, err){
+				//1:拍照；2：相片库
+				if(ret.buttonIndex < 3){
+					var data = {
+						sourceType: (ret.buttonIndex==1?'camera':'library'),
+						encodingType: 'jpg',
+						mediaValue: 'pic',
+						allowEdit: true
+//						quality: 80,
+//						targetWidth: api.winWidth,
+//						targetHeight: api.winHeight
+					};
+					api.getPicture(data, function(ret, err){
+						if(ret && ret.data){
+							var imgUrl = ret.data;
+							/*若为ios,即调用原生截图工具*/
+							if('ios' == api.systemType){
+					  		if(/^wifi$/i.test(api.connectionType)){
+					  			Upload.init({
+					  				file: {
+					  					url: imgUrl,
+					  					callbackEvent: 'uploadAvatar'
+					  				}
+					  			});
+					  		}else{
+					  			api.confirm({
+					  				title: '温馨提示',
+					  				msg: '建议在wifi网络下进行上传操作。您当前的网络环境是：'+api.connectionType,
+					  				buttons: ['取消', '继续上传']
+					  			}, function(ret, err){
+					  				if(ret.buttonIndex == 2){
+							  			Upload.init({
+							  				file: {
+							  					url: imgUrl,
+							  					callbackEvent: 'uploadAvatar'
+							  				}
+							  			});
+					  				}
+					  			});
+					  		}								
+							}else if('android' == api.systemType){
+								/*若为android系统，则使用screenClip模块进行截图*/
+								api.openWin({
+									name: 'imageClip',
+									url: api.wgtRootDir + '/html/component/win_image_clip.html',
+									pageParam: {
+										imgUrl: imgUrl,
+										disposeEvent: 'uploadAvatar'
+									},
+									bounces: false,
+									slidBackEnabled: false,
+									animation: {
+										type: "fade",
+										duration: 300
+									}
+								});								
+							}
+						}
+					});
+				}
+			});			
+		}		
+
+		apiready = function(){
+			//针对ios的事件监听
+			api.addEventListener({
+				name: 'uploadAvatar'
+			}, function(ret, err){
+				switch(ret.value.uploadStatus){
+					case 'uploading':
+						api.showProgress({
+							title: '上传中...',
+							text: ret.value.progress + '%',
+							modal: true
+						});
+						break;
+					case 'done':
+						tool.ajax.get({
+							ctrl: 'My',
+							fn: 'editAvatar',
+							data: {
+								values: {
+									id: $api.getStorage('memberId'),
+									token: $api.getStorage('token'),
+									avatar: ret.value.key
+								}
+							},
+							hideLoading: true
+						}, function(){
+							toast('上传完成');
+							api.sendEvent({
+								name: 'changeAvatar',
+								extra: {
+									localFile: ret.value.localFile
+								}
+							});
+						});
+						api.hideProgress();
+						break;
+					case 'error':
+						toast('上传失败，请重新上传');
+						api.hideProgress();
+						break;
+				}
+			});			
+		}
+	</script>
+
+</html>

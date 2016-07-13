@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body {
+       	min-width: 320px;
+       }
+       .enter_one {
+       	padding: 15px 15px;
+       }
+       .enter_title {
+       	line-height: 35px;
+       	text-align: center;
+       	font-size: 0.9em;
+       	color: #454545;
+       }
+       .enter_title span {
+       	margin-left: 15px;
+       }
+       .zhangfu {
+       	width: 75%;
+       	height: 40px;
+       	margin: auto;
+       	margin-top: 10px;
+       	color: #787777;
+       }
+       .zhangfu input[type=text] {
+       	border: 1px solid #d4d4d4;
+       	height: 35px;
+       	border-radius: 4px;
+       	width: 80%;
+       	background-color: #fff;
+       }
+       .zhangfu textarea {
+       	border: 1px solid #d4d4d4;
+       	height: 50px;
+       	border-radius: 4px;
+       	width: 80%;
+       	background-color: #fff;
+       }
+       .code_submint {
+       	width: 74%;
+       	margin: auto;
+       	height: 40px;
+       	background-color: #40b5f0;
+       	line-height: 40px;
+       	text-align: center;
+       	color: #fff;
+       	border-radius: 4px;
+       	margin-top: 40px;
+       }
+       .upload-status > div {
+       	color: #fff;
+       }
+       .imgs > div,
+       .imgs .img-frm,
+       .imgs .img,
+       .upload-status {
+       	border-radius: 8px;
+       	/*padding: 50px;
+       	margin-left: 20px;
+       	margin-right: 20px;
+       	margin-top: 5px;*/
+       }
+       .imgs > div {
+       	position: relative;
+       	border: 1px dashed #ddd;
+       	height: 120px;
+       	background: url(../../image/click_upload.png) no-repeat center;
+       	background-size: auto 10px;
+       }
+       .imgs > div:not(:last-child) {
+       	margin-right: 12px;
+       }
+       .ct-icon-circle-cross {
+       	position: absolute;
+       	top: 2px;
+       	right: 2px;
+       	font-size: 20px;
+       	color: #40B5F0;
+       	background-color: #fff;
+       	border-radius: 50%;
+       	z-index: 2;
+       }
+       .imgs .img-frm {
+       	height: 100%;
+       }
+       .imgs .img {
+       	height: 100%;
+       	background-size: cover;
+       	background-repeat: no-repeat;
+       	background-position: center;
+       }
+</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+      <div id="main">
+       <!--<p class="enter_one">1.上传相关证件</p>-->
+        <!--<div class="flex-box certificates">
+        	<div class="flex-1"></div>
+        	<div class="flex-1"></div>
+        </div>-->
+        <!--<div>
+					<h5 class="enter_one">1.上传相关证件：</h5>
+					<div class="flex-box imgs">
+						<div class="flex-1" upload="empty" key="" callback="shopAvatar" style="height:{{= (api.frameWidth-48)/3 }}px;" onclick="upload(this)"></div>
+						<div class="flex-1" upload="empty" key="" callback="shopAvatar" style="height:{{= (api.frameWidth-48)/3 }}px" onclick="upload(this)"></div>
+					</div>
+				</div>
+        <div class="flex-box enter_title">
+        	<span class="flex-1">身份证正面图</span>
+        	<span class="flex-1" style="margin-right:15px;">实体店营业照</span>
+        </div>
+        <p class="enter_one">2.填写相关资料</p>
+       <div class="zhangfu">姓名：<input type="text"/></div>
+       <div class="zhangfu">店名：<input type="text"/></div>
+       <div class="zhangfu"><span style="position: relative;top:-30px;color: #787777;">地址：</span><textarea></textarea></div>
+       <div class="code_submint">提交审核</div>-->
+    </div>
+		</div>
+	</body>
+	<script type="text/javascript " src="../../script/api.js "></script>
+	<script type="text/javascript " src="../../script/common.js "></script>
+	<script type="text/javascript " src="../../script/doT.min.js "></script>
+	<script type="text/javascript " src="../../script/upload.js "></script>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+	    <div>
+				<h5 class="enter_one">1.上传相关证件：</h5>
+				<div class="flex-box imgs">
+					<div class="flex-1" upload="empty" key="" callback="img0" style="height:{{= (api.frameWidth-48)/3 }}px" onclick="upload(this)"></div>
+					<div class="flex-1" upload="empty" key="" callback="img1" style="height:{{= (api.frameWidth-48)/3 }}px" onclick="upload(this)"></div>
+				</div>
+			</div>
+	    <div class="flex-box enter_title">
+	    	<span class="flex-1">身份证正面图</span>
+	    	<span class="flex-1" style="margin-right:15px;">实体店营业照</span>
+	    </div>
+	    <p class="enter_one">2.填写相关资料</p>
+	   <div class="zhangfu">姓名：<input type="text" name="name"/></div>
+	   <div class="zhangfu">店名：<input type="text" name="shopname"/></div>
+	   <div class="zhangfu"><span style="position: relative;top:-30px;color: #787777;">地址：</span><textarea name="addr"></textarea></div>
+	   <div class="code_submint" onclick="post()" tapmode="">提交审核</div>
+    </div>
+	</script>
+		<script type="text/template" template="img">
+			<div class="img-frm">
+				<span class="ct-icon-circle-cross hidden" onclick="cancelImg(this, event)"></span>
+				<div class="img" style="background-image: url({{= it.path }});">
+					<div class="upload-status flex-box">
+						<div class="flex-1" onclick="" tapmode="">
+							等待上传
+						</div>
+					</div>
+				</div>
+			</div>							
+	</script>
+<script type="text/javascript ">
+		function post(){
+			var name = $api.val($api.dom('[name=name]')),
+			    shopname = $api.val($api.dom('[name=shopname]')),
+			    addr = $api.val($api.dom('[name=addr]')),
+			    emptyImgs = $api.domAll('[upload=empty]'),
+			    uploadingImgs = $api.domAll('[upload=uploading]'),
+			    errorImgs = $api.domAll('[upload=error]');
+					
+			if(emptyImgs.length == 0){
+				if(uploadingImgs.length ==0){
+					if(errorImgs.length !=0){
+						toast('图片上传失败，请重新上传或删除图片');
+						return;
+					}
+				}else{
+					toast('图片上传中，请稍后...');
+					return;
+				}
+			}else{
+				toast('请上传两张图片');
+				return;
+			}
+	    if(!name){
+	    	toast('请输入姓名');
+	    	return;
+	    }
+	    if(!shopname){
+	    	toast('请输入店名');
+	    	return;
+	    }
+	    if(!addr){
+	    	toast('请输入地址');
+	    	return;
+	    }
+			tool.ajax.get({
+				ctrl:'Shop',
+				fn: 'shopAuth',
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						name: name,
+						shopname: shopname,
+						addr: addr,
+						img1: $api.attr($api.dom('[upload]'), 'key'),
+						img2: $api.attr($api.dom('[upload]'), 'key')
+					}
+				},
+				hideLoading: true
+			},function(){
+				toast('发布成功');
+				api.closeWin();
+			});
+ 		}
+		//拍照上传
+		function getPic(_this, type){
+			api.getPicture({
+		    sourceType: type,
+		    encodingType: 'png',
+		    mediaValue: 'pic',
+		    destinationType: 'url'
+			}, function(ret, err){ 
+		    if(ret) {
+		    	var t = {};
+		    	t.path = ret.data;
+					$api.html(_this, doT.template($api.html($api.dom('[template=img]')))(t));		    	
+					Upload.init({
+						file: {
+							url: ret.data,
+							callbackEvent: $api.attr(_this, 'callback')
+						}
+					});
+		    }
+			});
+		}
+		//触发上传按钮
+		function upload(_this){
+			var actionSheetStyle = {
+					layerColor: 'rgba(0, 0, 0, 0.3)',
+					itemNormalColor: '#F1F1F1',
+					itemPressColor: '#007AFF',
+					fontNormalColor: '#007AFF',
+					fontPressColor: '#F1F1F1'
+				},
+					buttons = ['拍照上传', '本地上传'];			
+			api.actionSheet({
+				cancelTitle: '取消',
+				buttons: buttons,
+				style: actionSheetStyle
+			}, function(ret, err){
+				if(ret.buttonIndex==1){
+					getPic(_this, 'camera');
+				}else if(ret.buttonIndex==2){
+					getPic(_this, 'library');
+				}
+			});
+		}
+		//删除图片
+		function cancelImg(_this, e){
+			e.stopPropagation();
+			/*更改标签属性upload状态为empty*/
+			$api.attr($api.closest(_this, '[upload]'), 'upload', 'empty');
+			$api.remove($api.closest(_this, '.img-frm'));
+		}
+		
+		function ad(evt){
+		//监听上传状态
+			api.addEventListener({
+				name: evt
+			}, function(ret, err){
+				var img = $api.dom('[callback='+evt+'] .img');
+						closeDom = $api.dom($api.closest(img, '.img-frm'), '.ct-icon-circle-cross');
+				switch(ret.value.uploadStatus){
+					case 'uploading':
+						$api.text($api.dom(img, '.upload-status > div'), ret.value.progress + '%');
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'uploading');
+						$api.addCls(closeDom, 'hidden');
+						break;
+					case 'done':
+						$api.removeCls(closeDom, 'hidden');
+						$api.attr($api.closest(img, '[upload]'), 'key', ret.value.key);
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'done');
+						$api.remove($api.dom(img, '.upload-status'));
+						break;
+					case 'error':
+						$api.text($api.dom(img, '.upload-status > div'), '上传失败，点击重新上传');
+						$api.attr($api.closest(img, '[upload]'), 'upload', 'error');
+						$api.removeCls(closeDom, 'hidden');
+						/*注册重新上传事件*/
+						$api.addEvt(img, 'click', function(e){
+							e.stopPropagation();
+							if(ret.value.uploadStatus=='error'){
+								$api.text($api.dom(img, '.upload-status > div'), '准备上传');
+								$api.attr($api.closest(img, '[upload]'), 'upload', 'ready');
+								Upload.init({
+									file: {
+										url: ret.value.url,
+										callbackEvent: ret.value.callbackEvent
+									}
+								});
+							}else{
+								api.toast({
+									duration: 2000,
+									msg: '正在上传...',
+									location: 'bottom'
+								});
+							}
+						});
+						break;
+				}
+			});			
+		}
+		apiready = function(){
+			var data = {};
+			data.typeId = api.pageParam.typeId;
+			$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(data));
+			ad('img0');
+			ad('img1');
+		}
+	</script>	
+</html> 

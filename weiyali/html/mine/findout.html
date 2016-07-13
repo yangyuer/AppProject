@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>step-1</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.form-control{
+				display: inline-block;
+				width: 207px;
+				padding: 12px 4px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.input-group{
+				width: 260px;
+			}
+			#main{
+				padding-top: 2em;
+			}
+			button{
+				width: 250px;
+				padding: 12px;
+				background-color: #41B5F0;
+				color: #fff;
+				border-radius: 3px;				
+			}
+			.btn{
+				width: 250px;
+				padding-top: 12px;
+				padding-bottom: 12px;
+				font-size: 16px;
+				line-height: 1;
+			}
+			.step-2 button.timer{
+				border: 2px solid #ddd;
+				padding: 12px 22px;
+				border-radius: 4px;
+				color: #aaa;
+			}
+			.btn:active{
+				outline: 0;
+				border: 0;
+			}		
+			.get-code{
+				height: 43px;
+				width: 106px;
+				font-size:12px;
+				color:#999;
+				padding: 3px 4px;
+			}
+			.flex-center{
+				justify-content: center;
+				-webkit-justify-content: center;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+			}
+			.ct-icon-phone,
+			.ct-icon-message,
+			.ct-icon-lock{
+				position: relative;
+				top: 4px;
+				margin-right: 10px;
+				/*right: 15px;*/
+				color: #888;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main" phone="" findpassword_token="" password="">
+				<div class="step-1">
+					<div class="flex-box-v flex-center">
+						<div class="flex-1">
+							<div class="input-group phone-num">
+								<span class="ct-icon-phone" style="font-size: 36px;"></span>
+								<div class="form-control">
+									<input type="text" name="phone" style="font-size:13px;width: 207px;" placeholder="请输入您注册的手机号码">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="text-center" style="margin-top:50px;">
+						<button class="btn btn-info btn-lg" tapmode="" onclick="stepOne()">
+							确定
+						</button>
+					</div>						
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template"  template="step-2">
+		<div class="step-2">
+			<div class="input-group center-block msg">
+				<span class="ct-icon-message" style="font-size: 25px;"></span>
+				<div class="form-control" style="width: 96px;">
+					<input type="text" name="code" style="width:100px;font-size:13px" placeholder="请输入验证码">
+				</div>
+				<button class="btn btn-default get-code" onclick="getCode()" tapmode="">
+					获取验证码
+				</button>
+			</div>
+			<div class="text-center" style="margin-top:50px;">
+				<button phone="" findpassword_token="" class="btn btn-info" tapmode="" style="width:250px" onclick="stepTwo()">
+					确定
+				</button>
+			</div>					
+		</div>			
+	</script>
+	<script type="text/template"  template="step-3">
+		<div class="step-3">
+			<div class="input-group center-block lock">
+				<span class="ct-icon-lock" style="font-size: 25px;"></span>
+				<div class="form-control" style="width:207px">
+					<input type="password" name="password" style="font-size:13px;" placeholder="请输入新密码">
+				</div>
+			</div>
+			<div class="text-center" style="margin-top:50px;">
+				<button phone="" findpassword_token="" class="btn btn-info" tapmode="" onclick="stepThree()">
+					确定
+				</button>
+			</div>
+		</div>
+	</script>
+	<script type="text/template" template="step-4">
+		<div class="step-4">
+			<div class="input-group center-block success">
+				<div class="form-control" style="width:207px;border:0;font-size:14px;color:#888">
+					<!--<span class="ct-icon-card"></span>-->
+					密码修改成功，请返回登陆
+				</div>
+			</div>
+			<div class="text-center" style="margin-top:50px;">
+				<button class="btn btn-info" tapmode="" onclick="api.closeWin()">
+					确定
+				</button>
+			</div>					
+		</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function next(template){
+			$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template='+template+']')))(''));
+		}
+		//第一步：检测账户是否存在
+		function stepOne(){
+			var phone = $api.val($api.dom('[name=phone]'));
+			if(!phone){
+				toast('请输入您的手机号码~');
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'sendMsg',
+				hideLoading: true,
+				showError:true,
+				data: {
+					values: {
+						phone: phone,
+						type:2
+					}
+				},
+				showProgress: {
+					title: '账号验证中...'
+				}
+			}, function(ct){
+				//账号存在
+				next('step-2');
+				$api.attr($api.dom('[phone]'), 'phone', phone);
+			});			
+		}
+		//第二步：输入验证码
+		function stepTwo(){
+			var username = $api.attr($api.dom('[phone]'), 'phone'),
+					code = $api.val($api.dom('[name=code]'));
+			if(!username){
+				alert('错误：用户手机号获取失败~');
+				return;
+			}
+			if(!code){
+				toast('请输入验证码~');
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'findPass',
+				hideLoading: true,
+				showError:true,
+				data: {
+					values: {
+						username: username,
+						code: code,
+					}
+				},
+				showProgress: {
+					title: '提交中...'
+				}
+			}, function(ct){
+				//验证码验证通过
+				next('step-3');
+				//$api.attr($api.dom('[phone]'), 'phone', ct.phone);
+				$api.attr($api.dom('[findpassword_token]'), 'findpassword_token', ct.findpassword_token);
+			});				
+		}
+		//第三步：设置新密码
+		function stepThree(){
+			var username = $api.attr($api.dom('[phone]'), 'phone'),
+					findpassword_token = $api.attr($api.dom('[findpassword_token]'), 'findpassword_token'),
+					password = $api.val($api.dom('[name=password]'));
+			if(!password){
+				toast('请输入新密码~');
+				return;
+			}
+			if(!username){
+				toast('错误：用户账户获取失败~');
+				return;
+			}
+			if(!findpassword_token){
+				toast('错误：用户token获取失败~');
+				return;
+			}
+			
+//		var	values = {
+//						username: username,
+//						password: password,
+//						findpassword_token: findpassword_token
+//					}
+//		alert($api.jsonToStr(values));
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'setNewPass',
+				hideLoading: true,
+				showError:true,
+				data: {
+					values: {
+						username: username,
+						password: password,
+						findpassword_token: findpassword_token
+					}
+				},test:true,
+				showProgress: {
+					title: '设置中...'
+				}
+			}, function(){
+				//设置新密码成功
+				next('step-4');
+			});			
+		}		
+		function codeTimer(){
+			var sec = 60;
+			//禁用按钮
+			var codeBtn =  $api.dom('.get-code');
+			codeBtn.disabled = true;
+			var timer = setInterval(function(){
+				if(sec > 0){
+					$api.text(codeBtn, (sec--)+'秒后重新获取');
+				}else{
+					clearInterval(timer);
+					codeBtn.disabled = false;
+					$api.text(codeBtn, '获取验证码');
+					$api.css(codeBtn, 'color:#999')
+				}
+			}, 1000);
+		}
+		//获取验证码
+		function getCode(){
+			var phone = $api.attr($api.dom('[phone]'), 'phone');
+			if(phone){
+				if(!/^1[3,5,8]\d{9}$/.test(phone)){
+					toast('手机号格式不正确~');
+					return;
+				}
+			}else{
+				toast('请填写您的手机号~');
+				return;
+			}
+			//计时60秒
+			codeTimer();
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'sendMsg',
+				hideLoading: true,
+				data: {
+					values: {
+						phone: phone,
+						type: 2
+					}
+				},showError:true,
+				showProgress: {
+					title: '验证码发送中...'
+				}
+			}, function(ct){
+				//缓存验证码
+				alert($api.jsonToStr(ct));
+				$api.setStorage('findoutCode', ct.code);
+				api.toast({
+					msg: '验证码已发送，请注意查收~',
+					duration: 3000,
+					location: 'bottom'
+				});
+			});				
+		}		
+
+		apiready = function(){
+			
+		}
+	</script>
+</html>

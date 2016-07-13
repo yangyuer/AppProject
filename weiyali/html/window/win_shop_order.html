@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left {
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.ct-icon-angle-down {
+				position: absolute;
+				top: -3px;
+				right: 2px;
+				font-size: 25px;
+				color: #40b5f0;
+			}
+			.ct-icon-search {
+				color: #bdbdbd;
+				margin-right: 3px;
+			}
+			select {
+				border: 1px solid #fff;
+				color: #40b5f0;
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			#header{
+				/*line-height: 50px;*/
+				border-bottom: 1px solid #40B5F0;
+				position: relative;
+			}
+			.form-control{
+				position: relative;
+				/*left:50%;
+				margin-left: -60px;*/
+				
+			}
+			.flex-center-v{
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div style="position: relative;height: 50px;">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<div class="flex-box flex-center-v" style="padding-left: 40px;height: 100%;">
+						<div class="form-control flex-1 flex-box">
+							<span class="flex-1" >店铺订单</span>
+						</div>
+						<div style="color: #54A6D0;padding:0 20px 0 10px;position: absolute;right:5px;top:15px;">
+							<span id="selected" style="color:#40B5F0">全部</span>
+							<span class="ct-icon-angle-down" onclick="" tapmode=""></span>
+							<select id="classify" name="classify" onchange="openOrderList(this)">
+								<option value="0|全部">全部</option>
+								<option value="1|等待买家支付">等待买家支付</option>
+								<option value="2|买家已付款">买家已付款</option>
+								<option value="3|等待买家发货">等待买家发货</option>
+								<option value="4|退款中">退款中</option>
+								<option value="5|已完成">已完成</option>
+								<option value="6|已取消">已取消</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function openOrderList(_this){
+			api.setFrameGroupIndex({
+				name: 'shopOrderListGroup',
+				index: $api.val(_this).split('|')[0],
+				scroll: false
+			});
+			$api.text($api.dom('#selected'), $api.val(_this).split('|')[1]);
+		}
+	  apiready = function (){
+	  	var header = $api.dom('#header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+			
+			var frames = [];
+			for(var i=-1;i<6;i++){
+				frames.push({
+					name: 'order_list_' + i,
+					url: api.wgtRootDir + '/html/home/shop_order_list.html',
+					bounces: true,
+					pageParam: {
+						state: i
+					}
+				});
+			}
+			api.openFrameGroup({
+				name: 'shopOrderListGroup',
+				url: api.wgtRootDir + '/html/home/shop_order_list.html',
+				scrollEnabled: false,
+				preload: 0,
+				frames: frames,
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});			
+	  }
+	</script>
+</html>

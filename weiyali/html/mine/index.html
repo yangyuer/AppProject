@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			body,
+			#main{
+				background-color: #F8F8F8;
+				letter-spacing: 1px;
+			}
+			header{
+				margin-bottom: 8px;
+			}
+			.person-banner{
+				height: 100px;
+				padding: 15px 10px;
+				position: relative;
+				background-color: #fff;
+			}
+			.person-banner > .flex-1{
+				height: 100%;
+				padding-left: 10px;
+			}
+			.person-banner .img-frm,
+			.person-banner .img{
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 70px;
+				width: 70px;
+				border-radius: 50%;
+			}
+			.person-banner .img-frm{
+				background-image: url(../../res/avatar_default.png);
+				border: 1px solid #ddd;
+			}
+			.flex-center-v{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}			
+			.nickname,
+			.signature,
+			.weixin-hao{
+				font-size: 14px;
+				line-height: 1.5;
+				color: #B1A599;
+			} 
+			.nickname{
+				font-size: 16px;
+			}
+			.resume{
+				position: relative;
+				padding: 15px;
+				color: #B1A599;
+				font-size: 13px;
+				line-height: 1.3;
+				background-color: #fff;
+				min-height: 60px;
+			}
+			.resume::after{
+				content: '';
+				display: block;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 35px;
+				height: 100%;
+				background: url(../../image/icon-thin-forward.png) no-repeat center;
+				background-size: 15px;
+			}
+			.setting-list{
+				background-color: #F8F8F8;
+			}
+			.setting-list > div{
+				line-height: 60px;
+				background-color: #fff;
+				position: relative;
+			}
+			.setting-list > div .img-frm{
+				width: 70px;
+				text-align: center;
+			}
+			.setting-list .flex-1{
+				position: relative;
+			}
+			.setting-list .flex-1::after{
+				content: 'c';
+				color: transparent;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 35px;
+				height: 100%;
+				background: url(../../image/icon-thin-forward.png) no-repeat center;
+				background-size: 15px
+			}
+			.setting-list .flex-1.mesg::before{
+				position: relative;
+				content: '';
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				background-color: red;
+				float: right;
+				top: 25px;
+				right: 30px;
+				border-radius: 50%;
+			}
+			.setting-list > div:first-child,
+			.setting-list > div:last-child{
+				margin-top: 7px
+			}
+			.color-block{
+				color: #fff;
+				border-radius: 5px;
+				font-size: 20px;
+				top: 3px;
+			}
+			/*begin 登录界面*/
+			.login{
+				background-color: #F8F8F8;
+			}
+			.login > .logo{
+				padding: 20px 0;
+				text-align: center;
+				font-size: 100px;
+				background: url(../../image/logo.png) no-repeat center;
+				background-size: 70px;
+			}
+			.login > div:nth-child(2){
+				height: 140px;
+			}
+			.phone-num,
+			.passwd{
+				margin: 0 auto;
+				width: 280px;
+				/*padding-left: 25px;*/
+				position: relative;
+			}
+			.phone-num .form-control,
+			.passwd .form-control{
+				display: inline-block;
+				width: 190px;
+				padding: 12px 6px;
+				border-bottom: 2px solid #ddd;
+			}
+			.login > div:nth-child(3){
+				position: relative;
+				margin-top: 30px
+			}
+			.login > div:nth-child(3) button{
+				width: 270px;
+				padding: 12px;
+				color: #fff;
+				border-radius: 3px;
+			}
+			.login > div:nth-child(3) a{
+				padding-top: 10px;
+				display: block;
+				color: #bbb;
+				font-size: 12px;
+				text-align: right;
+			}			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<header class="hidden">
+				<div class="person-banner flex-box" onclick="openPersonSetting()" tapmode="">
+					<div class="img-frm">
+						<div class="img"></div>
+					</div>
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="name text-overflow" style="margin-bottom: 10px;">
+							<span class="nickname">
+								林炽棋
+							</span>
+						</div>
+						<div class="flex-box" style="font-size: 12px;">
+							<div class="flex-1" style="color:#aaa">
+								可用积分：<span style="color:orange;font-size: 16px;">1600</span>
+							</div>
+							<div class="flex-1" style="color:#aaa">
+								账户余额：<span style="color:orange;font-size: 16px;">358.00</span><span style="color:#aaa">元</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>			
+			<div id="main" class="">
+				<div class="setting-list hidden">
+					<div class="flex-box list-view mesg" tapmode="" onclick="" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-user color-block" style="padding:6px;background-color: #4DB7E7;"></span>
+						</div>
+						<div class="flex-1">
+							个人设置
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-bell-outline color-block" style="padding:6px;background-color: #8B67E5;"></span>
+						</div>
+						<div class="flex-1 mesg">
+							消息记录
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-bubble color-block" style="padding:6px;background-color: #20E171;"></span>
+						</div>
+						<div class="flex-1">
+							我的评论
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-note color-block" style="padding:6px;background-color: #EDA63D;"></span>
+						</div>
+						<div class="flex-1">
+							资金记录
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="">
+						<div class="img-frm">
+							<span class="ct-icon-banknote color-block" style="padding:6px;background-color: #FFCF2E;"></span>
+						</div>
+						<div class="flex-1">
+							提现
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="">
+						<div class="img-frm">
+							<span class="ct-icon-set color-block" style="padding:6px;background-color: #7C7D7F;"></span>
+						</div>
+						<div class="flex-1">
+							系统设置
+						</div>
+					</div>
+				</div>
+				<!--begin 登陆界面-->
+				<div class="login hidden">
+					<div class="logo">
+						<span class="ct-icon-logo" style="color: orange;"></span>
+					</div>
+					<div class="flex-box-v">
+						<div class="flex-1 text-center">
+							<div class="phone-num">
+								<span class="ct-icon-phone" style="font-size: 36px;width:50px;height: 45px;margin-right:10px;color:#888"></span>
+								<div class="form-control">
+									<input type="text" name="phone_num" placeholder="手机号">
+								</div>
+							</div>
+						</div>
+						<div class="flex-1 text-center">
+							<div class="passwd">
+								<span class="ct-icon-lock" style="font-size: 28px;width:50px;height: 45px;margin-right:10px;color:#888"></span>
+								<div class="form-control">
+									<input type="password" name="passwd" placeholder="密码">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="center-block" style="width:270px;">
+							<button class="btn btn-info" onclick="login()" tapmode="">
+								登陆
+							</button>
+							<a href="javascript:" tapmode="" onclick="openFindout()">
+								忘记密码?
+							</a>
+						</div>
+					</div>
+					<div class="text-center register" style="padding: 40px 0 10px">
+						<span onclick="openRegisterType()" tapmode="">
+							新用户?&nbsp; 点我注册
+						</span>
+					</div>
+				</div>
+				<!--end 登陆界面-->				
+			</div>				
+		</div>
+	</body>
+	<script type="text/template" template="login">
+			<div id="main">
+				<!--begin 登陆界面-->
+				<div class="login">
+					<div class="logo">
+						<span class="ct-icon-logo" style="color: orange;"></span>
+					</div>
+					<div class="flex-box-v">
+						<div class="flex-1 text-center">
+							<div class="phone-num">
+								<span class="ct-icon-phone" style="font-size: 36px;width:50px;height: 45px;margin-right:10px;color:#888"></span>
+								<div class="form-control">
+									<input type="text" name="phone_num" placeholder="手机号">
+								</div>
+							</div>
+						</div>
+						<div class="flex-1 text-center">
+							<div class="passwd">
+								<span class="ct-icon-lock" style="font-size: 28px;width:50px;height: 45px;margin-right:10px;color:#888"></span>
+								<div class="form-control">
+									<input type="password" name="passwd" placeholder="密码">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div class="center-block" style="width:270px;">
+							<button class="btn btn-info" onclick="login()" tapmode="">
+								登陆
+							</button>
+							<a href="javascript:" tapmode="" onclick="openFindout()">
+								忘记密码?
+							</a>
+						</div>
+					</div>
+					<div class="text-center register" style="padding: 40px 0 10px">
+						<span onclick="openRegister()" tapmode="">
+							新用户?&nbsp; 点我注册
+						</span>
+					</div>
+				</div>
+				<!--end 登陆界面-->
+			</div>		
+	</script>
+	<script type="text/template" template="wrap">
+			<header>
+				<div class="person-banner flex-box" tapmode="">
+					<div class="img-frm">
+						<div class="img" style="background-image: url({{= it.avatar }});"></div>
+					</div>
+					<div class="flex-1 flex-box-v flex-center-v">
+						<div class="flex-box">
+							<div class="name text-overflow" style="margin-bottom: 10px;">
+								<span class="nickname">
+									{{= it.nickname }}
+								</span>
+						  </div>
+						  <span onclick="mySign()" tapmode="" style="position: absolute;right: 5px;">【签到】</span>
+						</div>
+						
+						<div class="flex-box" style="font-size: 12px;">
+							<div class="flex-1" style="color:#aaa">
+								可用积分：<span style="color:orange;font-size: 16px;">{{= it.integral }}</span>
+							</div>
+							<div class="flex-1" style="color:#aaa">
+								账户余额：<span style="color:orange;font-size: 16px;">{{= it.money }}</span><span style="color:#aaa">元</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>			
+			<div id="main">
+				<div class="setting-list">
+					<div class="flex-box list-view mesg" tapmode="" onclick="openPersonSetting()" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-user color-block" style="padding:6px;background-color: #4DB7E7;"></span>
+						</div>
+						<div class="flex-1">
+							个人设置
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openMyMesg()" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-bell-outline color-block" style="padding:6px;background-color: #8B67E5;"></span>
+						</div>
+						<div class="flex-1 " id="mesg">
+							消息记录
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openMyComment()" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-bubble color-block" style="padding:6px;background-color: #20E171;"></span>
+						</div>
+						<div class="flex-1">
+							我的评论
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openPayHistory()" style="border-bottom: 1px solid #F5F5F5;">
+						<div class="img-frm">
+							<span class="ct-icon-note color-block" style="padding:6px;background-color: #EDA63D;"></span>
+						</div>
+						<div class="flex-1">
+							资金记录
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openMyWithdraw()">
+						<div class="img-frm">
+							<span class="ct-icon-banknote color-block" style="padding:6px;background-color: #FFCF2E;"></span>
+						</div>
+						<div class="flex-1">
+							提现
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openSetting()">
+						<div class="img-frm">
+							<span class="ct-icon-set color-block" style="padding:6px;background-color: #7C7D7F;"></span>
+						</div>
+						<div class="flex-1">
+							系统设置
+						</div>
+					</div>
+				</div>
+			</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/rongCloud.js" ></script>
+	<script type="text/javascript">
+		function login(){
+			//获取需要检测是数据
+			var phoneNum = $api.val($api.dom('[name=phone_num]')),
+					passwd = $api.val($api.dom('[name=passwd]'));
+			//验证号码
+			if(phoneNum){
+				if(!/^1[3,5,7,8]\d{9}$/.test(phoneNum)){
+					toast('请正确填写手机号~');
+					return;
+				}
+			}else{
+				toast('手机号码不能为空~');
+				return;
+			}
+			
+			//验证密码
+			if(!passwd){
+				toast('密码不能为空~');
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'login',
+				hideLoading:true,
+				data: {
+					values: {
+						username: phoneNum,
+						password: passwd
+					}
+				},
+				showError: true,
+				showProgress: {
+					title: '登陆中...'
+				}
+			}, function(ct){
+//				alert($api.jsonToStr(ct));
+				var memberInfo = {
+					id: ct.id,
+					token: ct.token
+				};
+				//储存用户基本信息
+				$api.setStorage('memberId', ct.id);
+				$api.setStorage('token', ct.token);
+				$api.setStorage('logints', new Date().getTime());/*登录时间戳*/
+				
+				//缓存完整个人信息
+				tool.ajax.get({
+					ctrl: 'My',
+					fn: 'memberInfo',
+					data: {
+						values: {
+							id: memberInfo.id,
+							token: memberInfo.token
+						}
+					}
+				}, function(ct){
+					/*显示登录后的会员页面*/
+					$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));						
+					$api.setStorage('memberInfo', ct);		
+					//连接融云
+					RongCloud.connect();
+				});
+			});				
+		}	
+		//打开注册页面
+		function openRegister() {
+			api.openWin({
+				name: 'Register',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '注册',
+					frameName: '_register',
+					frameUrl: api.wgtRootDir + '/html/mine/register.html'
+				},
+				bounces: false,
+				delay: 0
+			});
+		}	
+		//打开找回密码界面
+		function openFindout() {
+			api.openWin({
+				name: 'Findout',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					frameName: '_findout',
+					headerTitle: '找回密码',
+					frameUrl: api.wgtRootDir + '/html/mine/findout.html'		
+				},
+				bounces: false
+			});
+		}		
+		//打开资金记录列表
+		function openPayHistory(){
+			api.openWin({
+				name: 'payHistory',
+				url: api.wgtRootDir + '/html/window/pay_history.html',
+				bounces: false
+			});	
+		}
+		//打开提现界面
+		function openMyWithdraw(){
+			api.openWin({
+				name:'Withdraw',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam:{
+					frameName:'_withdraw',
+					headerTitle:'提现',
+					frameUrl: api.wgtRootDir + '/html/mine/withdraw_cash.html'
+				}
+			});
+		}
+		//打开-消息通知
+		function openMyMesg() {
+			api.openWin({
+				name: 'myMesgList',
+				url: api.wgtRootDir + '/html/window/my_mesg_list.html',
+				bounces: false
+			});
+			$api.removeCls($api.dom('#mesg'), 'mesg');
+		}	
+		//打开-我的评论
+		function openMyComment() {
+			api.openWin({
+				name: 'myComment',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '我的评论',
+					frameName: 'my_comment',
+					frameUrl: api.wgtRootDir + '/html/mine/my_comment.html'
+				},
+				bounces: false
+			});
+		}	
+		//打开-我的收藏
+		function openMyCollection() {
+			api.openWin({
+				name: 'myCollection',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '我的收藏',
+					frameName: 'my_collection',
+					frameUrl: api.wgtRootDir + '/html/mine/my_collection.html'
+				},
+				bounces: false
+			});
+		}			
+		//打开-个人设置
+		function openPersonSetting() {
+			api.openWin({
+				name: 'personSetting',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '个人设置',
+					frameName: 'person_setting',
+					frameUrl: api.wgtRootDir + '/html/mine/datum_setting.html'
+				},
+				bounces: false,
+				delay: 100
+			});
+		}		
+		//打开-系统设置
+		function openSetting() {
+			api.openWin({
+				name: 'Setting',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '系统设置',
+					frameName: '_setting',
+					frameUrl: api.wgtRootDir + '/html/mine/setting.html'
+				},
+				bounces: false
+			});
+		}		
+		function mySign(){
+			tool.ajax.get({
+				ctrl:"My",
+				fn:"sign",
+				data:{
+					values:{
+						id:$api.getStorage("memberId"),
+						token:$api.getStorage("token")
+					}
+				},
+				shopProgress: {
+					title: '签到中...'
+				},
+				hideLoading: true,
+				showError: true,
+			},function(ct){
+				var memberInfo = $api.getStorage('memberInfo'),
+						libi = parseInt(memberInfo.integral);
+			  memberInfo.integral = libi + parseInt(ct.libi);
+			  $api.setStorage('memberInfo',memberInfo);
+			});
+		}
+		function init(){
+			
+		}
+		apiready = function(){
+			var memberInfo = $api.getStorage('memberInfo');
+			if(memberInfo){
+				/*已登陆过*/
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(memberInfo));
+			}else{
+				/*未登录*/
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=login]')))(''));
+			}
+			/*优化点击*/
+			api.parseTapmode();
+			
+			//监听消息
+			api.addEventListener({
+				name: 'newMessage'
+			}, function(ret, err){
+//				var value = ret.value.message;
+				$api.addCls($api.dom('#mesg'), 'mesg');
+			});
+			
+			/*修改昵称*/
+			api.addEventListener({
+				name: 'changeNickname'
+			}, function(ret, err){
+				$api.text($api.dom('span.nickname'), ret.value.nickname);
+			});
+			/*修改头像*/
+			api.addEventListener({
+				name: 'changeAvatar'
+			}, function(ret, err){
+//			alert($api.jsonToStr(ret));
+				$api.css($api.dom('.person-banner .img'), 'background-image: url(' + ret.value.localFile + ')');
+			});
+			/*重新登录*/
+			api.addEventListener({
+				name: 'relogin'
+			}, function(ret, err){
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=login]')))(''));
+			});
+	    /*注册后，自动登录*/
+  		api.addEventListener({
+  			name: 'autoLogin'
+  		}, function(ret, err){
+  			$api.val($api.dom('[name=phone_num]'), ret.value.username);
+  			$api.val($api.dom('[name=passwd]'), ret.value.passwd);
+				tool.ajax.get({
+					ctrl: 'Common',
+					fn: 'login',
+					data: {
+						values: {
+							username: ret.value.username,
+							password: ret.value.passwd
+						}
+					},
+					showProgress: true
+				}, function(ct){
+					var memberInfo = {
+						id: ct.id,
+						token: ct.token
+					};
+					//储存用户基本信息
+					$api.setStorage('memberId', ct.id);
+					$api.setStorage('token', ct.token);
+					$api.setStorage('logints', new Date().getTime());/*登录时间戳*/
+					
+					//缓存完整个人信息
+					tool.ajax.get({
+						ctrl: 'My',
+						fn: 'memberInfo',
+						data: {
+							values: {
+								id: memberInfo.id,
+								token: memberInfo.token
+							}
+						}
+					}, function(ct){
+						/*显示登录后的会员页面*/
+						$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));						
+						$api.setStorage('memberInfo', ct);
+						//连接融云
+						RongCloud.connect();
+					});
+				});	  			
+  		});			
+		}
+	</script>
+</html>

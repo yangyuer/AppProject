@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .header_log{
+     
+
+       	background-color: #fff;
+       	
+       }
+      .img_logo{
+      	 background: url(../../image/measure_list.png) no-repeat scroll center center / cover;
+      	 width: 80px;
+      	 height: 80px;
+      	 margin: 10px 10px;
+      }
+      .shop_title{
+      	color: #000;
+      	font-size: 0.9em;
+      	margin-top: 10px;
+      }
+      .shop_img{
+      	line-height: 45px;
+      }
+      .dianpu{
+      color:#5f5f5f;
+
+      }
+      .log_two{
+      	text-align: right;
+      }
+      .shop_dizhi{
+      	margin-top: 50px;
+      	font-size: 1em;
+      }
+      .log_two p{
+      	margin-right: 5px;
+      	
+      }
+      .measure_view {
+       background-color: #F8F8F8;
+       	position: relative;
+       	padding: 5px 5px 0 5px;
+       }
+       .measure_view_left,
+       .measure_view_right
+       {
+       	background-color: #fff;
+       	margin: 5px 5px 0 5px;
+       }
+       .img {
+       	background: no-repeat;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       }
+       .img-frm{
+       	background: url(../../image/measure_list.png) no-repeat center;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       	position: relative;
+       	margin-left: -60px;
+       	left: 50%;
+       }
+       	#main, .main{
+       		padding-bottom: 90px;
+       	}
+
+       .measur_font{
+       		font-size: 0.8em;
+       		color: #777575;
+       		padding: 0 .8em;
+       		word-break: break-word;
+       		line-height: 20px;
+       		height: 40px;
+       	}
+       	.yuan{
+       		color: red;
+       		text-align: center;
+       		line-height: 25px;
+       		font-weight: 600;
+       		font-size: 1em;
+       	}
+       .ct-icon-square-check{
+       	text-align: center;
+       	margin-bottom: 5px;
+       	font-size: 1.2em;
+       	color:#40b5f0;
+       }
+       .shop_checkbox{
+       	text-align: center;
+       	font-size: 1em;
+       }
+       .ct-icon-square-uncheck{
+       	color: #999;
+       }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+     <div id="main">
+     	<div style="background-color:#F8F8F8">
+				<div class="measure-list hidden">
+					<div class="flex-box measure_view">
+						<div class="measure_view_left">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+			
+							<div class="measur_font">
+								采用V93000系列dd集成电d路测试系统
+							</div>
+							<p class="yuan">￥5.00</p>
+							<p class="shop_checkbox">
+								<input type="checkbox" />
+								<span class="ct-icon-square-check"></span></p>
+						</div>
+						<div class="measure_view_right">
+							<div class="img-frm">
+								<div class="img"></div>
+							</div>
+			
+							<div class="measur_font">
+								采用V93000系列集d成dd电路测试系统d
+							</div>
+							<p class="yuan">￥2.00</p>
+							<p class="shop_checkbox">
+								<input type="checkbox" />
+								<span class="ct-icon-square-uncheck"></span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+     </div>
+	 </div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+  <script type="text/template" template="main">
+  	{{ if(it instanceof Array && it.length!=0){ }}
+		  {{~it :value:index}}
+		  {{? index%2==0}}
+			  <div style="background-color:#F8F8F8">
+							<div class="flex-box measure_view">
+								<div style="width:{{= (api.frameWidth-30)/2 }}px;background-color: ;" tapmode="" class=" measure_view_left">
+									<div class="img-frm" >
+										<div class="img" data-echo-background="{{= value.cover }}"></div>
+									</div>
+									<div class="measur_font">
+										{{= value.title  }}
+									</div>
+									<p class="yuan">￥{{= value.price }}</p>
+									<p class="shop_checkbox" onclick="selected(this)" tapmode="">
+										<span class="ct-icon-square-uncheck" id="{{= value.id }}"></span>
+									</p>
+								</div>
+								{{? index+1<it.length }}
+								<div class="measure_view_right" style="width:{{= (api.frameWidth-30)/2 }}px;background-color: ;">
+									<div class="img-frm" >
+										<div class="img" data-echo-background="{{= it[index+1].cover }}"></div>
+									</div>
+									<div class="measur_font">
+										{{= it[index+1].title  }}
+									</div>
+									<p class="yuan">￥{{= it[index+1].price }}</p>
+									<p class="shop_checkbox" onclick="selected(this)" tapmode="">
+										<span class="ct-icon-square-uncheck"></span>
+									</p>
+								</div>
+								{{?}}
+							</div>
+		  	 </div>
+	  	{{?}}
+     {{~}}
+    {{ }else{ }}
+		  <div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>
+		{{ } }}
+  </script>
+  <script type="text/javascript" >
+  function selected(_this){
+  	var _select = $api.dom(_this,'span');
+  	if(_select.className == 'ct-icon-square-uncheck'){
+  		_select.className ='ct-icon-square-check';
+  	}else{
+  		_select.className = 'ct-icon-square-uncheck';
+  	}
+
+  	
+  	    
+  }
+  function commit(){
+  	var selectList = $api.domAll('.ct-icon-square-check'),
+  			arr = [];
+  	if(selectList.length==0){
+  		return;
+  	}
+  	for(var i=0;i<selectList.length;i++){
+  		arr.push($api.attr(selectList[i], 'id'));
+  	}  	
+  	tool.ajax.get({
+  		ctrl:"Shop",
+  		fn:"shopGoodsAuth",
+  		hideLoading:true,
+  		data:{
+  			values:{
+  				id:$api.getStorage("memberId"),
+  				token:$api.getStorage("token"),
+  				list:arr
+  			}
+  		},
+  		showProgress:{
+				title:'提交中...'
+			}
+  	},function(){
+//		api.toast({
+//					msg: '认证成功',
+//					duration: 2000,
+//					location: 'bottom'
+//				});
+			api.alert({
+			    title: '消息提醒',
+			    msg: '之前所测试所在商品分类将会加上认证标示，未测试的不会认证成功',
+			    buttons:['确定']
+			},function(ret,err){
+			    if(ret.buttonIndex == 1){
+			        api.closeWin();
+			    }
+			});       
+  	});
+  }
+  function reload(){
+  	tool.ajax.get({
+  		ctrl:"Shop",
+  		fn:"shopGoodsAuthList",
+  		hideLoading:true,
+  		data:{
+  			values:{
+  				id:$api.getStorage("memberId"),
+  				token:$api.getStorage("token")
+  			}
+  		}
+  	},function(ct){
+  		$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+  	  echo.init();
+  	  api.parseTapmode();
+  	});
+  }
+  	apiready = function(){ 
+  		reload();
+  		Refresh.init({
+				ctrl: 'Shop',
+				fn: 'shopGoodsAuthList',
+				data: {
+					values:{
+						id:$api.getStorage("memberId"),
+						token:$api.getStorage("token")
+					}
+				}
+			});
+  	}
+  </script>
+</html> 

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.ct-icon-star{
+				position: absolute;
+				right: 6px;
+				top: 15px;
+				font-size: 25px;
+				color: #5E5F5F;
+			}
+			.ct-icon-star_select{
+				position: absolute;
+				right: 6px;
+				top: 15px;
+				font-size: 25px;
+				color: #5E5F5F;
+			}
+			.pinglun{
+			   position: absolute;
+			   right: 45px;
+			   background-color: #40b5f0;
+			   height: 25px;
+			   margin-top: 15px;
+			   border-radius: 4px ;
+			   font-size: 0.8em;
+			   line-height: 25px;
+			   color: #fff;
+			   padding-left: 5px;
+			   padding-right: 5px;
+			   
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header" style="">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">详情</span>
+					<span class="pinglun" onclick="openComment()">18评论</span>
+					<span class="ct-icon-star" onclick="" tapmode=""></span>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/template" template="header">
+		<div class="topbar">
+			<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+			<span class="title">详情</span>
+			<span class="pinglun" onclick="openComment({{= it.id }})" tapmode=""><span id="pinglun" style="color:#fff; margin-right: 2px;">{{= it.count }}</span>评论</span>
+			{{? $api.getStorage('memberInfo') }}
+			 {{ if($api.getStorage('memberInfo').plancollection.indexOf(it.id.toString())>=0){ }}
+					<span class="ct-icon-star_select" style="font-size: 25px;top:12px;" onclick="plancollection({{= it.plantype_id }}, '{{= it.id }}', this)" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+				{{ }else{ }}
+					<span class="ct-icon-star" style="font-size: 25px;top:12px;" onclick="plancollection({{= it.plantype_id }}, '{{= it.id }}', this)" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+				{{ } }}		
+			{{?}}	
+		</div>
+	</script>	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function plancollection(plantype_id, id, _this){
+			var ctrl = 'Index',
+					fn = 'planCollection';
+			if(_this.className == 'ct-icon-star'){
+				tool.ajax.get({
+					ctrl: ctrl,
+					fn: fn,
+					data: {
+						values: {
+							id: $api.getStorage('memberId'),
+							token: $api.getStorage('token'),
+							typeid:plantype_id,
+							contentid: id
+						}
+					},
+					showError: true
+				}, function(ct){
+					toast('收藏成功');
+					$api.addCls($api.removeCls(_this, 'ct-icon-star'), 'ct-icon-star_select');
+					var memberInfo = $api.getStorage('memberInfo');
+					memberInfo.plancollection.push(id.toString());
+					$api.setStorage('memberInfo', memberInfo);
+				});
+			}else{
+				tool.ajax.get({
+					ctrl: ctrl,
+					fn: 'planCollectionCancel',
+					data: {
+						values: {
+							id: $api.getStorage('memberId'),
+							token: $api.getStorage('token'),
+							contentid: id
+						}
+					},
+					showError: true
+				}, function(ct){
+					toast('已取消收藏');
+					$api.addCls($api.removeCls(_this, 'ct-icon-star_select'), 'ct-icon-star');
+					var memberInfo = $api.getStorage('memberInfo');
+					memberInfo.plancollection.splice(memberInfo.plancollection.indexOf(id.toString()), 1);
+					$api.setStorage('memberInfo', memberInfo);
+				});				
+			}
+		}
+	function openComment(id){
+		api.openWin({
+				name: 'planComment',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '评论列表',
+					frameName: 'change_comment',
+					frameUrl: api.wgtRootDir + '/html/home/plan_comment.html',
+					hasFrameParam: true,
+					frameParam: {
+						id: id
+					}
+				},
+				bounces: false
+			});
+	}
+	apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+//		  $api.attr($api.dom(".pinglun"), 'onclick', 'openComment(' + api.pageParam.id + ')');
+//			$api.text($api.dom(".pinglun"),api.pageParam.count+"评论")
+			var data = {
+				id:api.pageParam.id,
+				count:api.pageParam.count,
+				plantype_id:api.pageParam.plantype_id
+			}
+//			alert(doT.template($api.html($api.dom('[template=header]')))(data));
+			$api.html($api.dom('#header'), doT.template($api.html($api.dom('[template=header]')))(data));
+			api.openFrame({
+				name: 'plan_detail',
+				url: api.wgtRootDir + '/html/home/plan_scheme_datails.html',
+				bounces: true,
+				pageParam: {
+					id: api.pageParam.id
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});		
+			api.addEventListener({
+				name:'plan_criticise'
+			},function(ret,err){
+				 var count=parseInt($api.html($api.dom("#pinglun")));
+				 count+=1;
+				 $api.html($api.dom("#pinglun"),count);
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<style type="text/css">
+			.setting-list{
+				background-color: #F8F8F8;
+			}
+			.setting-list > div{
+				line-height: 60px;
+				background-color: #fff;
+				position: relative;
+			}
+			.setting-list > div .img-frm{
+				width: 70px;
+				text-align: center;
+			}
+			.setting-list > div .img-frm + div{
+				position: relative;
+			}
+			.setting-list > div .img-frm + div::after{
+				content: 'c';
+				color: transparent;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 35px;
+				height: 100%;
+				background: url(../../image/icon-thin-forward.png) no-repeat center;
+				background-size: 15px
+			}
+			.color-block{
+				color: #fff;
+				border-radius: 5px;
+				font-size: 20px;
+				top: 3px;
+			}
+			.cache-size{
+				position: relative;
+				right: 30px;
+				float: right;
+				color: #aaa;
+			}
+			.flex-1.mesg::before{
+				position: relative;
+				content: '';
+				display: inline-block;
+				width: 10px;
+				height: 10px;
+				background-color: red;
+				float: right;
+				top: 25px;
+				right: 30px;
+				border-radius: 50%;
+			}			
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div class="shade hidden" tapmode="" onclick="toggleNicknameFrame('hide')"></div>
+		<div id="wrap">
+			<div id="main">
+				<div class="setting-list">
+					<div class="flex-box list-view" tapmode="" onclick="openOrderTest()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-order_test color-block" style="padding:6px;background-color: #64CBFF;"></span>
+						</div>
+						<div class="flex-1">
+							测试订单
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openOrderShopping()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-order_buy color-block" style="padding:6px;background-color: #FFC13D;"></span>
+						</div>
+						<div class="flex-1">
+							购物订单
+						</div>
+					</div>
+					<div class="flex-box list-view" onclick="openProduct()" tapmode="" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-box color-block" style="padding:6px;background-color: #20E073;"></span>
+						</div>
+						<div class="flex-1">
+							产品收藏
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openEnterprise()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-building color-block" style="padding:6px;background-color: #7280F4;"></span>
+						</div>
+						<div class="flex-1">
+							企业收藏
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openOrderRemind()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-bell-outline color-block" style="padding:6px;background-color: #2DBDEC;"></span>
+						</div>
+						<div id="measg" class="flex-1">
+							订单提醒
+						</div>
+					</div>
+					<div class="flex-box list-view clear-cache" tapmode="" onclick="openContact()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-move color-block" style="padding:6px;background-color: #757575;"></span>
+						</div>
+						<div class="flex-1">
+							联系物流
+						</div>
+					</div>		
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	
+	<script type="text/javascript">
+	  //订单提醒
+	    function openOrderRemind(){
+		    	api.openWin({
+					name: 'orderRemind',
+					url: api.wgtRootDir + '/html/window/win.html',
+					pageParam: {
+						headerTitle: '订单提醒',
+						frameName: 'order_remind',
+						frameUrl: api.wgtRootDir + '/html/order/order_remind.html'
+					},
+					bounces: false
+				});
+				tool.ajax.get({
+					ctrl:"Order",
+					fn:"orderRemindRead",
+					data:{
+						values:{
+							id: $api.getStorage('memberId'),
+						  token: $api.getStorage('token')
+						}
+					},
+					hideLoading:true
+				},function(){
+					
+				});
+	    }
+	    //测试订单
+	    function openOrderTest(){
+	    	api.openWin({
+					name: 'orderTest',
+					url: api.wgtRootDir + '/html/window/win_order.html',
+					bounces: false
+				});
+	    }
+	     //购物订单
+	    function openOrderShopping(){
+	    	api.openWin({
+					name: 'orderShopping',
+					url: api.wgtRootDir + '/html/window/win_shopping_order.html',
+					bounces: false
+				});
+	    }
+		//企业收藏
+		function openEnterprise(){
+	   	  api.openWin({
+					name: 'orderenterprise',
+					url: api.wgtRootDir + '/html/window/win_enterprise_collection.html',
+					bounces: false
+				});
+		}
+		//联系物流
+		function openContact(){
+			api.openWin({
+				name: 'openContact',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '联系物流',
+					frameName: '_Contact',
+					frameUrl: api.wgtRootDir + '/html/order/contact_logistics.html'
+				},
+				bounces: false
+			});	
+		}
+		//产品收藏
+		function openProduct(){
+	   	  api.openWin({
+					name: 'openProduct',
+					url: api.wgtRootDir + '/html/window/win_product_collection.html',
+					bounces: false
+				});
+		}
+		function clearCache(){
+			api.confirm({
+				title: '提示信息',
+				msg: '你确定要清除缓存吗？',
+				buttons: ['取消', '确定']
+			}, function(ret, err){
+				if(ret.buttonIndex == 2){
+					api.clearCache();
+					api.toast({
+						msg: '缓存清理完成',
+						location: 'bottom',
+						duration: 2000
+					});					
+//					DB.selectSql('xdy', 'select * from sqlite_master', function(data){
+//						alert($api.jsonToStr(data));
+//						data.forEach(function(value, index){
+//							if(value.tbl_name != 'android_metadata'){
+//								var sql = 'drop table ' + value.tbl_name;
+//								DB.executeSql('xdy', sql, function(){
+//									DB.executeSql('xdy', value.sql);
+//								});
+//							}
+//						});
+//						api.toast({
+//							msg: '缓存清理完成',
+//							location: 'bottom',
+//							duration: 2000
+//						});							
+//					});
+					var fs = api.require('fs');
+					fs.getAttribute({
+						path: 'cache://'
+					}, function(ret, err){
+//						alert($api.jsonToStr(ret||err));
+						if(ret.status){
+							$api.text($api.dom('.cache-size'), (ret.attribute.size / Math.pow(1024, 2)).toFixed(2) + 'MB');
+						}
+					});					
+				}
+			});
+		}
+		apiready = function(){
+			
+			  tool.ajax.get({
+			  	ctrl: "Order",
+			  	fn: "orderRemindAngle",
+			  	data:{
+			  		values:{
+			  			id: $api.getStorage('memberId'),
+						token: $api.getStorage('token')
+			  		}
+			  	},
+			  	hideLoading: true
+			  },function(ct){
+			  	var _count = $api.dom("#measg");
+			  	  if(ct.count>0){
+			  	  	$api.addCls(_count,"mesg");
+			  	  }
+			  });				
+			
+		}
+	</script>
+
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+				text-align: center;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.topbar{
+				text-align: center;
+				padding: 0 1.8em;
+			}
+			footer{
+			line-height: 55px;
+			height: 55px;
+			bottom: 0;
+			background-color: #fff;
+			width: 100%;
+			text-align: center;
+			border-top: 1px solid #ddd;
+		}
+		.cart_bottom{
+			position: relative;
+		}
+		.ce_cart{
+			width: 60%;
+			height: 35px;
+			margin-top: 10px;
+			border-radius: 4px;
+			background-color: #19b5fe;
+			position: absolute;
+			left: 20%;
+			color: #fff;
+			line-height: 35px;
+			text-align: center;
+		}
+		.tubiao_cart{
+			margin-top: 9px;
+			margin-left: 9px;
+			margin-right: 5px;
+			color: #fff;
+		}
+		.ct-icon-shop{
+				position: absolute;
+				right: 5px;
+				top: 12px;
+				font-size: 25px;
+				color: #5E5F5F;
+			}
+			.jinru_dianpu{
+				position: absolute;
+				right: 10px;
+				color: #686767;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title" >未认证商品</span>
+				</div>
+			</div>
+			<div id="main"></div>
+				<footer>
+				<div class="flex-box cart_bottom" onclick="ShopCertification()">
+					<div class="ce_cart" onclick="commit()" tapmode="">提交商品认证</div>
+				</div>
+			</footer>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function commit(){
+			api.execScript({
+				name: api.winName,
+				frameName: 'not_commodity',
+				script: 'commit()'				
+			});
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+				api.openFrame({
+				name: 'not_commodity',
+				url: api.wgtRootDir + '/html/home/not_shop_certification.html',
+				bounces: true,
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});	
+		}
+	</script>
+</html>

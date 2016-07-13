@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       }
+      .tender-one{
+      	margin-top: 12px;
+      	margin-left: 12px;
+      	border-left: 2px solid #40b5f0;
+      	font-size:0.8em;
+      	font-weight: 700;
+      	color: #7a7979;
+      	padding-left: 5px;
+      }
+      .month_num{
+      	font-size: 0.8em;
+      	color:#999;
+      	line-height: 35px;
+      	margin-left: 12px;
+      }
+      .tender_center{
+      	margin: 12px;
+      	font-size: 0.8em;
+      	color:#959595;
+      	padding-left: 5px;
+      	text-indent: 2em;
+      }
+      .tent_img{
+      	background: url(../../image/measure_list.png) no-repeat center;
+      	height: 180px;
+   	    max-width: 180px;
+   	    position: relative;
+   	    left: 50%;
+   	    margin-left: -80px;
+      }
+       </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+	      <div id="main">
+	       <div class="tender-one hidden">新进半导体公司实施sps招标信息</div> 
+	       <div class="month_num hidden">2015-5-12 12:10</div>
+	       <div class="tender_center hidden">中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	       	中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	                  中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	                   中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	                   中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	             <br><br>
+	                &nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	       	中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。  
+	       	<br><br>
+	       	&nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+	       	中国半导体产业在年达到历史最高峰，2015年亦持续了较快的增长态势。 
+	       </div>
+	     </div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="background-color:#fff">
+	   <div class="tender-one">{{= it.title }}</div> 
+	     <div class="month_num">{{= formatDateByRequire(it.datetime, '-') }}</div>
+	     <div class="tender_center">{{= it.content }}
+	   </div>
+    </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript">
+	function reload(id){
+		var ctrl = 'Info',
+					fn = 'infoDetail',
+					table = ctrl.toLowerCase() + '_' + fn.toLowerCase();
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values: {
+						id: id
+					}
+				},
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});
+	}
+	apiready = function(){
+		reload(api.pageParam.id);
+	}
+	</script>
+	
+</html> 

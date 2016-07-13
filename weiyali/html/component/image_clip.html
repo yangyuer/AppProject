@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" href="../../css/ct.css" />
+		<style type="text/css">
+			#footer{
+				position: fixed;
+				bottom: 0;
+				left: 0;
+				height: 50px;
+				width: 100%;
+				padding: 0 10px;
+				margin: 10px 0;
+				background-color: transparent;
+			}	
+			#main{
+				justify-content: center;
+				-webkit-justify-content: center;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-pack: center;
+				-webkit-box-align: center;
+				background-repeat: no-repeat;
+				background-size: 100% auto;
+				background-position: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main" class="flex-box" callbackEvent="">
+				<!--<div class="img-frm">
+					<div class="img" style="background-image: url(../../image/consult_banner_1.png);"></div>
+				</div>-->
+			</div>
+			<div id="footer" class="hidden">
+				<button id="submit" onclick="" class="btn btn-orange btn-block btn-lg" tapmode="">
+					上传图片
+				</button>
+			</div>			
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/upload.js" ></script>
+	<script type="text/javascript">
+		/*预定义图片路径、回调时间*/
+		var imgUrl, callbackEvent;
+		function noClip(imgUrl, disposeEvent){
+  		if(/^wifi$/i.test(api.connectionType)){
+  			xdy.UtilTool.upload.init({
+  				src: imgUrl,
+  				disposeEvent: disposeEvent
+  			});
+  		}else{
+  			if(api.connectionType == 'none'){
+					api.toast({
+						msg: '网络无法连接，请检查网络设备是否正常',
+						location: 'bottom',
+						duration: 3000
+					});  				
+  			}
+  			api.confirm({
+  				title: '温馨提示',
+  				msg: '建议在wifi网络下进行上传操作。您当前的网络环境是：'+api.connectionType,
+  				buttons: ['取消', '继续上传']
+  			}, function(ret, err){
+  				if(ret.buttonIndex == 2){
+		  			xdy.UtilTool.upload.init({
+		  				src: imgUrl,
+		  				disposeEvent: disposeEvent
+		  			}); 	  					
+  				}
+  			});
+  		}			
+		}
+		function imageClip(){
+//			$api.addCls($api.dom('#submit'), 'hidden');
+			var imageClip = api.require('screenClip'),
+					disposeEvent = $api.attr($api.dom('[dispose]'), 'dispose'),
+					saveName = 'avatar_' + new Date().getTime() + '.png',
+					saveUrl = api.fsDir + '/' + saveName;  	
+			imageClip.open({
+				cutFrame: {
+//					x: api.winWidth - 20,
+//					y: api.winHeight,
+					borderColor: '#696969',
+					borderWidth: 2,
+					tipsSize: 14,
+					tipsPosition: 'center_down',
+					tipsColor: '#000'
+				},
+				save: {
+					album: false,
+					imgPath: api.fsDir,
+					imgName: saveName
+				}
+			}, function(ret, err){
+//				$api.removeCls($api.dom('#submit'), 'hidden');
+				if(ret.status){
+					api.confirm({
+						title: '截图提示',
+						msg: '截图已完成，是否确定上传？',
+						buttons: ['取消', '确定']
+					}, function(ret, err){
+						if(ret.buttonIndex == 2){
+				  		if(/^wifi$/i.test(api.connectionType)){
+								//上传操作
+				  			Upload.init({
+									file: {
+										url: saveUrl,
+										callbackEvent: 'uploadAvatarForAndroid'
+									}
+				  			});								
+				  		}else{
+				  			if(api.connectionType == 'none'){
+									api.toast({
+										msg: '网络无法连接，请检查网络设备是否正常',
+										location: 'bottom',
+										duration: 3000
+									});  				
+				  			}				  			
+				  			api.confirm({
+				  				title: '温馨提示',
+				  				msg: '建议在wifi网络下进行上传操作。您当前的网络环境是：'+api.connectionType,
+				  				buttons: ['取消', '继续上传']
+				  			}, function(ret, err){
+				  				if(ret.buttonIndex == 2){
+						  			//上传操作
+						  			Upload.init({
+											file: {
+												url: saveUrl,
+												callbackEvent: 'uploadAvatarForAndroid'
+											}
+						  			});						  			
+				  				}
+				  			});
+				  		}										
+						}
+					});
+				}else{
+					var msg = '';
+					switch(err.code){
+						case -1:
+							msg = '未知错误';
+							break;
+						case 0:
+							msg = '保存到相册失败，无操作相册权限';
+							break;
+						case 1:
+							msg = '保存到到指定路径失败，无指定保存图片路径';
+							break;
+						case 2:
+							msg = '截图失败';
+							break;
+						case 3:
+							msg = '取消截图';
+							break;
+					}
+					api.toast({
+						location: 'bottom',
+						msg: msg,
+						duration: 2000
+					});
+				}
+			});			
+		}
+		apiready = function(){
+			imgUrl = api.pageParam.imgUrl,
+  		callbackEvent = api.pageParam.callbackEvent;
+//		alert(imgUrl);
+  		
+  		$api.css($api.dom('#main'), 'background-image:url('+imgUrl+')');
+  		$api.attr($api.dom('[callbackEvent]'), 'callbackEvent', callbackEvent);
+			/*不截图，直接上传*/
+//			$api.attr($api.dom('#submit'), 'onclick', 'noClip("'+imgUrl+'", "'+disposeEvent+'")');
+			
+  		
+  		
+  		setTimeout(function(){
+//				imageClip();
+  		}, 300);
+  		
+				api.addEventListener({
+					name: 'uploadAvatarForAndroid'
+				}, function(ret, err){
+					switch(ret.value.uploadStatus){
+						case 'uploading':
+							api.showProgress({
+								title: '上传中...',
+								text: ret.value.progress + '%',
+								modal: true
+							});
+							break;
+						case 'done':
+							tool.ajax.get({
+								ctrl: 'My',
+								fn: 'editAvatar',
+								data: {
+									values: {
+										id: $api.getStorage('memberId'),
+										token: $api.getStorage('token'),
+										avatar: ret.value.key
+									}
+								},
+								hideLoading: true
+							}, function(){
+//								toast('上传完成');
+								api.sendEvent({
+									name: 'changeAvatar',
+									extra: {
+										localFile: ret.value.localFile
+									}
+								});
+								api.alert({
+									title: '温馨提示',
+									msg: '头像上传完成'
+								}, function(ret, err){
+									api.closeWin();
+								});
+							});
+							api.hideProgress();
+							break;
+						case 'error':
+							toast('上传失败，请重新上传');
+							api.hideProgress();
+							break;
+					}
+				}); 		
+		}
+	</script>
+</html>

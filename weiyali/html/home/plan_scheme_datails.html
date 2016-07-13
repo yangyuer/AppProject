@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+      .tender-one{
+      	margin-top: 12px;
+      	margin-left: 12px;
+      	border-left: 2px solid #40b5f0;
+      	font-size:0.8em;
+      	font-weight: 700;
+      	color: #7a7979;
+      }
+      .erji_guan{
+      	border-left: 2px solid #40b5f0;
+      	font-size:0.8em;
+      	font-weight: 700;
+      	margin-left: 12px;
+      	margin-top: 10px;
+      	color: #7a7979;
+      }
+      .month_num{
+      	font-size: 0.8em;
+      	color:#999;
+      	line-height: 35px;
+      	margin-left: 12px;
+      }
+      .tender_center{
+      	margin: 12px;
+      	font-size: 0.8em;
+      	color:#959595;
+      }
+      .lianxi{
+      	width: 80%;
+      	margin: auto;
+        ;
+      	
+      	border-left: 2px solid #40b5f0;
+      }
+      .faqi{
+      	margin-left: 5px;
+      	font-size: 0.8em;
+      	font-weight: 700;
+      }
+      .faqi span{
+      	color: #7a7979;
+      }
+      .foorter{
+      	width: 80%;
+      	margin: auto;
+      	margin-top: 15px;
+      	position: relative;
+      }
+      .tender_zaixian{
+      	border:1px solid #999;
+      	height: 35px;
+      	padding: 0 10px;
+      	line-height: 35px;
+      	border-radius: 4px;
+      }
+      .tender_zaixian  span{
+      	color: #40b5f0;
+      }
+      .jishu_ceshi{
+      	line-height: 35px;
+      	color: #1ab5fd;
+      	text-align: center;
+      	
+      }
+      .ct-icon-use_it{
+      	color:#1ab5fd;
+      	margin-right:5px;
+      	font-size: 1.5em;
+      }
+       </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+		  <div id="main">
+				<!--<div class="tender-one hidden">&nbsp;&nbsp;新进半导体公司实施sps招标信息</div>
+				<div class=" erji_guan">&nbsp;&nbsp;技术优化测试优惠码：334722</div>
+				<div class="month_num">2015-5-12 12:10</div>
+				<div class="tender_center">&nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+					<br>
+					<br> &nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+					<br>
+					<br> &nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在年达到历史最高峰，2015年亦持续了较快的增长态势。
+				</div>
+				<div class="jishu_ceshi"><span class="ct-icon-use_it"></span>马上技术化测试</div>
+				
+				<div class="lianxi">
+					<p class="faqi">联系人：<span>陆先生</span></p>
+					<p class="faqi">联系电话：<span>0769-02999000</span></p>
+				</div>
+				<div class="flex-box foorter">
+					<div class="tender_zaixian"><span class="ct-icon-talk"></span> 在线联系</div>
+					<div class="tender_zaixian" style="position: absolute;right: 0;"><span class="ct-icon-call" style="color: #18de22;"></span> 一件拨号</div>
+				</div>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div class="tender-one">&nbsp;&nbsp;{{= it.title }}</div>
+				<div class=" erji_guan">&nbsp;&nbsp;技术优化测试优惠码：{{= it.youhui }}</div>
+				<div class="month_num">{{= formatDateByRequire(it.datetime, '-') }}</div>
+				<div class="tender_center">
+					{{= it.content }}
+				</div>
+				<div>
+					{{? it.img1}}
+					<div style="background: url(../../res/swipe_loading.png) cover; ">
+						<img src="{{= it.img1}}">
+					</div>
+					{{?}}
+					{{? it.img2}}
+					<div style="background: url(../../res/swipe_loading.png) cover; ">
+						<img src="{{= it.img2}}">
+					</div>
+					{{?}}
+					{{? it.img3}}
+					<div style="background: url(../../res/swipe_loading.png) cover; ">
+						<img src="{{= it.img3}}">
+					</div>
+					{{?}}
+				</div>
+				<div class="jishu_ceshi"><span class="ct-icon-use_it"></span>马上技术化测试</div>
+				<div class="lianxi" style="margin-bottom: 20px;">
+					<p class="faqi">联系人：<span>{{= it.nickname }}</span></p>
+					<p class="faqi">联系电话：<span>{{= it.tel}}</span></p>
+				</div>
+				<div class="flex-box foorter">
+					<div class="tender_zaixian"><span class="ct-icon-talk"></span> 在线联系</div>
+					<div class="tender_zaixian" style="position: absolute;right: 0;"><span class="ct-icon-call" style="color: #18de22;"></span> 一件拨号</div>
+				</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript">
+	function reload(id){
+		var ctrl = 'Index',
+					fn = 'planContent',
+					table = ctrl.toLowerCase() + '_' + fn.toLowerCase();
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values: {
+						id: $api.getStorage("memberId"),
+						token: $api.getStorage("token"),
+						pid: id
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});
+	}
+	apiready = function(){
+		reload(api.pageParam.id);
+	}
+	</script>
+</html> 

@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			#header{
+				background-color: #FFFFFF;
+			
+			}
+			#main{
+				padding: 5px;
+				background-color: #F8F8F8;
+			}
+			#header .img-frm{
+				width: 80px;
+				height: 80px;
+			}
+			#header .img{
+				width: 100%;
+				height: 100%;
+				background: url(../../res/loading_400x400.png) no-repeat center;
+				background-size: cover;
+			}
+			.level{
+				padding: 7px;
+				text-align: left;
+			}
+			.talk,
+			.shop {
+				width: 50px;
+				height: 50px;
+				padding: 5px;
+				border-radius: 50%;
+				position: fixed;
+				right: 10px;
+				bottom: 80px;
+				z-index: 2;
+			}
+			.talk {
+				bottom: 150px;
+				background-color: #54D165;
+			}
+			.shop {
+				bottom: 80px;
+				background-color: #51A5CF;
+			}
+			.cell{
+				background-color: #fff;
+				padding: 10px 0;
+			}
+			.cell{
+				margin: 5px;
+			}
+			.cell .img{
+				background: url(../../res/loading2_400x400.png) no-repeat center;
+				background-size: contain;
+				width: 100%;
+				height: 90px;
+			}
+			.price{
+				color: #E72D1D;
+			}
+			.measure_view {
+       background-color: #F8F8F8;
+       	position: relative;
+       	padding: 5px 5px 0 5px;
+       }
+       .measure_view_left,
+       .measure_view_right
+       {
+       	background-color: #fff;
+       	margin: 5px 5px 0 5px;
+       }
+       .measure_view .img {
+       	background: no-repeat;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       }
+       .measure_view .img-frm{
+       	background: url(../../image/measure_list.png) no-repeat center;
+       	background-size: cover;
+       	height: 120px;
+       	max-width: 120px;
+       	position: relative;
+       	margin-left: -60px;
+       	left: 50%;
+       }
+       .measur_font {
+       	font-size: 0.7em;
+       	color: #999;
+       	padding: 0 .6em;
+       	margin-top: 5px;
+       	word-break: break-word;
+       	line-height: 15px;
+       	overflow : hidden;
+      	text-overflow: ellipsis;
+      	display: -webkit-box;
+      	-webkit-line-clamp: 2;
+      	-webkit-box-orient: vertical;
+       }
+       .yuan {
+       	color: red;
+       	text-align: center;
+       	line-height: 25px;
+       	font-weight: 800;
+       	font-size: 1em;
+       }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div class="shop text-center hidden" onclick="" tapmode="">
+				<span class="ct-icon-cart_1" style="font-size: 28px;color: #fff;top:6px"></span>
+			</div>
+			<div class="talk text-center hidden" onclick="" tapmode="">
+				<span class="ct-icon-talk" style="font-size: 30px;color: #fff;top:5px"></span>
+			</div>			
+			<div id="header">
+				<div class="flex-box hidden">
+					<div class="img-frm">
+						<div class="img"></div>
+					</div>
+					<div class="flex-1" style="margin-left: 10px;">
+						<div class="flex-box">
+							<div class="flex-1 text-left">
+							</div>
+							<div style="color:#999;font-size: 13px;">
+								查看店铺简介
+							</div>
+						</div>
+						<div class="level">
+							星级
+						</div>
+						<div class="flex-box">
+							<div class="flex-1 text-left" style="font-size: 14px;">
+								店铺未认证
+							</div>
+							<div class="small">
+								东莞
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="main">
+				<div class="flex-box list-view hidden">
+					<div class="cell flex-1">
+						<div class="img"></div>
+						<div class="text-center" style="line-height: 34px;">
+							title
+						</div>
+						<div class="text-center price">
+							￥50.00
+						</div>
+					</div>
+					<div class="cell flex-1">
+						<div class="img"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/template" template="test">
+		<div>ok</div>
+	</script>
+	<script type="text/template" template="wrap">
+			<div class="shop text-center" onclick="" tapmode="">
+				<span class="ct-icon-cart_1" style="font-size: 28px;color: #fff;top:6px"></span>
+			</div>
+			<div class="talk text-center" onclick="" tapmode="">
+				<span class="ct-icon-talk" style="font-size: 30px;color: #fff;top:5px"></span>
+			</div>			
+			<div id="header">
+				<div class="flex-box" style="padding-top: 10px;">
+					<div class="img-frm">
+						<div class="img" style="background-image: url({{= it.shopinfo.logo }});"></div>
+					</div>
+					<div class="flex-1" style="margin-left: 10px;">
+						<div class="flex-box">
+							<div class="flex-1 text-left">
+								{{= it.shopinfo.company }}
+							</div>
+							<div style="color:#999;font-size: 13px;padding-right: 5px;" onclick="summary('{{= it.shopinfo.summary }}')" tapmode="">
+								查看店铺简介
+							</div>
+						</div>
+						<div class="level">
+							星级
+						</div>
+						<div class="flex-box">
+							<div class="flex-1 text-left" style="font-size: 14px;">
+								{{? it.shopinfo.auth=='1' }}
+								店铺已认证
+								{{??}}
+								店铺未认证
+								{{?}}
+							</div> 
+							<div class="small" style="padding-right: 5px;">
+								{{= it.shopinfo.areaname }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="main">
+				{{? it.goodslist instanceof Array && it.goodslist.length!=0 }}
+					{{~it.goodslist :value:index}}
+						{{ if(index%2==0){ }}
+						<div class="flex-box measure_view">
+							<div  class=" measure_view_left" style="width:{{= (api.frameWidth-30)/2 }}px;" tapmode="">
+								<div class="img-frm"  >
+									<div class="img" style="background-image: url({{= value.cover }});"></div>
+								</div>
+								<div class="measur_font">
+									{{= value.title  }}
+								</div>
+								<p class="yuan">￥{{= value.price }}</p>
+							</div>
+							{{ if(it.goodslist.length>index+1){ }}
+							<div class="measure_view_right" tapmode=""  style="width:{{= (api.frameWidth-30)/2 }}px;">
+								<div class="img-frm">
+									<div class="img" style="background-image: url({{= it.goodslist[index+1].cover }});"></div>
+								</div>
+								<div class="measur_font">
+									{{= it.goodslist[index+1].title }}
+								</div>
+								<p class="yuan">￥{{= it.goodslist[index+1].price }}</p>
+							</div>
+							{{ } }}
+						</div>
+						{{ } }}
+					{{~}}
+				{{??}}
+					<div class="null flex-box">
+						<div class="flex-1">
+							暂无相关内容~
+						</div>
+					</div>				
+				{{?}}
+			</div>
+	</script>
+	<script type="text/javascript">
+		function summary(content){
+			api.alert({
+				title: '公司简介',
+				msg: content
+			});
+		}
+		function reload(shopId){
+			tool.ajax.get({
+				ctrl: 'Shop',
+				fn: 'shopIndexInfo',
+				hideLoading:true,
+				data: {
+					values: {
+						shopid: shopId
+					}
+				},
+				template: 'wrap'
+			}, function(ct){
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+			});			
+		}
+		apiready = function(){
+			reload(api.pageParam.shopId);
+		}
+	</script>
+</html>

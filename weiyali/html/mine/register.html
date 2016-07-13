@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>注册页</title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.form-control{
+				display: inline-block;
+				padding: 12px 6px;
+				border-bottom: 2px solid #ddd;
+				width: 75%
+			}
+			.register > :nth-child(2){
+				height: 380px;
+			}
+			.register > :nth-child(2) input{
+				width: 100%;
+				font-size: 13px;
+			}
+			.register > :nth-child(2) > div > div{
+				max-width: 280px;
+				margin: 0 auto;
+			}
+			.get-code{
+				height: 43px;
+				width: 106px;
+				font-size:12px;
+				color:#999;
+				padding: 4px;
+			}
+			.logo{
+				padding: 70px 0;
+				text-align: center;
+				font-size: 100px;
+				background: url(../../image/logo.png) no-repeat center;
+				background-size: 70px;
+			}
+			.register-sucecss > div:nth-child(2){
+				height: 70px;
+			}
+			.register-sucecss > div:nth-child(2) > div{
+				color: #9D9D9D;
+			}
+			.register-sucecss > div:nth-child(2) > div:first-child{
+				line-height: 30px;
+			}
+			.register-sucecss > div:nth-child(2) > div:first-child::before{
+				display: inline-block;
+				width: 20px;
+				height: 30px;
+				content: 'c';
+				color: transparent;
+				background: url(../../image/ok_sign.png) no-repeat center;
+				background-size: 20px auto;
+			}
+			.register-sucecss > div:nth-child(3)::before{
+				display: block;
+				content: 'c';
+				color: transparent;
+				height: 200px;
+				background: url(../../image/balloon.png) no-repeat center;
+				background-position-y:bottom; 
+				background-size: 180px;
+			}			
+			.ct-icon-ok .path2::before{
+				margin-left: -2em;
+			}
+			.ct-icon-phone,
+			.ct-icon-message,
+			.ct-icon-lock,
+			.ct-icon-key{
+				position: relative;
+				top: 4px;
+				margin-right: 20px;
+				/*right: 15px;*/
+				color: #888;
+				left: 5px;
+			}			
+			.tiaokuan::before{
+				content: 'c';
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				color: transparent;
+				background: url(../../image/ok_sign.png) no-repeat center;
+				background-size: 16px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="register">
+					<div class="logo">
+						<!--<span class="ct-icon-logo" style="color: orange;"></span>-->
+					</div>
+					<div class="flex-box-v">
+						<div class="flex-1">
+							<div class="phone">
+								<span class="ct-icon-phone" style="font-size: 36px;margin-right: 29px;"></span>
+								<div class="form-control">
+									<!--输入手机号码-->
+									<input type="text" name="phone_num" placeholder="请输入您的手机号"/>
+								</div>
+							</div>
+						</div>
+						<div class="flex-1">
+							<div class="code">
+								<span class="ct-icon-message" style="font-size: 25px;left: 0;"></span>
+								<div class="form-control" style="width:100px">
+									<!--输入验证码-->
+									<input type="text" name="code" placeholder="请输入验证码"/>
+								</div>
+								<button onclick="getCode()" class="btn btn-default get-code" tapmode="touch">
+									获取验证码
+								</button>
+							</div>
+						</div>
+						<div class="flex-1">
+							<div class="passwd">
+								<span class="ct-icon-lock" style="font-size: 28px;margin-right: 28px;left:3px"></span>
+								<div class="form-control"style="">
+									<!--密码输入-->
+									<input type="password" name="passwd" placeholder="请输入密码"/>
+								</div>
+							</div>
+						</div>
+						<div class="flex-1">
+							<div class="confirm">
+								<span class="ct-icon-key" style="font-size: 28px;margin-right: 26px;left:3px"></span>
+								<div class="form-control"style="">
+									<!--确定密码-->
+									<input type="password" name="passwd_again" placeholder="请再次输入密码"/>
+								</div>
+							</div>
+						</div>
+						<div class="text-center" style="margin:30px 0">
+							<div style="font-size: 12px;margin:10px auto">
+								<span class="tiaokuan" style="color: #aaa;">
+									我已阅读《威雅利注册条款》
+								</span>
+							</div>
+							<button class="btn btn-info" onclick="register()" tapmode="" style="width:250px;padding:12px">
+								注册
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="success">
+		<div class="register-sucecss">
+			<div class="logo"></div>
+			<div class="flex-box-v text-center">
+				<div class="flex-1">
+					恭喜您，注册成功!
+				</div>
+				<div class="flex-1">
+					欢迎使用威雅利
+				</div>
+			</div>
+			<div class="text-center" style="margin:0 0 30px">
+				<button class="btn btn-info" username="" password="" onclick="registerSuccess()" tapmode="" style="width:250px;padding:12px">
+					现在进入
+				</button>
+			</div>
+		</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function codeTimer(){
+			var sec = 60;
+			//禁用按钮
+			var codeBtn =  $api.dom('.get-code');
+			codeBtn.disabled = true;
+			var timer = setInterval(function(){
+				if(sec > 0){
+					$api.text(codeBtn, (sec--)+'秒后重新获取');
+				}else{
+					clearInterval(timer);
+					codeBtn.disabled = false;
+					$api.text(codeBtn, '获取验证码');
+					$api.css(codeBtn, 'color:#999');
+				}
+			}, 1000);
+		}
+		//获取验证码
+		function getCode(){
+			var phone = $api.val($api.dom('[name=phone_num]'));
+			if(phone){
+				if(!/^1[3,5,7,8]\d{9}$/.test(phone)){
+					toast('手机号格式不正确~');
+					return;
+				}
+			}else{
+				toast('请填写您的手机号~');
+				return;
+			}
+			//计时60秒
+			codeTimer();
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'sendMsg',
+				hideLoading: true,
+				showError: true,
+				data: {
+					values: {
+						phone: phone,
+						type: 1
+					}
+				},
+				showProgress: {
+					title: '验证码发送中...'
+				}
+			}, function(ct){
+//				alert($api.jsonToStr(ct));
+				//缓存验证码
+				$api.setStorage('registerCode', ct.code);
+				api.toast({
+					msg: '验证码已发送，请注意查收~',
+					duration: 3000,
+					location: 'bottom'
+				});
+			});				
+		}
+		
+		function register(){
+			//获取需要检测的数据
+			var phoneNum = $api.val($api.dom('[name=phone_num]')),
+					passwd = $api.val($api.dom('[name=passwd]')),
+					code = $api.val($api.dom('[name=code]')),
+					passwdAgain = $api.val($api.dom('[name=passwd_again]'));
+//					registerType = $api.attr($api.dom('[register-type]'), 'register-type');
+			
+			//检测手机号
+			if(phoneNum){
+				if(!/^1[3,5,7,8]\d{9}$/.test(phoneNum)){
+					toast('手机号格式不正确~');
+					return;
+				}
+			}else{
+				toast('请填写您的手机号~');
+				return;
+			}
+			
+			//验证码
+			if(code){
+				if(code !== $api.getStorage('registerCode')){
+					toast('验证码错误，请重新填写~');
+					return;
+				}
+			}else{
+				toast('请填写验证码~');
+				return;
+			}
+			//密码
+			if(passwd && passwdAgain){
+				if(passwd !== passwdAgain){
+					toast('两次密码输入不一致~');
+					return;
+				}
+			}else{
+				toast('请您的密码填写完整~');
+				return;
+			}
+			
+			//提交数据到服务器
+			tool.ajax.get({
+				ctrl: 'Common',
+				fn: 'register',
+				data: {
+					values: {
+						username: phoneNum,
+						password: passwd,
+						code: code
+					}
+				},
+				showProgress: {
+					title: '注册中...'
+				},
+				showError: true,
+				test: true
+			}, function(ct){
+				//注册成功
+				var loginInfo = {
+					phone: phoneNum,
+					passwd: passwd
+				};
+				//删除缓存的注册验证码
+				$api.rmStorage('registerCode');
+				//本地存储用户信息
+				$api.setStorage('loginInfo', loginInfo);
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=success]')))(''));
+				$api.attr($api.dom('[username]'), 'username', loginInfo.phone);
+				$api.attr($api.dom('[password]'), 'password', loginInfo.passwd);
+			});				
+		}
+		//注册成功，自动登录
+		function registerSuccess(){
+			var username = $api.attr($api.dom('[username]'), 'username'),
+					passwd = $api.attr($api.dom('[password]'), 'password');
+			
+			api.sendEvent({
+				name: 'autoLogin',
+				extra: {
+					username: username,
+					passwd: passwd
+				}
+			});
+			api.closeWin();
+		}
+		apiready = function(){
+
+		}
+	</script>
+</html>

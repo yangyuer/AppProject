@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.ct-icon-circle-plus{
+				position: absolute;
+				right: 5px;
+				top: 12px;
+				font-size: 25px;
+				color: #5E5F5F;
+				/*background-color: red;*/
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">邮箱管理</span>
+					<span class="ct-icon-circle-plus" onclick="sendEmail()" tapmode=""></span>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+	function sendEmail(){
+		api.openWin({
+				name: 'sendemail',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '添加邮箱',
+					frameName: 'send_emails',
+					frameUrl: api.wgtRootDir + '/html/order/send_email_add.html',
+					hasFrameParam: true,
+					frameParam: {
+						type: 'add'
+					}
+				},
+				bounces: false
+		 });
+	}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+			
+			api.openFrame({
+				name: '_send_report',
+				url: api.wgtRootDir + '/html/order/send_email.html',
+				pageParam:{
+					tid: api.pageParam.tid
+				},
+				bounces: true,
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});			
+		}
+	</script>
+</html>

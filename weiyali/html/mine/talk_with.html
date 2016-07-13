@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no">
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			body,
+			#main{
+				padding: 10px 0;
+			}
+			body,
+			#main,
+			#main > .list-view,
+			.datetime{
+				background-color: #F2F2F2;
+			}
+			#main{
+			  -webkit-box-flex: 1;
+			  box-flex: 1;
+			  -webkit-flex: 1;
+			  flex: 1;
+			}
+			.datetime{
+				/*margin-top: 10px;*/
+			}
+			.datetime > span{
+				padding: 3px 8px;
+				color: #fff;
+				background-color: #DFDFDF;
+				font-size: 12px;
+				border-radius: 4px;
+			}
+			
+			.list-view{
+				/*min-height: 80px;*/
+				position: relative;
+				padding: 10px;
+			}
+			.list-view.other{
+
+			}
+			.list-view.me{
+				justify-content: flex-end;
+				-webkit-justify-content: flex-end;
+				-webkit-box-pack: end;
+			}
+			.list-view .mesg{
+				letter-spacing: 1px;
+				max-width: 220px;
+				position: relative;
+				height: 100%;
+				background-color: #fff;
+				padding: 8px 8px;
+				font-size: 14px;
+				line-height: 1.5;
+				border-radius: 5px;
+				word-break: break-word;
+			}
+			.list-view.other .mesg{
+				margin-left: 12px;
+			}
+			.list-view.me .mesg{
+				margin-right: 12px;
+				background-color: #F5AB35;
+			}
+			.list-view .mesg::before{
+				content: '';
+				display: inline-block;
+				position: absolute;
+				width: 0;
+				height: 0;
+				top: 10px;
+				border: solid #fff;
+				border-width: 4px 8px;
+			}
+			.list-view.other .mesg::before{
+				left: -16px;
+				border-color: transparent #fff transparent transparent;
+			}
+			.list-view.me .mesg::before{
+				right: -16px;
+				border-color: transparent transparent transparent #F5AB35;
+			}
+			.img-frm,
+			.img{
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 30px;
+				width: 30px;
+			}
+			.img-frm{
+				border: 1px solid #ddd;
+				background-image: url(../../res/avatar_default.png);
+			}
+			img.expression{
+				position: relative;
+				top: 6px;
+				left: -5px;
+				width: 25px;
+				height: 25px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<!--<div class="datetime text-center">
+					<span>
+						4月6日		10:40
+					</span>
+				</div>
+				<div class="list-view flex-box other">
+					<div class="flex-box">
+						<div class="img-frm">
+							<div class="img"></div>
+						</div>
+						<div class="mesg">
+							哇哈哈哈哇哈哈哈哇哈哈哈哇哈哈哈
+						</div>
+					</div>
+				</div>
+				<div class="list-view flex-box me">
+					<div class="flex-box">
+						<div class="mesg">
+							哇哇哇哇哇哇哇哇哇哇哇
+							<img class="expression" src="../../res/chatBox/emotion/Expression_1.png" width="25" height="25" alt="" />
+						</div>
+						<div class="img-frm">
+							<div class="img"></div>
+						</div>
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="me">
+		<div class="list-view flex-box me" messageId="{{= it.messageId }}">
+			<div class="flex-box">
+				<div class="mesg">
+					{{= it.messageId }}
+					{{= h(it.content.text) }}
+				</div>
+				<div class="img-frm">
+					<div class="img" style="background-image: url({{= $api.getStorage('memberInfo').avatar }});"></div>
+				</div>
+			</div>
+		</div>		
+	</script>
+	
+	<script type="text/x-dot-template" template="other">
+		<div class="list-view flex-box other" messageId="{{= it.messageId }}">
+			<div class="flex-box">
+				<div class="img-frm">
+					<div class="img"></div>
+				</div>
+				<div class="mesg">
+					{{= it.messageId }}
+					{{= h(it.content.text) }}
+				</div>
+			</div>
+		</div>		
+	</script>	
+	
+	<script type="text/template" template="datetime">
+		<div class="datetime text-center">
+			<span>
+				{{= tool.date.t1(it.datetime) }}
+			</span>
+		</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/rongCloud.js" ></script>
+	<script type="text/javascript">
+		/*表情转义处理*/
+		function h(str){
+			if(str){
+				var regx = /(\&[l,g]t;)|(api.wgtRootDir)/gm,
+						_html = str.replace(regx, function(match){
+							switch(match){
+								case '&lt;':
+									return '<';
+								case '&gt;':
+									return '>';
+								case 'api.wgtRootDir':
+									return '../..';
+							}
+						});
+				return _html;
+			}else{
+				return '';
+			}			
+		}	
+		/*聊天记录滚动底部*/
+		function scrollToBottom(){
+			setTimeout(function(){
+				window.scrollTo(0, $api.dom('body').scrollHeight)
+			}, 100);
+		}
+		
+		function showMessage(result){
+			//拼接数据
+			result.forEach(function(value, index, arr){
+				
+				if(value.senderUserId == value.targetId){
+					//来自对方的信息
+					$api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=other]')))(value));
+				}else{
+					//我发出去的信息
+					$api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=me]')))(value));
+				}
+				//处理时间
+				if(index < arr.length-1){
+					if(value.sentTime - arr[index+1].sentTime > 1000*60*60){
+						$api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=datetime]')))({datetime:value.sentTime}));
+					}
+				}else{
+					$api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=datetime]')))({datetime:value.sentTime}));
+				}
+			});			
+		}
+		
+		apiready = function(){
+			var param = api.pageParam;
+			
+			//设置标题
+			api.execScript({
+				name: api.winName,
+				script: 'setTitle('+param.targetId+')'
+			});
+			
+			RongCloud.getLatestMessages(param.targetId, param.msgNum||2, function(result){
+//				alert(JSON.stringify(result));
+//				alert(result.length);
+				showMessage(result);
+				window.scrollTo(0, $api.dom('body').scrollHeight);
+				
+				if(param.msgNum){
+					//如果有新消息，标记已读，刷新未读条数
+					RongCloud.clearMessagesUnreadStatus(param.targetId, function(){
+						api.sendEvent({
+							name: 'readMessage'
+						});
+					});
+				}
+			});
+			//实时监听新消息
+			api.addEventListener({
+				name: 'newMessage'
+			}, function(ret, err){
+				var value = ret.value.message;
+				if(value.targetId == param.targetId){
+					$api.append($api.dom('#main'), doT.template($api.html($api.dom('[template=other]')))(value));
+					window.scrollTo(0, $api.dom('body').scrollHeight);
+					RongCloud.clearMessagesUnreadStatus(param.targetId, function(){
+						api.sendEvent({
+							name: 'readMessage'
+						});
+					});
+				}
+			});
+			//监听“我”说话
+			api.addEventListener({
+				name: 'iTalk'
+			}, function(ret, err){
+				if(ret){
+					RongCloud.sendTextMessage({
+						targetId: param.targetId,
+						text: ret.value.content,
+						extra: $api.getStorage('memberInfo').nickname 
+					}, function(ret){
+						if(ret.status == 'prepare'){
+//							alert('准备发送：' + JSON.stringify(ret));
+							$api.append($api.dom('#main'), doT.template($api.html($api.dom('[template=me]')))(ret.result.message));
+						}else{
+//							alert('发送成功：' + JSON.stringify(ret));
+								window.scrollTo(0, $api.dom('body').scrollHeight);
+						}
+					});
+				}
+			});
+			/*
+			 * 监听他人说话
+			 */
+			api.addEventListener({
+				name: 'oTalk'
+			}, function(ret, err){
+				if(ret){
+					$api.append($api.dom('#main'), doT.template($api.html($api.dom('[template=me]')))(ret.value));
+				}
+			});
+			
+			/*获取以往信息*/
+			api.setRefreshHeaderInfo({
+		    visible: true,
+		    loadingImg: 'widget://res/icon-refresh.png',
+		    bgColor: 'rgba(0,0,0,0)',
+		    textColor: '#666',
+		    textDown: '查看更多信息...',
+		    textUp: '松开查看更多信息...',
+		    showTime: false
+			}, function(ret, err){
+				var oldestMessageId = $api.attr($api.dom('#main .list-view'), 'messageId');
+//				toast(oldestMessageId);
+				/*请求更早之前的聊天记录*/
+				RongCloud.getHistoryMessages({
+					targetId: param.targetId,
+					oldestMessageId: oldestMessageId,
+					count: 10
+				}, function(result){
+					api.refreshHeaderLoadDone();
+//					alert(JSON.stringify(result));
+					if(result instanceof Array && result.length != 0){
+						showMessage(result);
+					}
+				});
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>联系物流</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.logistic{
+				text-align: right;
+				font-size: 2.2em;
+			}
+			#main{
+				padding: 8px 18px;
+			}
+			.list-view{
+				border-bottom: 1px solid #A5D0E7;
+			}
+			.list-view > div:first-child{
+				height: 80px;
+			}
+			.list-view > div:last-child{
+				width: 100px;
+				text-align: right
+			}
+			.list-view .ct-icon-express_call{
+				font-size: 40px;
+				color: #0094D8;
+				top: 14px;
+			}
+			.img-frm,
+			.img{
+				background-repeat: no-repeat;
+				background-position: left center;
+				background-size: contain;
+			}
+			.list-view .img-frm{
+				padding: 15px 0;
+			}
+			.img{
+				width: 100%;
+				height: 100%;
+			}
+			.rabbit{
+				margin-top: 20px;
+			}
+			.rabbit .img-frm{
+				width: 80px;
+				height: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="hidden" style="margin: 10px;padding-left: 5px;font-size: 0.8em; border-left: 2px solid #00ABFD;">联系物流</div>
+			 	<div class="flex-box hidden list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url(../../image/express_ems.png);"></div>
+			 		</div>
+			 		<div>
+			 			<a href="" class="ct-icon-express_call"></a>
+			 		</div>
+			 	</div>
+			 	<div class="flex-box hidden list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url(../../image/express_sf.png);"></div>
+			 		</div>
+			 		<div>
+			 			<span class="ct-icon-express_call"></span>
+			 		</div>
+			 	</div>
+			 	<div class="flex-box hidden list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url(../../image/express_sto.png);"></div>
+			 		</div>
+			 		<div>
+			 			<span class="ct-icon-express_call"></span>
+			 		</div>
+			 	</div>
+			 	<div class="flex-box hidden list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url(../../image/express_yd.png);"></div>
+			 		</div>
+			 		<div>
+			 			<span class="ct-icon-express_call"></span>
+			 		</div>
+			 	</div>
+			 	<div class="flex-box hidden list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url(../../image/express_yt.png);"></div>
+			 		</div>
+			 		<div>
+			 			<span class="ct-icon-express_call"></span>
+			 		</div>
+			 	</div>
+			 	<div class="flex-box hidden list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url(../../image/express_zto.png);"></div>
+			 		</div>
+			 		<div>
+			 			<span class="ct-icon-express_call"></span>
+			 		</div>
+			 	</div>
+			 	<div class="flex-box rabbit hidden">
+			 		<div class="flex-1" style="padding: 45px 20px 0 10px;">
+			 			※以上仅为推荐快递，若没有你 想要的快递品牌，可以自行选择其他快递。
+			 		</div>
+			 		<div class="img-frm">
+			 			<div class="img" style="background-image: url(../../image/rabbit.png);"></div>
+			 		</div>
+			 	</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="margin: 10px;padding-left: 5px;font-size: 0.8em; border-left: 2px solid #00ABFD;">联系物流</div>
+		{{~it :value:index}}
+			 	<div class="flex-box list-view">
+			 		<div class="flex-1 img-frm">
+			 			<div class="img" style="background-image: url({{= value.logo }});"></div>
+			 		</div>
+			 		<div>
+			 			<a href="tel:{{= value.phone }}" class="ct-icon-express_call"></a>
+			 		</div>
+			 	</div>		
+		{{~}}
+	 	<div class="flex-box rabbit">
+	 		<div class="flex-1" style="padding: 45px 20px 0 10px;">
+	 			※以上仅为推荐快递，若没有你 想要的快递品牌，可以自行选择其他快递。
+	 		</div>
+	 		<div class="img-frm">
+	 			<div class="img" style="background-image: url(../../image/rabbit.png);"></div>
+	 		</div>
+	 	</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+	function reload(){
+		tool.ajax.get({
+			ctrl:"Order",
+			fn:"getKuaidiPhone",
+			hideLoading:true
+		},function(ct){
+			$api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+		});
+	}
+	apiready = function(){
+		reload();
+	}
+	</script>
+</html>

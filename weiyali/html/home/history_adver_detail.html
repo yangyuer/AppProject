@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.swipe-wrap .img{
+				height: 150px;
+			}
+			.adver_content{
+				text-indent:2em;
+		  	padding-top: 10px;
+		  	padding-left: 10px;
+		  	padding-right: 10px;
+		  	padding-bottom: 40px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main" style="background-color: #F3F3F3;">
+			  <div class="hidden">
+			  	<img src="../../image/banner_temporary.png">
+			  </div>
+				<div class="hidden  adver_content" >jsdlfjsljflsjljjljj</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		  <div style="background-color: #F3F3F3;">
+		    <div>
+			  	<img  src="{{= it.banner }}">
+			  </div>
+				<div class="adver_content" >{{= toHTML(it.content) }}</div>
+	  	</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function toHTML(str){
+			if(str){
+				var regx = /\&[l,g]t;/gm,
+						_html = str.replace(regx, function(match){
+							switch(match){
+								case '&lt;':
+									return '<';
+								case '&gt;':
+									return '>';
+							}
+						});
+				return _html;
+			}else{
+				return '';
+			}			
+		}	
+	   function reload(id){
+	   	tool.ajax.get({
+				ctrl: "Index",
+				fn: "advertContent",
+				hideLoading:true,
+				data:{
+					values:{
+						id: id
+					}
+				}
+			},function(ct){
+				 $api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+//				 $api.attr($api.dom('#history'),'onclick','openAdvertHistory('+ +')')
+			});
+	   }
+		apiready = function(){
+			reload(api.pageParam.id);
+			var memberInfo = $api.getStorage('memberInfo');
+			if(memberInfo){
+				tool.ajax.get({
+					ctrl:"Info",
+					fn:"advertScore",
+					hideLoading: true,
+					data:{
+						values:{
+							id:$api.getStorage("memberId"),
+							token:$api.getStorage("token"),
+							aid:api.pageParam.id
+						}
+					}
+				},function(ct){
+					  var memberInof = $api.getStorage('memberInof');
+					   memberInof.integral += parseInt(memberInof.integral) + parseInt(ct);
+					  $api.setStorage('memberInfo',memberInof);
+				});
+			}
+		}
+	</script>
+</html>

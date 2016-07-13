@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>评价</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<style type="text/css">
+			textarea{
+				outline:0;
+				display: block;
+				width: 100%;
+				font-size: 14px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				line-height: 1.42857143;
+				color: #555;
+				resize: none;
+				margin-bottom: 20px;
+				padding: 6px 6px;
+				/*background-color: #fff;*/
+			}
+			#main > div{
+				padding: 12px 12px
+			}
+			.evaluate_btn button:not(:last-child){
+				margin-right: 10px
+			}
+			#main > div:nth-last-of-type(1){
+				padding: 0 50px;
+			}
+			#main > div:nth-last-of-type(1) > button{
+				margin-bottom: 20px;
+			}
+			.form-control{
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				padding: 6px 6px;
+			}
+			.upload-pic > div{
+				height: 100px;
+				border: 1px dashed #ddd;
+				background: url(../../image/click_upload.png) no-repeat center;
+				background-size: auto 10px;
+				border-radius: 5px;
+			}
+			.upload-pic > div:not(:first-child){
+				margin-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div style="background-color:#F8F8F8">
+					<div>
+						<h5>标题：</h5>
+						<div class="form-control">
+							<input type="text" />
+						</div>
+					</div>
+					<div>
+						<h5>内容：</h5>
+						<textarea rows="8" cols=""></textarea>
+					</div>
+					<div>
+						<h5>图片：</h5>
+						<div class="flex-box upload-pic">
+							<div class="flex-1"></div>
+							<div class="flex-1"></div>
+							<div class="flex-1"></div>
+						</div>
+					</div>
+					<div class="btn-group-under v">
+						<button tapmode="" class="btn btn-info btn-lg btn-block" onclick="sendComplain()">
+							我要发布
+						</button>
+						<button tapmode="" class="btn btn-info-hollow btn-lg btn-block" onclick="api.closeWin()">
+							放弃发布
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+		function sendComplain(){
+			var content = $api.val($api.dom('textarea'));
+			if(!content){
+				toast('请将信息填写完整~');
+				api.hideProgress();
+				return;
+			}
+			xdy.ajax.get({
+				controller: 'Common',
+				fn: 'feedback',
+				data: {
+					values: {
+						id: $api.getStorage('usrId'),
+						token: $api.getStorage('token'),
+						content: content,
+						contact: $api.getStorage('usr').username
+					}
+				},
+				showProgress: {
+					title: '提交中...'
+				}
+			}, function(ct) {
+				api.alert({
+					title: '提示信息',
+					msg: '投诉提交成功',
+					buttons: ['确定']
+				}, function(ret){
+					api.closeWin();
+				});
+			});					
+		}	
+		apiready = function(){
+			
+		}
+	</script>
+</html>

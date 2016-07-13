@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<style>
+			.img-frm{
+				width: 90px;
+				height: 90px;
+				background: url(../../res/loading_400x400.png) no-repeat center;
+				background-size: cover;
+				margin-right: 10px;
+        border:1px solid #f3f3f3;
+        border-radius: 3px;				
+			}
+			.list-view{
+				
+			}
+			.list-view > div:nth-child(2){
+				padding: 10px 5px 10px 0;
+			}
+			.radio{
+				padding: 0 5px;
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+			}
+			.count{
+				border: 1px solid #ddd;
+				border-radius: 3px;
+			}
+			.cart_num {
+				color: #999;
+				width: 40px;
+				/*border: 1px solid;*/
+				/*overflow: hidden;*/
+			}
+			.cart_num input{
+				/*border: 1px solid;*/
+				width: 34px;
+				text-align: center;
+			}
+			.descreate,
+			.add,
+			input{
+				padding: 3px;
+			}
+			.descreate,
+			.add{
+				text-align: center;
+				font-size: 18px;
+			}
+			.descreate{
+				text-align: center;
+				border-right: 1px solid #ddd;
+				padding: 3px 10px;
+			}
+			.add{
+				text-align: center;
+				border-left: 1px solid #ddd;
+				padding: 3px 8px;
+			}
+			.ct-icon-radio_1{
+				color: #ddd;
+			}
+			.ct-icon-radio_2{
+				color: #F15352;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="flex-box list-view hidden">
+					<div class="radio flex-box" onclick="selected(this)">
+						<span class="ct-icon-radio_1" style="font-size: 22px;"></span>
+					</div>
+					<div class="flex-1 flex-box" style="border-bottom: 1px solid #ddd;">
+						<div class="img-frm">
+							<div class="img"></div>
+						</div>
+						<div class="flex-1">
+							<h5 style="height: 30px;">高温高湿</h5>
+							<h5 class="price">￥65.00</h5>
+							<div class="flex-box">
+								<div class="flex-1">
+									<div class="flex-box count" style="width:90px">
+										<div class="descreate">-</div>
+										<div class="cart_num">
+											<input type="number" />
+										</div>
+										<div class="add">+</div>
+									</div>
+								</div>
+								<div style="width: 30px;">
+									<span class="ct-icon-delete" style="font-size: 1.2em;"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+  <script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/cart.js" ></script>
+	<script type="text/template" template="main">
+		 {{ if(it instanceof Array && it.length!=0){ }}
+			{{~ it :value:index }}
+				<div class="flex-box list-view">
+					<div class="radio flex-box" onclick="Cart.selected(this, {{= value.tid }}, 'enterpriseTestCart', {{= value.type }})" tapmode="">
+						<span class="ct-icon-radio_1" style="font-size: 22px;"></span>
+					</div>
+					<div class="flex-1 flex-box" style="border-bottom: 1px solid #ddd;">
+						<div class="img-frm">
+							<div class="img" data-echo-background="{{= value.cover }}"></div>
+						</div>
+						<div class="flex-1">
+							<h5 style="height: 30px;">{{= value.title }}</h5>
+							<h5 class="price" price='{{= value.price }}'>￥{{= value.price }}</h5>
+							<div class="flex-box">
+								<div class="flex-1">
+									<div class="flex-box count" style="width:90px">
+										<div class="descreate" onclick="decreaseGoods(this, {{= value.tid }}, {{= value.type }})" >-</div>
+										<div class="cart_num">
+											<input type="number" oninput="Cart.changeInput(this, 'enterpriseTestCart', {{= value.tid }}, {{= value.type }})" name="cart_num" value="{{= value.num||1 }}" />
+										</div>
+										<div class="add" onclick="addGoods(this, {{= value.tid }}, {{= value.type }})">+</div>
+									</div>
+								</div>
+								<div style="width: 30px;" onclick="enterpriseTestCartDel({{= value.tid }}, {{= value.type }}, this)" tapmode="">
+									<span class="ct-icon-delete" style="font-size: 1.2em;"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					购物车还是空的，快快去购物吧！！
+				</div>
+			</div>		
+		{{ } }}
+	</script>
+	<script type="text/javascript">
+		function addGoods(_this, id, type){
+			var countDom = $api.closest(_this, '.count'),
+					inputDom  = $api.dom(countDom, '[name=cart_num]'),
+					num = parseInt($api.val(inputDom));
+			$api.val(inputDom, num+1);
+			Cart.add({
+				cartName: 'enterpriseTestCart',
+				id: id,
+				num: 1,
+				type: type
+			});
+		}
+		
+    function decreaseGoods(_this, id, type){
+			var countDom = $api.closest(_this, '.count'),
+					inputDom  = $api.dom(countDom, '[name=cart_num]'),
+					num = parseInt($api.val(inputDom));
+			if(num-1>0){
+				$api.val(inputDom, num-1);
+				Cart.decrease({
+					cartName: 'enterpriseTestCart',
+					id: id,
+					type: type,
+					num: 1
+				});
+			}
+		}
+		function isSelectAll(flag){
+			var listDoms = $api.domAll('#main > .list-view');
+			for(var i=0;i<listDoms.length;i++){
+				if(parseInt(flag)){
+					$api.dom(listDoms[i], '.radio > span').className = 'ct-icon-radio_2';
+				}else{
+					$api.dom(listDoms[i], '.radio > span').className = 'ct-icon-radio_1';
+				}
+			}
+		}
+	  function enterpriseTestCartDel(tid, type, _this){
+	  	api.confirm({
+	  		title: '提示信息',
+	  		msg: '确定要删除该商品吗？',
+	  		buttons: ['取消', '确定']
+	  	}, function(ret, err){
+	  		if(ret.buttonIndex == 2){
+	  			Cart.delete({
+	  				cartName: 'enterpriseTestCart',
+	  				type: type,
+	  				id: tid
+	  			}, function(){
+	  				$api.remove($api.closest(_this, '.list-view'));
+			  		var listDoms = $api.domAll('#main > .list-view');
+			  		if(listDoms.length == 0){
+			  			var _html = ''+
+								'<div class="null flex-box">'+
+									'<div class="flex-1">'+
+										'购物车还是空的，快快去购物吧！！'+
+									'</div>'+
+								'</div>';
+							$api.html($api.dom('#main'), _html);
+			  		}
+	  			});
+	  		}
+	  	});
+	  }
+	  function reload(){
+	  	$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))($api.getStorage('enterpriseTestCart')));
+	  	api.parseTapmode();
+	  	return;
+	  	
+			var ctrl = 'ETest',
+					fn = 'etestCartList';
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values: {
+						id: $api.getStorage('memberId'),
+						token: $api.getStorage('token')
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+				api.sendEvent({
+	    		name: 'test_list',
+	    		extra:{
+	    			hideFooter:ct.length>0?false:true
+	    		}
+	    	});
+			});		
+		}
+		apiready = function(){
+			Cart.clearAllSelect('enterpriseTestCart');
+			reload();
+//			api.addEventListener({
+//				name: 'myTestCartSelectAll'
+//			}, function(ret, err){
+//				var listDoms = $api.domAll('#main > .list-view'),
+//						allPrice = 0;
+//				for(var i=0;i<listDoms.length;i++){
+//					$api.dom(listDoms[i], '[class*=ct-icon-radio]').className = 'ct-icon-radio_2';
+//					allPrice += parseInt($api.attr($api.dom(listDoms[i], '[price]'), 'price'))*$api.val($api.dom(listDoms[i], '[name=cart_num]'));
+//				}
+//				api.execScript({
+//					name: api.winName,
+//					script: 'set('+allPrice + ','+listDoms.length + ')'
+//				});
+//			});
+//			api.addEventListener({
+//					name:'myTestCartSelectNo'
+//				},function(){
+//					var listDoms = $api.domAll('#main > .list-view'),
+//						allPrice = 0;
+//				for(var i=0;i<listDoms.length;i++){
+//					$api.dom(listDoms[i], '[class*=ct-icon-radio]').className = 'ct-icon-radio_1';
+////					allPrice += parseInt($api.attr($api.dom(listDoms[i], '[price]'), 'price'))*$api.val($api.dom(listDoms[i], '[name=cart_num]'));
+//				}
+//					api.execScript({
+//						name: api.winName,
+//						script: 'setNo('+allPrice+')'
+//					});
+//				});
+//				
+		}
+	</script>
+</html>

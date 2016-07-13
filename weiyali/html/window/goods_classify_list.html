@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.ct-icon-search{
+				position: absolute;
+				right: 8px;
+				top: 12px;
+				font-size: 23px;
+				color: #5E5F5F;
+			}
+			.left-bar{
+				background-color: #fafafa;
+				overflow: hidden;
+			}
+			#scroller {
+				position: relative;
+				z-index: 1;
+				-webkit-tap-highlight-color: rgba(0,0,0,0);
+				width: 100%;
+				-webkit-transform: translateZ(0);
+				transform: translateZ(0);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-webkit-text-size-adjust: none;
+				text-size-adjust: none;
+				width: 100%;
+			}
+			#scroller ul {
+				list-style: none;
+				padding: 0;
+				margin: 0;
+				width: 100%;
+				text-align: left;
+			}		
+			#scroller li {
+				padding: 0px 10px;
+				height: 50px;
+				line-height: 50px;
+				border-bottom: 1px solid #E4E6E5;
+				border-right: 1px solid #E4E6E5;
+				background-color: #fafafa;
+				font-size: 14px;
+				text-align: center;
+			}				
+			#scroller li.active-classify{
+				border-right-color: #fff;
+				background-color: #fff;
+			}
+			.swipe-wrap .img{
+				height: 150px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span onclick="" tapmode="" style="font-size: 16px;position:absolute;left:40px;top:0px;color:#777">
+						我的店铺
+					</span>
+					<span class="title">买卖通</span>
+					<span class="ct-icon-search" onclick="" tapmode=""></span>
+				</div>
+				<div id="slider" class="swipe hidden">
+					<div class="swipe-wrap">
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+					</div>
+					<div id="pointer">
+						<a class="active"></a>
+						<a class=""></a>
+						<a class=""></a>
+					</div>
+				</div>				
+			</div>
+			<div id="main" class="flex-box hidden">
+				<div class="left-bar">
+					<div id="scroller">
+						<ul>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li class="active-classify">数据采集</li>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li>数据采集</li>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li>数据采集</li>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li>数据采集</li>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li>数据采集</li>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li>数据采集</li>
+							<li>时钟与定制</li>
+							<li>通信</li>
+							<li>数据采集</li>
+						</ul>
+					</div>
+				</div>
+				<div class="flex-1 list" style="background-color: ;"></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/iscroll.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/template" template="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span onclick="openShop()" tapmode="" style="font-size: 16px;position:absolute;left:40px;top:0px;color:#777">
+						我的店铺
+					</span>
+					<span class="title">买卖通</span>
+					<span class="ct-icon-search" onclick="openGoodsSearch()" tapmode=""></span>
+				</div>
+				{{ if(it.adverts instanceof Array &&　it.adverts.length!=0){ }}
+					<div id="slider" class="swipe">
+						<div class="swipe-wrap">
+						{{~it.adverts :value:index}}	
+							<div onclick="openadverDetail({{= value.id }})" tapmode="">
+								<div class="img-frm">
+									<div class="img" data-echo-background="{{= value.banner }}"  onclick="" tapmode=""></div>
+								</div>
+							</div>
+						{{~}}	
+						</div>
+						<div id="pointer">
+							{{~it.adverts :value:index}}	
+							  {{? index==0 }}
+							    <a class="active"></a>
+							  {{??}}
+							    <a class=""></a>
+							  {{?}}
+							{{~}}
+						</div>
+					</div>				
+				{{ } }}				
+			</div>		
+			
+			<div id="main" class="flex-box">
+				{{ if(it.typelist instanceof Array && it.typelist.length!=0){ }}
+				<div class="left-bar">
+					<div id="scroller">
+						<ul>
+							{{~it.typelist :value:index}}
+							<li classify-id="{{= value.id }}" class="{{= (index==0?'active-classify':'') }}" onclick="openGoodsClassify(this, {{= index }})" tapmode="">{{= value.name }}</li>
+							{{~}}
+						</ul>
+					</div>
+				</div>
+				<div class="flex-1 list" style="background-color: #fff;"></div>
+				{{ }else{ }}
+					<div class="null flex-box">
+						<div class="flex-1">
+							暂无相关内容~
+						</div>
+					</div>				
+				{{ } }}
+			</div>			
+	</script>
+	<script type="text/javascript">
+		function openMyShop(){
+			api.openWin({
+				name: 'myShop',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '我的店铺',
+					frameName: '_my_shop',
+					frameUrl: api.wgtRootDir + '/html/home/my_shop.html'
+				},
+				bounces: false
+			});
+		}
+		//商品搜索
+		function openGoodsSearch(){
+			api.openWin({
+				name: 'GoodsSearch',
+				url: api.wgtRootDir + '/html/window/goods_search.html',
+				bounces: false
+			});	
+		}
+		
+		function openShop(){
+			var memberInfo = $api.getStorage('memberInfo');
+			if(parseInt(memberInfo.isopenshop)==1){
+				openMyShop();
+			}else{
+				api.confirm({
+					title: '提示信息',
+					msg: '我要开店',
+					buttons: ['取消', '确定']
+				}, function(ret, err){
+					if(ret.buttonIndex == 2){
+							api.openWin({
+								name:'myOpenShop',
+								url: api.wgtRootDir + '/html/window/win.html',
+								pageParam:{
+									frameName:'my_open_shop',
+									headerTitle:'我要开店',
+									frameUrl: api.wgtRootDir + '/html/home/my_open_shop.html',
+									hasFrameParam: true,
+									frameParam: {
+										isOpenShop: true
+									}
+								}
+							});									
+						}
+				});
+			}
+		}
+		function openGoodsClassify(_this, index){
+			setFrameGroupIndex(index);
+			var liDoms = $api.domAll('li[classify-id]');
+			for(var i=0;i<liDoms.length;i++){
+				if($api.hasCls(liDoms[i], 'active-classify')){
+					$api.removeCls(liDoms[i], 'active-classify');
+				}
+			}
+			/*标识当前分类*/
+			$api.addCls(_this, 'active-classify');
+		}
+		function setFrameGroupIndex(index){
+			api.setFrameGroupIndex({
+				name: 'goodsClassifyListGroup',
+				index: index
+			});
+		}
+		function iscrollInit(){
+			var myScroll = new IScroll('.left-bar', { 
+				keyBindings: true 
+			});
+		}
+		iscrollInit()
+		apiready = function(){
+			tool.ajax.get({
+				ctrl: 'Shop',
+				fn: 'goodsTypeList',
+				template: 'wrap'
+			}, function(ct){
+//				alert('买卖通广告：'+JSON.stringify(ct.adverts));
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+				swipeInit();
+				echo.init();
+				iscrollInit();
+				
+				var header = $api.byId('header');
+				$api.fixIos7Bar(header);
+				var main = $api.byId('main'),
+						headerPos = $api.offset(header),
+						mainPos = $api.offset(main);				
+				api.parseTapmode();
+				
+				/*打开分类子窗口*/
+				var frames = [];
+				for(var i=0;i<ct.typelist.length;i++){
+					frames.push({
+						name: 'goods_classify_list_' + i,
+						url: api.wgtRootDir + '/html/home/goods_classify_list.html',
+						bounces: false,
+						pageParam: {
+							list: ct.typelist[i].child,
+						}
+					});
+				}
+				api.openFrameGroup({
+					name: 'goodsClassifyListGroup',
+					scrollEnabled: false,
+					rect: {
+						x: $api.offset($api.dom('.left-bar')).w,
+						y: headerPos.h,
+						w: 'auto',
+						h: 'auto'
+					},
+					index: 0,
+					preload: 0,
+					frames: frames				
+				}, function(ret, err){});				
+			});			
+		}
+	</script>
+</html>

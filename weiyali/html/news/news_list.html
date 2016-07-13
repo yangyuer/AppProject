@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<title>Document</title>
+		<style type="text/css">
+			body{
+				background-color: #F8F8F8;
+			}
+			.list-view{
+				background-color: #fff;
+			}
+			.list-view{
+				min-height: 60px;
+				padding: 10px;
+				border-top: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				position: relative;
+			}
+			.list-view:not(:first-child){
+				margin-top: 7px;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				/*padding-left: 10px;*/
+			}
+			.list-view .title{
+				margin-bottom: 5px;
+			}
+			.flex-center-v{
+				justify-content: center;
+				-webkit-justify-content: center;
+				-webkit-box-pack: center;
+			}			
+			.datetime{
+				font-size: 13px;
+				color: #aaa;
+				line-height: 18px;
+			}
+			.title{
+				font-size: 14px;
+				line-height: 1.4;
+			}
+			.swipe-wrap .img{
+				height: 150px;
+			}
+			p{
+				margin-bottom: 10px;
+				line-height: 1.6;
+				font-size: 13px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<!--<header>
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap">
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+						<div>
+							<div class="img-frm">
+								<div class="img" onclick="" tapmode=""></div>
+							</div>
+						</div>	
+					</div>
+					<div id="pointer">
+						<a class="active"></a>
+						<a class=""></a>
+						<a class=""></a>
+					</div>
+				</div>				
+			</header>			-->
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="flex-1">
+						<h4 class="title text-overflow ">
+							可实现远程测量的二极管功率探头
+						</h4>
+						<p>功率探头组合在一起。在功率探头中射频信号被转换成电压信号，经过放大、数字化之后，在主机中显示....</p>
+						<div class="flex-box">
+							<div class="datetime flex-1">
+								<span style="color:#3896C8;margin-right: 10px;font-size: 13px;">最新动态</span>
+								2015-04-09
+								&nbsp;
+								10:12
+							</div>
+							<div class="text-right">
+								<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">(18)</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="wrap">
+	
+		{{ if(it.adverts instanceof Array &&　it.adverts.length!=0){ }}
+			<header>
+				<div id="slider" class="swipe">
+					<div class="swipe-wrap">
+					{{~ it.adverts :value:index}}	
+						<div onclick="openAdvert({{= value.id}})">
+							<div class="img-frm">
+								<div class="img" data-echo-background="{{= value.banner }}"  onclick="" tapmode=""></div>
+							</div>
+						</div>
+					{{~}}	
+					</div>
+					<div id="pointer">
+						{{~ it.adverts :value:index}}	
+						  {{? index==0 }}
+						    <a class="active"></a>
+						  {{??}}
+						    <a class=""></a>
+						  {{?}}
+						{{~}}
+					</div>
+				</div>				
+			</header>		
+		{{ } }}	
+		<div id="main">
+		 <div style="background-color:#F8F8F8">
+				{{ if(it.list instanceof Array && it.list.length!=0){ }}	
+					{{~ it.list :value:index }}
+						<div class="list-view flex-box" onclick="openNewsDetail({{= value.id }}, {{= value.count }})">
+							<div class="flex-1">
+								<h4 class="title text-overflow">
+									{{= value.title }}
+								</h4>
+								<p>{{= value.content }}</p>
+								<div class="flex-box">
+									<div class="datetime flex-1">
+										<span style="color:#3896C8;margin-right: 10px;font-size: 13px;">{{= value.infotype_name }}</span>
+										{{= formatDateByRequire(value.datetime, '-') }}
+									</div>
+									<div class="text-right">
+										<span class="ct-icon-news" style="font-size: 12px;color: #B2B2B2">
+											(<span id="new_count" style="color: #B2B2B2;">{{= value.count }}</span>)
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					{{~}}
+				{{ }else{ }}
+					<div class="null flex-box">
+						<div class="flex-1">
+							暂无相关内容~
+						</div>
+					</div>
+				{{ } }}
+		</div>
+	 </div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript" src="../../script/swipe.js" ></script>
+	<script type="text/javascript">
+		function reload(classifyId){
+			var ctrl = 'Info',
+					fn = 'infoListIndex',
+					table = ctrl.toLowerCase() + '_' + fn.toLowerCase();
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values: {
+						typeid: classifyId
+					}
+				},
+				showError: true
+			}, function(ct){
+				$api.html($api.dom('#wrap'), doT.template($api.html($api.dom('[template=wrap]')))(ct));
+				swipeInit();
+				echo.init();
+				api.parseTapmode();
+			});
+		}
+		function openNewsDetail(id, count){
+			api.openWin({
+				name: 'newsDetail',
+				url: api.wgtRootDir + '/html/window/news_detail.html',
+				pageParam:{
+					id: id,
+					count: count
+				},
+				bounces: false
+			});			
+		}
+		function openAdvert(id){
+			api.openWin({
+				name: 'tallwith',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '威雅利',
+					frameName: '_complain',
+					frameUrl: api.wgtRootDir + '/html/news/adver_detail.html',
+					hasFrameParam: true,
+					frameParam: {
+						id: id
+					}
+				},
+				bounces: false
+			});	
+		}
+		apiready = function() {
+			
+//			var frmParam = api.pageParam;
+			reload(api.pageParam.newsClassifyId);
+		
+//			Refresh.init({
+//				ctrl: 'Info',
+//				fn: 'infoListIndex',
+//				template: 'wrap',
+//				values: {
+//					typeid: api.pageParam.classifyId
+//				}
+//			});
+			api.addEventListener({
+				name:'criticise'
+			},function(ret,err){
+				 var count=parseInt($api.html($api.dom("#new_count")));
+				 alert(count);
+				 count+=1;
+				 $api.html($api.dom("#new_count"),count);
+			});
+		}
+	</script>
+
+</html>

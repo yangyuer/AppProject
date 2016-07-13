@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left {
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.ct-icon-angle-down {
+				position: absolute;
+				top: -3px;
+				right: 2px;
+				font-size: 25px;
+				color: #40b5f0;
+			}
+			.ct-icon-search {
+				color: #bdbdbd;
+				margin-right: 3px;
+			}
+			select {
+				border: 1px solid #fff;
+				color: #40b5f0;
+				opacity: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+			#header{
+				/*line-height: 50px;*/
+				border-bottom: 1px solid #40B5F0;
+				position: relative;
+			}
+			.form-control{
+				border: 1px solid #eee;
+				padding: 6px;
+				border-radius: 4px;
+			}
+			.flex-center-v{
+				align-items: center;
+				-webkit-align-items: center;
+				-webkit-box-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div style="position: relative;height: 50px;">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<div class="flex-box flex-center-v" style="padding-left: 40px;height: 100%;">
+						<div class="form-control flex-1 flex-box">
+							<input class="flex-1" name="keyword" type="text" />
+							<span onclick="newsSearch()">
+								<span class="ct-icon-search" style="margin-left:5px"></span>
+							  <span style="color:#DDD">搜索</span>
+							</span>
+						</div>
+						<div style="color: #54A6D0;padding:0 20px 0 10px;position: relative;">
+							<span id="selected" style="color:#40B5F0">全部</span>
+							<span class="ct-icon-angle-down" onclick="" tapmode=""></span>
+							<select id="classify" name="classify" onchange="selectClassify(this)">
+								<!--<option>全部</option>-->
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/template" template="classify">
+		{{~ it :value:index }}
+		<option value="{{= value.id }}|{{= value.name }}">{{= value.name }}</option>
+		{{~}}
+	</script>
+	<script type="text/javascript">
+		function selectClassify(_this){
+			var val = $api.val(_this);
+			$api.text($api.dom('#selected'), val.split('|')[1]);
+		}
+		function newsSearch(){
+			var keyword = $api.val($api.dom('[name=keyword]'));
+			if(!keyword){
+				toast('请输入关键字');
+				return;
+			}
+			tool.ajax.get({
+				ctrl:"Info",
+				fn:"infoSearch",
+				data:{
+					values:{
+						keyword: keyword,
+					typeid: $api.val($api.dom('#classify')).split('|')[0]
+					}
+				},
+				showProgress:{
+			  	title:'提交中...'
+			  }
+			},function(ct){
+				api.openWin({
+					name: 'newsSearchResult',
+					url: api.wgtRootDir + '/html/window/win.html',
+					pageParam:{
+						headerTitle: '搜索结果',
+						frameName: 'news_search_resutl',
+						frameUrl: api.wgtRootDir + '/html/news/news_search_list.html',
+						hasFrameParam: true,
+						frameParam: {
+							result: ct
+						}
+					},
+					bounces: false
+				});				
+			});
+		}
+	  apiready = function (){
+	  	var header = $api.dom('#header');
+			$api.fixIos7Bar(header);
+			var classify = $api.strToJson(api.pageParam.classify);
+	  	$api.html($api.dom('#classify'), doT.template($api.html($api.dom('[template=classify]')))(classify));
+	  }
+	</script>
+</html>

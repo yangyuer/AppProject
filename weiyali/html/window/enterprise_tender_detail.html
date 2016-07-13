@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.title{
+				color: #B3A69A;
+				line-height: 50px;
+				margin: 0;
+				/*background-color: red;*/
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.comment-num,
+			.read-num{
+				font-size: 12px;
+				padding: 5px 8px;
+				color: #fff;
+				line-height: 1;
+				border-radius: 4px;
+				margin-right: 5px;
+			}
+			.comment-num{
+				background-color: #40B5F0;
+			}
+			.read-num{
+				background-color: #B3A69A;
+				margin-right: 5px;
+			}
+			.comment-num::after{
+				content: ' 评价';
+			}
+			.read-num::after{
+				content: ' 浏览';
+			}
+			#footer{
+				overflow: hidden;
+				/*height: 50px;*/
+				padding: 5px 10px;
+				line-height: 40px;
+				border-top: 1px solid #ddd;
+			}
+			#footer .flex-box{
+				/*line-height: 1;*/
+				/*border-bottom: 1px solid #ddd;*/
+			}
+			#footer input{
+				padding: 4px 0;
+				border-bottom: 1px solid #ddd;
+				width: 100%;
+				color: #ABABAB;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar flex-box">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<h4 class="flex-1 title text-center">详情</h4>
+					<div class="text-right" style="position: absolute;right:10px;top:0">
+						<!--<span class="read-num">0</span>-->
+						<span class="comment-num" onclick="" tapmode="">0</span>
+						<span class="ct-icon-star" style="font-size: 25px;top:3px" onclick="" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+					</div>
+				</div>
+			</div>
+			<div id="main"></div>
+			<div id="footer" class="hidden">
+				<div class="flex-box">
+					<div>
+						<span class="ct-icon-underwrite" style="color: #AAA;margin-right: 5px;"></span>						
+					</div>
+					<div class="flex-1">
+						<input type="text" placeholder="写评论" />
+					</div>
+					<button class="btn btn-default btn-xs" style="border:0;color: #aaa;font-size: 14px;">
+						发送
+					</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="header">
+		<div class="topbar flex-box">
+			<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+			<h4 class="flex-1 title text-center">详情</h4>
+			<div class="text-right" style="position: absolute;right:10px;top:0">
+				<span class="comment-num" onclick="openEnterpriseTenderComment({{= it.id }})" tapmode="">{{= it.count||0 }}</span>
+			{{? $api.getStorage('memberInfo') }}	
+				{{ if($api.getStorage('memberInfo').tendercollection.indexOf(it.id.toString())>=0){ }}
+					<span class="ct-icon-star_select" style="font-size: 25px;top:3px;" onclick="tenderCollect({{= it.tendertype_id }}, '{{= it.id }}', this)" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+				{{ }else{ }}
+					<span class="ct-icon-star" style="font-size: 25px;top:3px" onclick="tenderCollect({{= it.tendertype_id }}, '{{= it.id }}', this)" tapmode="" style="font-size: 22px;color: #B3A69A;top: 3px;"></span>
+				{{ } }}	
+			{{?}}
+			</div>
+		</div>		
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function set(args){
+			$api.html($api.dom('#header'), doT.template($api.html($api.dom('[template=header]')))($api.strToJson(args)));
+			api.parseTapmode();
+		}
+		function tenderCollect(typeId, id, _this){
+			var ctrl = 'Index',
+					fn = 'tenderCollection';
+			if(_this.className == 'ct-icon-star'){
+				tool.ajax.get({
+					ctrl: ctrl,
+					fn: fn,
+					data: {
+						values: {
+							id: $api.getStorage('memberId'),
+							token: $api.getStorage('token'),
+							typeid: typeId,
+							contentid: id
+						}
+					},
+					showError: true
+				}, function(ct){
+					toast('收藏成功');
+					$api.addCls($api.removeCls(_this, 'ct-icon-star'), 'ct-icon-star_select');
+					var memberInfo = $api.getStorage('memberInfo');
+					memberInfo.tendercollection.push(id.toString());
+					$api.setStorage('memberInfo', memberInfo);
+				});
+			}else{
+				tool.ajax.get({
+					ctrl: ctrl,
+					fn: 'tenderCollectionCancel',
+					data: {
+						values: {
+							id: $api.getStorage('memberId'),
+							token: $api.getStorage('token'),
+							contentid: id
+						}
+					},
+					showError: true
+				}, function(ct){
+					toast('已取消收藏');
+					$api.addCls($api.removeCls(_this, 'ct-icon-star_select'), 'ct-icon-star');
+					var memberInfo = $api.getStorage('memberInfo');
+					memberInfo.tendercollection.splice(memberInfo.tendercollection.indexOf(id.toString()), 1);
+					$api.setStorage('memberInfo', memberInfo);
+				});				
+			}
+		}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+					
+			/*评论入口*/
+			api.openFrame({
+				name: 'EnterpriseTenderDetail',
+				url: api.wgtRootDir + '/html/home/enterprise_tender_detail.html',
+				bounces: false,
+				pageParam: {
+					id: api.pageParam.id
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});			
+		}
+	</script>
+</html>

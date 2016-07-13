@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+       .title{
+      
+       	text-align: center;
+       }
+       .flex-box{
+       
+       }
+       .center{
+      
+       	margin-left: 5px;
+       }
+       .email_right{
+       	text-align: right;
+
+       	margin-right: 10px;
+       }
+       .ct-icon-square-check{
+       	color: #40b5f0;
+       }
+       .text-overflow{
+       	display: block;
+				width:80px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+       }
+       .list_email{
+       	line-height: 45px;
+       	border-bottom: 1px solid #CFCFCF;
+       	background-color: #fff;
+       }
+       </style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<div class="flex-box list_email hidden">
+					<div class="flex-1 title">dd</div>
+					<div class="flex-2 center">2312</div>
+					<div class="flex-1 email_right">
+						<span class="ct-icon-square-uncheck"></span>
+					</div>
+				</div>
+	       <div class="hidden" style="color:#fff; background-color: #40B5F0; border-radius: 4px; text-align: center;padding: 8px 0px; margin: 20px 5px 0 5px;">提交发送</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+	  	{{ if(it instanceof Array && it.length!=0) { }}
+	  	   {{~ it :value:index }}
+	          <div class="flex-box list_email" tapmode='' onclick="sendReport({{= value.id }})" eid="{{= value.id }}">
+	          	<div class="flex-1 title text-overflow">{{= value.remark}}</div>
+	          	<div class="flex-2 center email" onclick='eidtEmail({{= value.id}}, "{{= value.mail}}", "{{= value.remark}}")'>{{= value.mail}}</div>
+	          	<div class="flex-1 email_right">
+	          		<span class="ct-icon-square-uncheck" email='{{= value.mail }}' id="report{{= value.id}}"></span>
+	          	</div>
+	          </div> 
+	        {{~}}
+	         <div onclick="subimtSendReport()" class="" style="color:#fff; background-color: #40B5F0; border-radius: 4px; text-align: center;padding: 8px 0px; margin: 20px 5px 0 5px;">提交发送</div>
+	     {{ }else{ }}
+	       <div class="null flex-box">
+			     <div class="flex-1">
+				     暂无相关内容~
+			     </div>
+	        </div>
+	     {{ } }}
+    </div>
+	</script> 	
+	<script type="text/template" template="email">
+    <div class="flex-box list_email" eid='{{= it.id }}'>
+    	<div class="flex-1 title text-overflow">{{= it.remark}}</div>
+    	<div class="flex-2 center email " onclick='eidtEmail({{= it.id}}, "{{= it.mail}}", "{{= it.remark}}")'>{{= it.mail}}</div>
+    	<div class="flex-1 email_right" onclick="emailDelect({{= it.id}}, this)">
+    		<span class="ct-icon-square-uncheck" email='{{= it.mail }}' id="report{{= it.id}}"></span>
+    	</div>
+    </div> 
+    
+	</script>	
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+//		function init(){
+//			DB.getDataFromDB({
+//				ctrl: 'My',
+//				fn: 'getEmailList',
+//				dbName: config.db
+//			}, function(ret){
+//				if(ret.status == 1){
+//					$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ret.data));
+////					iscrollInit();
+//					api.parseTapmode();
+//				}
+//				/*尝试从服务器获取最新数据*/
+//				reload();
+//			});
+//		}
+//		function eidtEmail(id, mail, remark){
+//			api.openWin({
+//				name: 'eidtemail',
+//				url: api.wgtRootDir + '/html/window/win.html',
+//				pageParam: {
+//					headerTitle: '修改邮箱',
+//					frameName: 'eidt_email',
+//					frameUrl: api.wgtRootDir + '/html/home/send_email_add.html',
+//					hasFrameParam: true,
+//					frameParam: {
+//						type: 'eidt',
+//						id: id,
+//						mail: mail,
+//						remark: remark
+//					}
+//				},
+//				bounces: false
+//		 });
+//		}
+		function reload(tid){
+			tool.ajax.get({
+				ctrl: 'My',
+				fn: 'getEmailList',
+				data: {
+					values:{
+						id: $api.getStorage("memberId"),
+						token: $api.getStorage('token'),
+						tid: tid
+					}
+				}
+			},function(ct){
+//				alert($api.jsonToStr(ct));
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+			   //优化点击事件
+			  api.parseTapmode();
+			  
+			});
+		}
+		function sendReport(id){
+			var report = $api.dom("#report"+id);
+//			$api.addCls($api.removeCls(report,"ct-icon-square-uncheck"),"ct-icon-square-check");
+			$api.toggleCls(report,'ct-icon-square-uncheck');
+			$api.toggleCls(report,'ct-icon-square-check');
+		}
+		function subimtSendReport(){
+			var checked=$api.domAll(".ct-icon-square-check");
+//			alert(checked.length);
+			var email=[];
+			for(var i=0;i<checked.length;i++){
+				email.push($api.attr(checked[i],'email'));
+			}
+//			alert($api.jsonToStr(email))
+      tool.ajax.get({
+      	ctrl:"Order",
+      	fn:'postReportEmail',
+      	data:{
+      		values:{
+      			id: $api.getStorage('memberId'),
+      			token: $api.getStorage('token'),
+      			tid:api.pageParam.tid,
+      			email:email
+      		}
+      	}
+      },function(){
+      api.alert({
+					title: '提示信息',
+					msg: '发送成功',
+					buttons: ['确定']
+				}, function(ret){
+					api.closeToWin({
+						name:"orderShopping"
+					});
+				});
+      });
+		}
+		//删除邮箱
+//		function emailDelect(id,_this){
+//			tool.ajax.get({
+//				ctrl:"My",
+//				fn:"delEmail",
+//				data:{
+//					values:{
+//						id:$api.getStorage('memberId'),
+//						token:$api.getStorage('token'),
+//						mail_id:id
+//					}
+//				}
+//			},function(){
+//				api.alert({
+//				    title: '信息提示',
+//				    msg: 'testmsg',
+//				    buttons:['确定']
+//				},function(ret,err){
+//				    if(ret.buttonIndex == 1){
+//				        api.alert({msg: '点击了确定'});
+//				    }
+//				});
+//				$api.remove($api.closest(_this,'.list_email'))
+//			})
+//		}
+		apiready = function(){
+			reload(api.pageParam.tid);
+			//下拉刷新
+			Refresh.init({
+				ctrl: 'My',
+				fn: 'getEmailList',
+				values: {
+					  id: $api.getStorage("memberId"),
+						token: $api.getStorage('token'),
+						tid: api.pageParam.tid
+				}
+			});
+			/*添加邮箱*/
+			api.addEventListener({
+				name: 'addEmail'
+			}, function(ret, err){
+				alert($api.jsonToStr(ret));
+				 $api.prepend($api.dom('#main'), doT.template($api.html($api.dom('[template=email]')))(ret.value));
+			});
+			/*修改邮箱*/
+			api.addEventListener({
+				name: 'editEmail'
+			}, function(ret, err){
+				alert($api.jsonToStr(ret));
+				//根据id获取到修改的字段
+				var mailbox = $api.dom('[eid="'+ ret.value.id +'"]');
+				//设置获取文本内容
+				$api.text($api.dom(mailbox, '.title'), ret.value.remark);
+				$api.text($api.dom(mailbox, '.email'), ret.value.mail);
+			});
+		}
+	</script>
+</html> 

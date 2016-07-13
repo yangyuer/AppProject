@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<style type="text/css">
+			.setting-list{
+				background-color: #F8F8F8;
+			}
+			.setting-list > div{
+				line-height: 60px;
+				background-color: #fff;
+				position: relative;
+			}
+			.setting-list > div .img-frm{
+				width: 70px;
+				text-align: center;
+			}
+			.setting-list > div .img-frm + div{
+				position: relative;
+			}
+			.setting-list > div:not(:nth-last-child(2)) .img-frm + div::after{
+				content: 'c';
+				color: transparent;
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 35px;
+				height: 100%;
+				background: url(../../image/icon-thin-forward.png) no-repeat center;
+				background-size: 15px
+			}
+			.setting-list > div:nth-child(7){
+				margin-top: 7px
+			}
+			.color-block{
+				color: #fff;
+				border-radius: 5px;
+				font-size: 20px;
+				top: 3px;
+			}
+			.cache-size{
+				position: relative;
+				right: 30px;
+				float: right;
+				color: #aaa;
+			}
+			.switch{
+				position: absolute;
+				line-height: 1;
+				top: 17px;
+				right: 10px;
+				width: 50px;
+				height: 31px;
+				border: 1px solid #ddd;
+				border-radius: 20px;
+				transition: background-color 1s,
+										border-color 1s;
+				-webkit-transition: background-color 1s,
+														border-color 1s;
+			}
+			.switch > span{
+				position: relative;
+				top:2px;
+				border-radius: 50%;
+				border: 1px solid #ddd;
+				width: 25px;
+				height: 25px;
+				background-color: #fff;
+				transition: left 0.2s linear 0s;
+				-webkit-transition: left 0.2s linear 0s;
+			}
+			.switch.off{
+				background-color: #eee;
+			}
+			.switch.on{
+				background-color: #34CF4D;
+				border-color: #34CF4D;
+			}
+			.switch.off > span{
+				left: 2px;
+			}
+			.switch.on > span{
+				left: 21px;
+			}
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div class="shade hidden" tapmode="" onclick="toggleNicknameFrame('hide')"></div>
+		<div id="wrap">
+			<div id="main">
+				<div class="setting-list">
+					<div class="flex-box list-view" tapmode="" onclick="" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-news color-block" style="padding:6px;background-color: #64CBFF;"></span>
+						</div>
+						<div class="flex-1">
+							在线客服
+						</div>
+					</div>
+					<div class="flex-box list-view" onclick="makeCall('076922827895')" tapmode="" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-call color-block" style="padding:6px;background-color: #16E891;"></span>
+						</div>
+						<div class="flex-1">
+							电话客服
+						</div>
+					</div>
+					<div class="flex-box list-view" onclick="aboutUs()" tapmode="" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-about color-block" style="padding:6px;background-color: #2DADEE;"></span>
+						</div>
+						<div class="flex-1">
+							关于我们
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openComplain()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-complain color-block" style="padding:6px;background-color: #535353;"></span>
+						</div>
+						<div class="flex-1">
+							投诉建议
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="openFeedback()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-help color-block" style="padding:6px;background-color: #F04040;"></span>
+						</div>
+						<div class="flex-1">
+							帮助及反馈
+						</div>
+					</div>
+					<div class="flex-box list-view clear-cache" tapmode="" onclick="clearCache()" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-exchange color-block" style="padding:6px;background-color: #9EECFF;"></span>
+						</div>
+						<div class="flex-1">
+							清理缓存
+							<span class="cache-size hidden"></span>
+						</div>
+					</div>		
+					<div class="flex-box list-view" style="border-bottom: 1px solid #F2F2F2;">
+						<div class="img-frm">
+							<span class="ct-icon-uninterference color-block" style="padding:6px;background-color: #3AD0CE;"></span>
+						</div>
+						<div class="flex-1">
+							消息免打扰
+							<div class="switch off" onclick="MessageFree(this)" tapmode="">
+								<span></span>
+							</div>
+						</div>
+					</div>
+					<div class="flex-box list-view" tapmode="" onclick="logout()">
+						<div class="img-frm">
+							<span class="ct-icon-logout color-block" style="padding:6px;background-color: #EDB82F;"></span>
+						</div>
+						<div class="flex-1">
+							退出
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js"></script>
+	<script type="text/javascript">
+		function aboutUs(){
+			api.openWin({
+				name: 'AboutUs',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '关于我们',
+					frameName: 'about_us',
+					frameUrl: api.wgtRootDir + '/html/mine/about_us.html'
+				},
+				bounces: false
+			});			
+		}
+		function MessageFree(_this){
+			if($api.hasCls(_this, 'off')){
+				$api.addCls($api.removeCls(_this, 'off'), 'on');
+			}else{
+				api.confirm({
+					title:"消息提示",
+					msg: '确定关闭',
+					buttons: ['取消', '确定']
+				}, function(ret, err){
+					if(ret.buttonIndex == 2){
+						tool.ajax.get({
+							ctrl:"My",
+							fn:'noMsg',
+							hideLoading:true,
+							data:{
+								values:{
+									id:$api.getStorage("membeId"),
+									token:$api.getStorage("token")
+								}
+							}
+						},function(){
+							$api.addCls($api.removeCls(_this, 'on'), 'off');
+						});
+					}
+				});
+				
+			}
+		}
+		//投诉建议
+		function openFeedback(){
+			api.openWin({
+				name: 'feedback',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '投诉建议',
+					frameName: '_feedback',
+					frameUrl: api.wgtRootDir + '/html/mine/feedback.html'
+				},
+				bounces: false
+			});
+		}
+		//打开投诉界面
+		function openComplain(){
+			api.openWin({
+				name: 'Complain',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '帮助',
+					frameName: '_complain',
+					frameUrl: api.wgtRootDir + '/html/mine/complain.html'
+				},
+				bounces: false
+			});	
+		}	
+		function openTalkWith(){
+			api.openWin({
+				name: 'tallwith',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '在线客服',
+					frameName: '_complain',
+					frameUrl: api.wgtRootDir + '/html/mine/talk_with.html'
+				},
+				bounces: false
+			});	
+		}
+		//注销用户
+		function logout(){
+			api.confirm({
+				title: '提示信息',
+				msg: '是否确定退出？',
+				buttons: ['取消', '确定']
+			}, function(ret, err){
+				if(ret.buttonIndex == 2){
+					relogin();				
+				}
+			});
+		}	
+		function clearCache(){
+			api.confirm({
+				title: '提示信息',
+				msg: '你确定要清除缓存吗？',
+				buttons: ['取消', '确定']
+			}, function(ret, err){
+				if(ret.buttonIndex == 2){
+					api.clearCache();
+					api.toast({
+						msg: '缓存清理完成',
+						location: 'bottom',
+						duration: 2000
+					});					
+//					DB.selectSql('xdy', 'select * from sqlite_master', function(data){
+//						alert($api.jsonToStr(data));
+//						data.forEach(function(value, index){
+//							if(value.tbl_name != 'android_metadata'){
+//								var sql = 'drop table ' + value.tbl_name;
+//								DB.executeSql('xdy', sql, function(){
+//									DB.executeSql('xdy', value.sql);
+//								});
+//							}
+//						});
+//						api.toast({
+//							msg: '缓存清理完成',
+//							location: 'bottom',
+//							duration: 2000
+//						});							
+//					});
+					var fs = api.require('fs');
+					fs.getAttribute({
+						path: 'cache://'
+					}, function(ret, err){
+//						alert($api.jsonToStr(ret||err));
+						if(ret.status){
+							$api.text($api.dom('.cache-size'), (ret.attribute.size / Math.pow(1024, 2)).toFixed(2) + 'MB');
+						}
+					});					
+				}
+			});
+		}
+		apiready = function(){
+//			alert('文件目录：'+api.fsDir + '====' + '缓存目录：' + api.cacheDir);
+			var fs = api.require('fs');
+			fs.getAttribute({
+				path: 'cache://'
+			}, function(ret, err){
+//				alert($api.jsonToStr(ret||err));
+				if(ret.status){
+					$api.text($api.dom('.cache-size'), (ret.attribute.size / Math.pow(1024, 2)).toFixed(2) + 'MB');
+				}
+			});
+		}
+	</script>
+
+</html>

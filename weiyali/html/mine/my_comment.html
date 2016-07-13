@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="format-detection" content="telephone=no">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.list-view{
+				min-height: 100px;
+				padding: 10px;
+				border-bottom: 1px solid #ddd;
+				position: relative;
+			}
+			.list-view > .flex-1{
+				height: 100%;
+				padding-left: 10px;
+			}
+			.img-frm,
+			.img{
+				background-color: transparent;
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				height: 30px;
+				width: 30px;
+				border-radius: 50%;
+			}
+			.img-frm{
+				border: 1px solid #ddd;
+				background-image: url(../../res/avatar_default.png);
+			}
+			.name{
+				color: orange;
+				font-size: 13px;
+			}
+			.content{
+				padding-top: 10px;
+			}
+			.datetime{
+				position: absolute;
+				bottom: 3px;
+				right: 6px;
+				font-size: 12px;
+				color: #bbb;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view flex-box hidden">
+					<div class="img-frm">
+						<div class="img"></div>
+					</div>
+					<div class="flex-1">
+						<div class="name">
+							weis叶
+						</div>
+						<div class="content">
+							也只有中国办实事要熟人才好办。
+						</div>
+						<div class="datetime">
+							2015-04-10
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="main">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~ it :value:index }}
+				<div class="list-view flex-box" onclick="" tapmode="">
+					<div class="img-frm">
+						<div class="img" img-cache="{{= value.avatar }}" data-echo-background="{{= value.avatar }}"></div>
+					</div>
+					<div class="flex-1">
+						<div class="name">
+							{{= value.nickname }}
+						</div>
+						<div class="content">
+							{{= value.content }}
+						</div>
+						<div class="datetime">
+							{{= formatDateByRequire(value.datetime, '-') }}
+						</div>
+					</div>
+				</div>	
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>		
+		{{ } }}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/javascript">
+		function reload(){
+			tool.ajax.get({
+				ctrl:'My',
+				fn: 'commentList',
+			  data:{
+			  	values: {
+			  		id: $api.getStorage("memberId"),
+			  		token: $api.getStorage("token")
+			  	}
+			  }
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				echo.init();
+				api.parseTapmode();
+				/*缓存处理*/
+			});
+		}
+		function init(){
+			DB.getDataFromDB({
+				ctrl: 'My',
+				fn: 'commentList',
+				dbName: config.db.name
+			}, function(ret){
+				if(ret.status == 1){
+					$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ret.data));
+					api.parseTapmode();
+				}
+				/*尝试从服务器获取最新数据*/
+				reload();
+			});
+		}
+		apiready = function(){
+			init();
+			api.setRefreshHeaderInfo({
+			    visible: true,
+			    loadingImg: 'widget://res/icon-refresh.png',
+			    bgColor: 'rgba(0,0,0,0)',
+			    textColor: '#666',
+			    textDown: '下拉刷新...',
+			    textUp: '松开刷新...',
+			    showTime: true
+			}, function(ret, err){
+				reload(false);
+			});
+			
+			return;
+			/*加载更多*/
+			api.addEventListener({
+				name: 'scrolltobottom'
+			}, function(ret, err) {
+				var ctrl = 'My',
+						fn = 'myComment';
+				try{
+					var listItemLen = $api.domAll('#main > .flex-box').length;
+					if(listItemLen>0 && listItemLen%10==0){
+						xdy.ajax.get({
+							controller: ctrl,
+							fn: fn,
+							data: {
+								values: {
+									id: $api.getStorage('usrId'),
+									token: $api.getStorage('token'),								
+									page: listItemLen/10+1
+								}
+							},
+							showProgress: {
+								title: '加载更多信息中..',
+								modal: false
+							}
+						}, function(ct){
+							if(ct instanceof Array && ct.length!=0){
+								$api.append($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+								echo.init();
+								api.parseTapmode();
+								/*缓存数据结构*/
+								ct.forEach(function(value, index, arr){
+									var sql = 'select * from ' + ctrl.toLowerCase() + '_' + fn.toLowerCase() + ' where id=' + value.id + ' and member_id=' + $api.getStorage('usrId');
+									DB.selectSql('xdy', sql, function(data){
+										if(data.length == 0){
+											DB.insert({
+												dbName: 'xdy',
+												table: ctrl.toLowerCase() + '_' + fn.toLowerCase(),
+												data: value
+											});
+										}
+									});
+								});								
+								/*缓存图片*/
+								imageCache.save({
+									policy: 'default',
+									thumbnail: true
+								});									
+							}else{
+								api.toast({
+									msg: '已经没有更多信息了~',
+									location: 'bottom',
+									duration: 2000
+								});
+							}
+						});					
+					}					
+				}catch(e){
+					
+				}
+			});				
+		}
+	</script>
+</html>

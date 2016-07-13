@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+     
+       .package_list {
+       	width: 94%;
+       	margin: auto;
+       	margin-top: 8px;
+       	background-color: #fff;
+       	position: relative;
+       }
+       .img-frm{
+       		background: url(../../res/loading_400x400.png) no-repeat center;
+       	background-size: cover;
+       	height: 80px;
+       	min-width: 80px;
+       	margin: 15px 8px;
+       }
+       /*.img{
+       	height: 80px;
+       	width: 80px;
+       	background: no-repeat;
+       	background-size: cover;
+       }*/
+       .package_img {
+       	background: no-repeat;
+       	background-size: cover;
+       	height: 80px;
+       	min-width: 80px;
+       }
+       .package_title {
+       	font-size: 0.8em;
+       	font-weight: 700;
+       	color: #000;
+       	padding-left: 5;
+       	padding-top: 20px;
+       	height: 50px;
+       }
+			.add{
+				width: 50px;
+				height: 50px;
+				background-color: #51A5CF;
+				padding: 5px;
+				border-radius: 50%;
+				position: fixed;
+				right: 10px;
+				bottom: 80px;
+				z-index: 2;
+			}   
+			.goods_list span{
+				color: #999;
+				padding-right: 5px;
+			} 
+			.goods_list{
+				color: #999;
+				text-align: right;
+				font-size: 0.8em;
+				padding-top: 15px;
+			}   
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div class="add text-center" onclick="openShopCart()" tapmode="">
+			<span class="ct-icon-cart_1" style="font-size: 30px;color: #fff;top:5px"></span>
+		</div>		
+		<div id="wrap">
+			<div id="main">
+				<div class="flex-box package_list hidden" onclick="openShopGoodsDetail()">
+					<div class="img-frm">
+						<div class="package_img"></div>
+					</div>
+					<div>
+						<p class="package_title">半导体分离器件测试+半导体封装测试</p>
+						<div class="flex-box">
+							<div class="flex-1" style="color: red;padding-left: 5px;">￥
+								<span style="color: red;font-size: 1.2em;margin-left: -5px;">1024</span>
+							</div>
+							<div class="flex-1" style="padding-top: 6px;">
+								<span style="font-size: 0.8em;color: #797979">运费：</span>
+								<span style="font-size: 0.8em;margin-left: -5px;color: #797979">￥1680</span>
+							</div>
+						</div>
+						<div class="goods_list" style="">
+							<span>已售 20 件</span>
+							<span style="">深圳</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/echo.js" ></script>
+	<script type="text/template" template="main">
+	 <div style="background-color:#F8F8F8">
+		{{ if(it instanceof Array && it.length!=0){ }}
+			{{~it :value:index }}
+			<div class="flex-box package_list" onclick="openShopGoodsDetail({{= value.id }}, {{= value.freight }}, '{{= value.areaname }}')" tapmode="">
+				<div class="img-frm">
+					<div class="package_img" style="background-image: url({{= value.cover }});"></div>
+				</div>
+				<div class="flex-2">
+					<p class="package_title">{{= value.title }}</p>
+					<div class="flex-box">
+							<div class="flex-1" style="color: red;padding-top: 6px;">￥
+								<span style="color: red;font-size: 1.2em;margin-left: -5px;">{{= value.price }}</span>
+							</div>
+							<div class="flex-1" style="padding-top: 6px;padding-right: 5px;">
+								<span style="font-size: 0.8em;color: #797979">运费：</span>
+								<span style="font-size: 0.8em;margin-left: -5px;color: #797979">￥{{= value.freight }}</span>
+							</div>
+						</div>
+						<div class="goods_list" style="">
+							<span>已售 {{= value.salenum }} 件</span>
+							<span style="">{{= value.areaname }}</span>
+						</div>
+				</div>
+			</div>	
+			{{~}}
+		{{ }else{ }}
+			<div class="null flex-box">
+				<div class="flex-1">
+					暂无相关内容~
+				</div>
+			</div>		
+		{{ } }}
+	 </div>
+	</script>
+	<script type="text/javascript">
+		var orderId='',areaId='';
+		function openShopCart(){
+			api.openWin({
+				name: 'ShopCart',
+				url: api.wgtRootDir + '/html/window/shop_cart_list.html',
+				bounces: false
+			});
+		}
+		function openShopGoodsDetail(id, freight, area){
+			api.openWin({
+				name: 'ShopGoodsDetail',
+				url: api.wgtRootDir + '/html/window/shop_goods_detail.html',
+				bounces: false,
+				pageParam: {
+					id: id,
+					freight: freight,
+					area: area
+				}
+			});		
+		}
+		function reload(typeId, order, areaId){
+			tool.ajax.get({
+				ctrl: 'Shop',
+				fn: 'goodsList',
+			  hideLoading: true,
+				data: {
+					values: {
+						typeid: typeId,
+						order: order,
+						areaid: areaId
+					}
+				},
+				template: 'main'
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+			});
+		}
+		apiready = function(){
+//			alert($api.jsonToStr(api.pageParam));
+			reload(api.pageParam.typeId, '', '');
+			api.addEventListener({
+				name: 'searchShopGoods'
+			}, function(ret, err){
+				orderId=ret.value.orderId;
+				areaId=ret.value.areaId;
+				reload(ret.value.typeId, ret.value.orderId, ret.value.areaId);
+			});
+			Refresh.init({
+				ctrl: 'Shop',
+				fn: 'goodsList',
+					values:{
+						typeid: api.pageParam.typeId,
+						order: orderId,
+						areaid: areaId
+					}
+			});
+		}
+	</script>
+</html> 

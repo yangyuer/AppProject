@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <style>
+	     body{
+	     	min-width: 320px;
+	     }
+	    .tender-one{
+	    	/*margin-top: 12px;*/
+	    	margin-left: 12px;
+	    	border-left: 3px solid #40b5f0;
+	    	font-size:0.8em;
+	    	color: #767676;
+	    	padding-left: 10px;
+	    	position: relative;
+	    	top:10px;
+	    }
+	    .tender_center{
+	    	margin: 12px;
+	    	font-size: 0.9em;
+	    	line-height: 20px;
+	    	color:#131313;
+	    }
+    </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<div class="tender-one ">深圳市华测检测技术</div>
+				<div class="tender_center hidden">
+					&nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+					<br>
+					<br> &nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。
+					<br>
+					<br> &nbsp;&nbsp;&nbsp;&nbsp;中国半导体产业在2014年达到历史最高峰，2015年亦持续了较快的增长态势。 中国半导体产业在年达到历史最高峰，2015年亦持续了较快的增长态势。
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/template" template="main">
+		<div class="tender-one">{{= it.title }}</div>
+		<div class="tender_center">{{= it.content }}</div>		
+	</script>
+	<script type="text/javascript">
+		function reload(id){
+			tool.ajax.get({
+				ctrl:'Index',
+				fn: 'agencyContent',
+				data: {
+					values: {
+						id: id
+					}
+				}
+			}, function(ct){
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+				api.execScript({
+					name: 'MechanismDetail',
+					script: 'set("' + ct.location + '", ' + ct.tel + ')'
+				});
+			});
+		}		
+		apiready = function(){
+			reload(api.pageParam.id);
+		}
+	</script>
+</html> 

@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<style>
+			#main .list-view{
+				background-color: #fff;
+				padding:0 10px;
+				border-bottom: 1px solid #EFEFF0;
+			}
+			.list-view:not(:first-child){
+				margin-top: 8px;
+			}
+			[class*=ct-icon]{
+				color: #949494;
+			}
+		</style>
+	</head>
+
+	<body style="background-color:#F8F8F8">
+		<div id="wrap">
+			<div id="main">
+				<div class="list-view hidden">
+					<div class="flex-box" style="line-height: 50px;">
+						<div class="flex-1 name text-left">林痴情</div>
+						<div class="flex-1 text-center">13480045036</div>
+						<div class="flex-1 text-right">
+							<div class="btn btn-info btn-sm" style="background-color: #86D8CA;border: 0;padding: 2px 15px">
+								默认
+							</div>
+						</div>
+					</div>
+					<div class="address" style="color: #828282;padding: 10px 0;">
+						广东东莞市南城区三元社区财经商务大厦1628室-连接科技
+					</div>
+					<div class="flex-box" style="line-height: 50px;border-top:1px solid #F0F0F0">
+						<div class="flex-1" style="color: #949494;">
+							<span class="ct-icon-radio_1" style="font-size: 20px;top:3px;margin-right: 6px;"></span>设为默认
+						</div>
+						<div style="color: #949494;">
+							<span class="ct-icon-edit2" style="font-size: 22px;top:2px"></span>编辑
+							<span class="ct-icon-delete" style="font-size: 22px;top:3px"></span>删除
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	
+	<script type="text/template" template="main">
+		<div style="background-color:#F8F8F8">
+			{{ if(it instanceof Array && it.length!=0) { }}
+			   {{~ it :value:index }}
+				    	<div class="list-view" default="{{= value.default }}">
+								<div class="flex-box" style="line-height: 50px;">
+									<div class="flex-1 name text-left">{{= value.nickname }}</div>
+									<div class="flex-1 phone text-center">{{= value.phone}}</div>
+									<div class="flex-1 text-right">
+										<div class="default-flag btn btn-info btn-sm {{= !!parseInt(value.default)?'':'hidden' }}" id="default" style="background-color: #86D8CA;border: 0;padding: 2px 15px">
+											默认
+										</div>
+									</div>
+								</div>
+								<div class="address"  style="color: #828282;padding: 10px 0;">
+									{{= value.address}}
+								</div>
+								<div class="flex-box" style="line-height: 50px;border-top:1px solid #F0F0F0">
+									<div class="flex-1" style="color: #949494;" onclick="">
+										<span class="default-set {{= !!parseInt(value.default)?'hidden':'' }}" onclick="setDefault({{= value.id }}, this)">
+											<span class="ct-icon-radio_1" style="font-size: 20px;top:3px;margin-right: 6px;"></span>设为默认
+										</span>
+									</div>
+									<div style="color: #949494;">
+										<span onclick="addressEdit()"><span class="ct-icon-edit2" style="font-size: 22px;top:2px"></span>编辑</span>
+										<span onclick="addressDelect({{= value.id}}, this)"><span class="ct-icon-delete" style="font-size: 22px;top:3px" ></span>删除</span>
+									</div>
+								</div>
+							</div>
+					{{~}}
+					<div onclick="subimtSendAddress()" class="" style="color:#fff; background-color: #40B5F0; border-radius: 4px; text-align: center;padding: 8px 0px; margin: 20px 5px 0 5px;">提交发送</div>
+				{{ }else{ }}
+					  <div class="null flex-box">
+							<div class="flex-1">
+								暂无相关内容~
+							</div>
+				    </div>
+				{{ } }}
+		</div>
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		function setDefault(id, _this){
+			var ctrl = "My",
+			fn = 'setDefaultAddress';
+			tool.ajax.get({
+				ctrl:ctrl,
+				fn:fn,
+				data:{
+					values:{
+						id: $api.getStorage("memberId"),
+						token: $api.getStorage("token"),
+						addressid: id
+					}
+				}
+			},function(){
+				api.toast({
+					msg: '设置默认地址成功',
+					duration: 2000,
+					location: 'bottom'
+				});
+//				init();
+				$api.addCls(_this, 'hidden');
+				$api.removeCls($api.dom($api.closest(_this, '.list-view'), '.default-flag'), 'hidden');
+				
+				/*获取默认地址节点*/
+				var temp = $api.dom("[default='1']");
+				$api.addCls($api.dom(temp, '.default-flag'), 'hidden');
+				$api.removeCls($api.dom(temp, '.default-set'), 'hidden');
+				
+				/*置顶this节点*/
+				var topDom= $api.closest(_this,'.list-view');
+//				alert($api.dom('#main'));
+				   //$api.dom('#main').insertBefore(topDom);
+				/**/
+				$api.attr(temp, 'default', '0');
+				$api.attr(topDom, 'default', '1');
+			});
+		}
+//		
+//		function addressEdit(){
+//			api.openWin({
+//				name: 'myAddressEdit',
+//				url:
+//			});
+//		}
+    //删除地址
+		function addressDelect(id, _this){
+			tool.ajax.get({
+				ctrl: "My",
+				fn: "delAddress",
+				data:{
+					values:{
+						id:$api.getStorage("memberId"),
+						token:$api.getStorage("token"),
+						addressid: id
+					}
+				}
+			},function(){
+				$api.remove($api.closest(_this,'.list-view'));
+			});
+		}
+		function subimtSendAddress(){
+			var _default = $api.dom("#default"),
+					parent = $api.closest(_default, '.list-view'),
+					addr = $api.html($api.dom(parent, '.address')),
+					nickname =$api.html($api.dom(parent, '.name')),
+					phone = $api.html($api.dom(parent,'.phone'));
+					tool.ajax.get({
+						ctrl: "Order",
+						fn: "postReportMail",
+						data:{
+							values:{
+								id: $api.getStorage("memberId"),
+						    token: $api.getStorage("token"),
+						    tid: api.pageParam.tid,
+						    addr: addr,
+						    nickname: nickname,
+						    phone: phone
+							}
+						}
+					},function(){
+						api.alert({
+							title: '提示信息',
+							msg: '发送成功',
+							buttons: ['确定']
+						}, function(ret){
+							api.closeToWin({
+								name:'orderTest'
+							});
+						});
+					});
+		}
+//		function init(){
+//			DB.getDataFromDB({
+//				ctrl: 'My',
+//				fn: 'getAddressList',
+//				dbName: config.db
+//			}, function(ret){
+//				if(ret.status == 1){
+//					$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ret.data));
+////					iscrollInit();
+//					api.parseTapmode();
+//				}
+//				/*尝试从服务器获取最新数据*/
+//				reload();
+//			});
+//		}
+		function reload(){
+			
+			var ctrl = 'My',
+					fn = 'getAddressList';
+			tool.ajax.get({
+				ctrl: ctrl,
+				fn: fn,
+				data: {
+					values:{
+						id: $api.getStorage("memberId"),
+						token: $api.getStorage("token")
+					}
+				}
+			}, function(ct){
+//				alert($api.jsonToStr(ct));
+				$api.html($api.dom('#main'), doT.template($api.html($api.dom('[template=main]')))(ct));
+				api.parseTapmode();
+			});
+		}
+		apiready = function(){
+			 reload(api.pageParam.tid);
+			 Refresh.init({
+				ctrl: 'My',
+				fn: 'getAddressList',
+				values: {
+				    id: $api.getStorage("memberId"),
+						token: $api.getStorage("token")
+				}
+			});
+		}
+	</script>
+</html>

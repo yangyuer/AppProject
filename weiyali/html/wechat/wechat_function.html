@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			header{
+				height: 60px;
+				border-bottom:1px solid #ECECEC;
+				position: relative;
+			}
+			header > div{
+				position: relative;
+				/*background: url(../../image/measure_list.png) no-repeat scroll center center / cover;*/
+			}
+			.text-right > span{
+				font-size: 1.6em;
+				color: #7B7B7B;
+				right: 10px;
+				top:-20px;
+			}
+			.wechat_centen{
+				 width: 80px; 
+				 height: 80px; 
+				 border-radius: 50%; 
+				 margin-top: 10px;
+				 margin-left: -40px;
+				 position: relative;
+				 left: 50%;
+				 text-align: center;
+				 line-height: 80px;
+				 font-size: 3.2em;
+				 color: #fff;
+			}
+			.wechat_centen_logo{
+				background: url(../../image/logo.png) no-repeat scroll center center / cover;
+				width: 80px;
+				height: 80px;
+				border-radius: 50%;
+				position: relative;
+				left: 50%;
+				margin-left: -40px;
+				margin-top: 10px;
+			}
+		  .wechat_img{
+		  	background: url(../../image/logo_pic.png) no-repeat scroll center center / cover;
+		  	width: 100%;
+		  	height: 100%;
+		  	background-size:50%;
+		  }
+		  .wechat_img > span{
+		  	background: url(../../image/user_img.png) no-repeat scroll center center / cover;
+		  	width: 35px;
+		  	height: 35px;
+		  	background-size:100%;
+		  	position: absolute;
+		  	right: 12px;
+		  	top:15px;
+		  	
+		  }
+		  .xiazai{
+		  	text-align: center;
+		  	color: #797979;
+		  	position: relative;
+		  	left: -30px;
+		  	padding-top: 30px;
+		  }
+		  .xiazai >.span_img{
+		  	background: url(../../image/xiazai.png) no-repeat scroll center center / cover;
+		  	width: 80px;
+		  	height: 50px;
+		  	background-size:60%;
+		  }
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="main">
+				<header>
+					<div class="wechat_img">
+					  <span></span>
+					</div> 
+					<!--<div class="wechat_img">
+					</div>
+					<div class="text-right">
+						<span class="ct-icon-friends"></span>
+					</div>-->
+				</header>
+				<div class="flex-box" style="border-bottom: 1px solid #E3E3E3;">
+					<div class="flex-1" style="border-right:1px solid #E3E3E3; text-align: center;">
+						<div class="wechat_centen" style="background-color: #6ACFF7;">测</div>
+						<div style="line-height: 30px;color: #777777; font-size: 0.8em;">我要测</div>
+					</div>
+					<div class="flex-1" style="text-align: center;">
+						<div class="wechat_centen" style="background-color: #3C98FD;">企</div>
+						<div style="line-height: 30px;color: #777777; font-size: 0.8em;">查看企业测</div>
+					</div>
+				</div>
+				<div class="flex-box" style="border-bottom: 1px solid #E3E3E3;">
+					<div class="flex-1" style="border-right:1px solid #E3E3E3; text-align: center;">
+						<div class="wechat_centen" style="background-color: #FE9F07;">买</div>
+						<div style="line-height: 30px;color: #777777; font-size: 0.8em;">查看商品</div>
+					</div>
+					<div class="flex-1" style="text-align: center;">
+						<div class="wechat_centen" style="background-color: #E55076;">招</div>
+						<div style="line-height: 30px;color: #777777; font-size: 0.8em;">企业招标</div>
+					</div>
+				</div>
+				<div class="flex-box" style="border-bottom: 1px solid #E3E3E3;">
+					<div class="flex-1" style="border-right:1px solid #E3E3E3; text-align: center;">
+						<div class="wechat_centen" style="background-color: #46D6B9;">优</div>
+						<div style="line-height: 30px;color: #777777; font-size: 0.8em;">方案优化</div>
+					</div>
+					<div class="flex-1" style="text-align: center;">
+						<div class="wechat_centen_logo" style=""></div>
+						<div style="line-height: 30px;color: #777777; font-size: 0.8em;">我的订单</div>
+					</div>
+				</div>
+				<div class="xiazai"><span class="span_img"></span><span style="line-height: 50px;position: absolute;color:#797979;">点击下载</span></div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+</html>

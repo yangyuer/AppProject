@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+       <style>
+       body{
+       	min-width: 320px;
+       }
+      .express_one{
+      	margin: 0.8em 0.8em;
+      	font-size: 0.8em;
+      	border-left: 2px solid #00abfd;
+      	
+      }
+      .code_express{
+      	margin-left: 0.8em;
+      	margin-top: 0.2em;
+      	margin-right: 0.4em;
+      	font-size: 1.4em;
+      	color:#727272;
+      }
+      .express_two{
+      	line-height: 30px;
+      	margin-bottom: 20px;
+      }
+      .express_input{
+      	width:80%;
+      	position: relative;
+      	border-bottom: 1px solid #f3f3f3;
+      }
+			.camera_express{
+			 	position: absolute;
+			  right: 5px;
+			  top:3px;
+			  color: #6fabf4;
+			  font-size: 1.4em;
+			}
+      .express_submint{
+      	width: 76%;
+      	height: 40px;
+      	background: #6aa3c7;
+      	text-align: center;
+      	color: #fff;
+      	line-height: 40px;
+      	margin: auto;
+      	border-radius: 4px;
+      	margin-bottom: 35px;
+      }
+      .shopping_cart{
+      	background: url(../../image/car.png) no-repeat scroll center center / cover;
+      	height: 80px;
+      	width: 140px;
+      	position: relative;
+      	left: 50%;
+      	margin-left: -72px;
+      	margin-top: 35px;
+      	margin-bottom: 35px;
+      }
+      .express_details{
+      	width: 68%;
+      	margin-left: 21%;
+      }
+      .tishu{
+      	color:#6ba6c7;
+      	font-size: 1.5em;
+      	margin-top: -3px;
+      	line-height: 25px;
+      
+      }
+      .shou_ren{
+      	margin-left: 18px;
+      	line-height: 20px;
+      }
+      .shou_ren span{
+      	color:#999;
+      }
+      select{
+      	-webkit-appearance: none;
+      	outline: 0;
+      }
+       </style>
+	</head>
+
+	<body>
+		<div id="wrap">
+			<div id="main">
+				
+				
+				<div class="express_one">&nbsp;已经联系，填写快递信息</div>
+				<div class="flex-box express_two">
+					<span class="ct-icon-code code_express"></span>
+					<div class="express_input">
+						<input type="text" name="kdno" placeholder="请输入快递单号" />
+						<span class="ct-icon-camera camera_express"></span>
+					</div>
+				</div>
+				<div class="flex-box express_two">
+					<span class="ct-icon-move code_express"></span>
+					<div class="express_input">
+						<select id="kdcom" name="kdcom" style="border: 0;font-size: 16px;color:#999">
+							<option value="">请选择快递公司</option>
+						</select>
+						<span class="ct-icon-angle-right camera_express"></span>
+					</div>
+				</div>
+				<div class="express_submint" onclick="commit()">确定提交</div>
+				
+				<div class="express_one">&nbsp;未联系，快速联系快递</div>
+				<div class="shopping_cart" tapmode="" onclick="openContact()">
+					<a href="#" style="display: block;width: 100%;height: 100%;"></a>
+				</div>
+				<div class="express_details">
+					<p class="flex-box" style="line-height: 20px;">
+						<span class="tishu" style="margin-right: 0.6em;">※</span>
+						测试样品邮寄地址：江苏省江阴市滨江中路346弄1号楼（江阴党校隔壁）
+					</p>
+					<p class="shou_ren">
+						&nbsp;收货人：<span>李新华</span>
+					</p>
+					<p class="shou_ren">
+						&nbsp;电话：<span>13906167912</span>
+					</p>
+				</div>
+				<div class="express_details" style="margin-top: 20px;">
+					<p class="flex-box" style="line-height: 20px;">
+						<span class="tishu">※</span>&nbsp;
+						测试已包含运费，寄件时选择到付
+					</p>
+				</div>
+		                                                                                                                                                                                                                                                                       
+		        
+		        
+			</div>
+		</div>
+	</body>
+	<script type="text/template" template="kdcom">
+		<option value="">请选择快递公司</option>
+		{{~it :value:index}}
+			<option value="{{= value.id }}">{{= value.name }}</option>
+		{{~}}
+	</script>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript" src="../../script/doT.min.js" ></script>
+	<script type="text/javascript">
+		var testOrderNo;
+		function commit(){
+			var kdcom = $api.val($api.dom('[name=kdcom]')),
+					kdno = $api.val($api.dom('[name=kdno]'));
+			if(!kdno){
+				alert('请填写快递单号');
+				return;
+			}
+			if(!kdcom){
+				alert('请选择快递公司');
+				return;
+			}
+			tool.ajax.get({
+				ctrl: 'Test',
+				fn: 'updateKuaidi',
+				data: {
+					values:{
+					  id: $api.getStorage('memberId'),
+						token: $api.getStorage('token'),
+						testorderno: testOrderNo,
+						kuaidi: kdcom,
+						kdno: kdno	
+					}
+				},
+				showError: true
+			}, function(){
+				api.closeToWin({
+			    name: 'init',
+			    animation: {
+			      type: 'fade'
+			    }
+				});				
+			}); 
+		}
+		function openContact(){
+			api.openWin({
+				name: 'openContact',
+				url: api.wgtRootDir + '/html/window/win.html',
+				pageParam: {
+					headerTitle: '联系物流',
+					frameName: '_Contact',
+					frameUrl: api.wgtRootDir + '/html/order/contact_logistics.html'
+				},
+				bounces: false
+			});	
+		}
+		apiready = function(){
+//			return;
+			testOrderNo = api.pageParam.testOrderNo;
+			tool.ajax.get({
+				ctrl: 'Test',
+				fn: 'getKuaidiList',
+				hideLoading: true
+			}, function(ct){
+				$api.html($api.dom('select[name=kdcom]'), doT.template($api.html($api.dom('[template=kdcom]')))(ct))
+			});
+		};
+	</script>
+</html> 

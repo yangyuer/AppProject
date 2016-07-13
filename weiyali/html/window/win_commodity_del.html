@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<title>component_header</title>
+		<link rel="stylesheet" type="text/css" href="../../css/ct.css"/>
+		<style type="text/css">
+			.ct-icon-angle-left{
+				display: inline-block;
+				position: absolute;
+				width: 35px;
+				height: 100%;
+				line-height: 50px;
+				left: 0;
+				top: 0;
+				color: #B3A69A;
+			}
+			.title{
+				color: #B3A69A;
+			}
+			.topbar > .flex-1{
+				/*line-height: 50px;*/
+			}
+			.ct-icon-delete{
+				position: absolute;
+				right: 8px;
+				top: 12px;
+				font-size: 22px;
+				color: #5E5F5F;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrap">
+			<div id="header">
+				<div class="topbar">
+					<span class="ct-icon-angle-left" onclick="api.closeWin()" tapmode="" style="font-size: 40px;"></span>
+					<span class="title">编辑商品</span>
+					<span class="ct-icon-delete" id="shopDel" onclick="shopDel()"  tapmode=""></span>
+				</div>
+			</div>
+			<div id="main"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../../script/api.js"></script>
+	<script type="text/javascript" src="../../script/common.js" ></script>
+	<script type="text/javascript">
+	function openBbsSearch(){
+		api.openWin({
+				name:'bbsSearch',
+				url:api.wgtRootDir + '/html/window/win_bbs_search.html',
+				bounces: false
+			});
+	  }
+	function shopDel(id){
+		tool.ajax.get({
+			ctrl:'Shop',
+			fn:'shopGoodsDel',
+			hideLoading:true,
+			data:{
+				values:{
+					id:$api.getStorage("memberId"),
+					token:$api.getStorage("token"),
+					goodsid:id
+				}
+			}
+		},function(){
+				api.alert({
+				    title: '提示信息',
+				    msg: '是否确定删除',
+				    buttons:['确定']
+				},function(ret,err){
+				    if(ret.buttonIndex == 1){
+				        api.closeWin();
+				    }
+				});			
+//			toast('删除成功');
+//			api.closeWin();
+		});
+	}
+		apiready = function(){
+			var header = $api.byId('header');
+			$api.fixIos7Bar(header);
+			var main = $api.byId('main'),
+					headerPos = $api.offset(header),
+					mainPos = $api.offset(main);
+					$api.attr($api.dom('#shopDel'), 'onclick', 'shopDel('+api.pageParam.id+')');
+//			
+//			init();
+//			/*打开会话后，刷新未读条数*/
+//			api.addEventListener({
+//				name: 'readed'
+//			}, function(ret, err){
+//				init();
+//			});
+			
+			/*刷新消息列表的同时，刷新未读条数*/
+//			api.addEventListener({
+//				name: 'reloadNotRead'
+//			}, function(ret, err){
+//				init();
+//			});
+			api.openFrame({
+				name: 'editGoods',
+				url: api.wgtRootDir + '/html/home/shop_edit_commodity.html',
+				bounces: false,
+				pageParam: {
+					id: api.pageParam.id,
+					isEdit: true
+				},
+				rect: {
+					x: 0,
+					y: headerPos.h,
+					w: 'auto',
+					h: mainPos.h
+				}
+			});			
+		}
+	</script>
+</html>
